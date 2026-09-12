@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "journey": "Journey",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Sarobidy Andrianarison",
+    "subtitle": "I transform complex processes into simple, useful, and intelligent products",
+    "cta": "View my projects"
+  },
+  "footer": {
+    "copyright": "© 2026 Sarobidy Andrianarison. All rights reserved.",
+    "built_with": "Built with Next.js and Sanity"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "back": "Back"
+  }
+}
