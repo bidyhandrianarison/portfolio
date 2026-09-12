@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { MobileNav } from "@/components/layout/mobile-nav";
 
 const navLinks = [
   { label: "Projets", href: "/projects" },
@@ -36,6 +37,7 @@ export function Header({ locale }: { locale: string }) {
         <div className="flex items-center gap-2">
           <LanguageSwitcher locale={locale} />
           <ThemeToggle />
+          <MobileNav locale={locale} />
         </div>
       </div>
     </header>
