@@ -88,6 +88,12 @@
   .dark * {
     border-color: var(--color-neutral-800);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    body {
+      transition: none;
+    }
+  }
 }
 
 @layer components {

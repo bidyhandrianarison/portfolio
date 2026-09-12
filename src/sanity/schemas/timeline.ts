@@ -47,6 +47,6 @@ export default defineType({
     },
   ],
   preview: {
-    select: { title: "title.fr", subtitle: "date", media: "section" },
+    select: { title: "title.fr", subtitle: "date" },
   },
 });

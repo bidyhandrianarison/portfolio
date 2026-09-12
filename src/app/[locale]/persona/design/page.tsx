@@ -8,11 +8,23 @@ const designProjects = projects.filter((p) =>
 );
 const designSkills = skills.filter((s) => s.category === "design");
 
-export const metadata: Metadata = {
-  title: "UI/UX Designer & Design Systems Engineer",
-  description:
-    "Design tokens, component libraries, Figma-to-code. Systems that developers actually use.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    title:
+      locale === "fr"
+        ? "Designer UI/UX & Ingénieur Design Systems"
+        : "UI/UX Designer & Design Systems Engineer",
+    description:
+      locale === "fr"
+        ? "Design tokens, bibliothèques de composants, Figma-to-code. Des systèmes que les développeurs utilisent vraiment."
+        : "Design tokens, component libraries, Figma-to-code. Systems that developers actually use.",
+  };
+}
 
 export default function DesignPersonaPage() {
   return (

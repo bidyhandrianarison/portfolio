@@ -2,14 +2,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { MobileNav } from "@/components/layout/mobile-nav";
-
-const navLinks = [
-  { label: "Projets", href: "/projects" },
-  { label: "Skills", href: "/skills" },
-  { label: "Decision Log", href: "/decision-log" },
-  { label: "Starter Kits", href: "/starter-kits" },
-  { label: "Chat", href: "/chat" },
-];
+import { navLinks } from "@/lib/constants/nav";
 
 export function Header({ locale }: { locale: string }) {
   return (
@@ -29,7 +22,7 @@ export function Header({ locale }: { locale: string }) {
               href={`/${locale}${link.href}`}
               className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50"
             >
-              {link.label}
+              {link.labelKey}
             </Link>
           ))}
         </nav>

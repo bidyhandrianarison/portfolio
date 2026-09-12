@@ -6,18 +6,14 @@ export default defineType({
   title: "Persona",
   type: "document",
   fields: [
-    defineField({
-      name: "title_i18n",
-      title: "Title",
-      type: "string",
-    }),
+    localeField("title", "Title"),
     localeField("headline", "Headline", "text"),
     localeField("subtext", "Subtext", "text"),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: { source: "title_i18n", maxLength: 96 },
+      options: { source: "title.fr", maxLength: 96 },
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -59,6 +55,6 @@ export default defineType({
     },
   ],
   preview: {
-    select: { title: "title_i18n", subtitle: "headline.fr" },
+    select: { title: "title.fr", subtitle: "headline.fr" },
   },
 });

@@ -6,17 +6,13 @@ export default defineType({
   title: "Project",
   type: "document",
   fields: [
-    defineField({
-      name: "title_i18n",
-      title: "Title",
-      type: "string",
-    }),
+    localeField("title", "Title"),
     localeField("description", "Description", "text"),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: { source: "title_i18n", maxLength: 96 },
+      options: { source: "title.fr", maxLength: 96 },
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -50,6 +46,6 @@ export default defineType({
     },
   ],
   preview: {
-    select: { title: "title_i18n", subtitle: "role" },
+    select: { title: "title.fr", subtitle: "role" },
   },
 });

@@ -11,7 +11,7 @@ export interface LocaleText {
 export interface Persona {
   _id: string;
   _type: "persona";
-  title_i18n: string;
+  title: LocaleString;
   headline: LocaleText;
   subtext: LocaleText;
   slug: { current: string };
@@ -24,7 +24,7 @@ export interface Persona {
 export interface Project {
   _id: string;
   _type: "project";
-  title_i18n: string;
+  title: LocaleString;
   description: LocaleText;
   slug: { current: string };
   role: string;

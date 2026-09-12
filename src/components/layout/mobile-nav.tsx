@@ -2,14 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-
-const navLinks = [
-  { label: "Projets", href: "/projects" },
-  { label: "Skills", href: "/skills" },
-  { label: "Decision Log", href: "/decision-log" },
-  { label: "Starter Kits", href: "/starter-kits" },
-  { label: "Chat", href: "/chat" },
-];
+import { navLinks } from "@/lib/constants/nav";
 
 export function MobileNav({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
@@ -93,7 +86,7 @@ export function MobileNav({ locale }: { locale: string }) {
                     onClick={() => setOpen(false)}
                     className="block rounded-lg px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                   >
-                    {link.label}
+                    {link.labelKey}
                   </Link>
                 </li>
               ))}
