@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { I18nProvider } from "@/components/providers/i18n-provider";
+import { ThemeScript } from "@/components/providers/theme-script";
 
 export async function generateStaticParams() {
   return [{ locale: "fr" }, { locale: "en" }];
@@ -46,19 +46,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <Script
-          id="theme-script"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const t = localStorage.getItem('theme');
-                const d = (!t && window.matchMedia('(prefers-color-scheme: dark)').matches) || t === 'dark';
-                if (d) document.documentElement.classList.add('dark');
-              } catch(e) {}
-            `,
-          }}
-        />
+        <ThemeScript />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
