@@ -16,12 +16,37 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const ogLocale = locale === "fr" ? "fr_FR" : "en_US";
+  const title =
+    locale === "fr"
+      ? "Sarobidy Andrianarison — Développeur Mobile · Ingénieur IA · UI/UX Designer"
+      : "Sarobidy Andrianarison — Mobile Dev · AI Engineer · UI/UX Designer";
+  const description =
+    locale === "fr"
+      ? "Ingénieur hybride construisant des applications mobiles, des systèmes IA et des design systems. Freelance & ouvert aux opportunités."
+      : "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & hiring.";
 
   return {
+    title,
+    description,
     openGraph: {
+      title,
+      description,
       type: "website",
       locale: ogLocale,
       siteName: "Sarobidy Andrianarison",
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: "Sarobidy Andrianarison",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
