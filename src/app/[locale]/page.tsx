@@ -1,9 +1,9 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { projects } from "@/lib/constants/projects";
+import { HomeSkeleton } from "@/components/ui/skeleton";
 
 const featuredSlugs = ["redsmite", "codilee", "freelance"];
-const featured = projects.filter((p) => featuredSlugs.includes(p.slug));
-const others = projects.filter((p) => !featuredSlugs.includes(p.slug));
 
 const t = {
   fr: {
@@ -32,6 +32,74 @@ const t = {
     contactText: "Have a project in mind? Let's talk.",
   },
 } as const;
+
+async function FeaturedProjects({ locale }: { locale: string }) {
+  const featured = projects.filter((p) => featuredSlugs.includes(p.slug));
+  const i = t[locale as keyof typeof t];
+
+  return (
+    <section className="mb-20" aria-label={i.featuredLabel}>
+      <h2 className="mb-8 text-2xl font-semibold tracking-tight">
+        {i.featuredHeading}
+      </h2>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {featured.map((project) => (
+          <article
+            key={project.slug}
+            className="group hover:border-primary-300 dark:hover:border-primary-700 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
+          >
+            <h3 className="text-lg font-semibold">{project.title}</h3>
+            <p className="mt-1 text-sm text-neutral-500">
+              {project.role} · {project.period}
+            </p>
+            <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+              {project.description}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-xs font-medium"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+async function OtherProjects({ locale }: { locale: string }) {
+  const others = projects.filter((p) => !featuredSlugs.includes(p.slug));
+  const i = t[locale as keyof typeof t];
+
+  return (
+    <section className="mb-20" aria-label={i.otherLabel}>
+      <h2 className="mb-8 text-2xl font-semibold tracking-tight">
+        {i.otherHeading}
+      </h2>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {others.map((project) => (
+          <article
+            key={project.slug}
+            className="hover:border-primary-300 dark:hover:border-primary-700 rounded-xl border border-neutral-200 bg-white p-5 transition-all hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
+          >
+            <h3 className="font-semibold">{project.title}</h3>
+            <p className="mt-1 text-sm text-neutral-500">
+              {project.role} · {project.period}
+            </p>
+            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+              {project.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 export default async function Home({
   params,
@@ -71,60 +139,14 @@ export default async function Home({
       </section>
 
       {/* Featured Projects */}
-      <section className="mb-20" aria-label={i.featuredLabel}>
-        <h2 className="mb-8 text-2xl font-semibold tracking-tight">
-          {i.featuredHeading}
-        </h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((project) => (
-            <article
-              key={project.slug}
-              className="group hover:border-primary-300 dark:hover:border-primary-700 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
-            >
-              <h3 className="text-lg font-semibold">{project.title}</h3>
-              <p className="mt-1 text-sm text-neutral-500">
-                {project.role} · {project.period}
-              </p>
-              <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                {project.description}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-xs font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      <Suspense fallback={<HomeSkeleton />}>
+        <FeaturedProjects locale={locale} />
+      </Suspense>
 
       {/* Other Projects */}
-      <section className="mb-20" aria-label={i.otherLabel}>
-        <h2 className="mb-8 text-2xl font-semibold tracking-tight">
-          {i.otherHeading}
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {others.map((project) => (
-            <article
-              key={project.slug}
-              className="hover:border-primary-300 dark:hover:border-primary-700 rounded-xl border border-neutral-200 bg-white p-5 transition-all hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
-            >
-              <h3 className="font-semibold">{project.title}</h3>
-              <p className="mt-1 text-sm text-neutral-500">
-                {project.role} · {project.period}
-              </p>
-              <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                {project.description}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <Suspense fallback={<HomeSkeleton />}>
+        <OtherProjects locale={locale} />
+      </Suspense>
 
       {/* Contact CTA */}
       <section className="rounded-2xl bg-neutral-100 p-8 text-center dark:bg-neutral-900">
