@@ -1,42 +1,35 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 
-function getSnapshot() {
-  return localStorage.getItem("theme") as "light" | "dark" | null;
-}
-
-function getServerSnapshot() {
-  return null;
-}
-
-function subscribe(callback: () => void) {
-  window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
+function getThemeFromStorage(): "light" | "dark" {
+  if (typeof window === "undefined") return "light";
+  const stored = localStorage.getItem("theme") as "light" | "dark" | null;
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return stored ?? (prefersDark ? "dark" : "light");
 }
 
 export function ThemeToggle() {
-  const stored = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot,
-  );
-  const prefersDark =
-    typeof window !== "undefined"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-      : false;
-  const theme = stored ?? (prefersDark ? "dark" : "light");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const t = getThemeFromStorage();
+    document.documentElement.classList.toggle("dark", t === "dark");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTheme(t);
+  }, []);
 
   function toggle() {
     const next = theme === "light" ? "dark" : "light";
+    setTheme(next);
     localStorage.setItem("theme", next);
     document.documentElement.classList.toggle("dark", next === "dark");
-    window.dispatchEvent(new Event("storage"));
   }
 
   return (
     <button
       onClick={toggle}
+      suppressHydrationWarning
       className="focus:ring-primary-500 rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:ring-offset-neutral-950"
       aria-label={
         theme === "light" ? "Passer en mode sombre" : "Passer en mode clair"
