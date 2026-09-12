@@ -5,7 +5,42 @@ const featuredSlugs = ["redsmite", "codilee", "freelance"];
 const featured = projects.filter((p) => featuredSlugs.includes(p.slug));
 const others = projects.filter((p) => !featuredSlugs.includes(p.slug));
 
-export default function Home() {
+const t = {
+  fr: {
+    tagline:
+      "Je transforme des processus complexes en produits simples, utiles et intelligents",
+    roles: "Développeur Mobile · Ingénieur IA · UI/UX Designer",
+    viewProjects: "Voir mes projets",
+    contact: "Me contacter",
+    featuredLabel: "Projets vedettes",
+    featuredHeading: "Projets vedettes",
+    otherLabel: "Autres projets",
+    otherHeading: "Autres projets",
+    contactHeading: "Travaillons ensemble",
+    contactText: "Vous avez un projet en tête ? Discutons-en.",
+  },
+  en: {
+    tagline: "I turn complex processes into simple, useful, and smart products",
+    roles: "Mobile Dev · AI Engineer · UI/UX Designer",
+    viewProjects: "View projects",
+    contact: "Contact me",
+    featuredLabel: "Featured projects",
+    featuredHeading: "Featured projects",
+    otherLabel: "Other projects",
+    otherHeading: "Other projects",
+    contactHeading: "Let's work together",
+    contactText: "Have a project in mind? Let's talk.",
+  },
+} as const;
+
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const i = t[locale as keyof typeof t];
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-16">
       {/* Hero */}
@@ -14,32 +49,31 @@ export default function Home() {
           Sarobidy Andrianarison
         </h1>
         <p className="mt-4 text-lg text-balance text-neutral-600 dark:text-neutral-400">
-          Je transforme des processus complexes en produits simples, utiles et
-          intelligents
+          {i.tagline}
         </p>
         <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-500">
-          Mobile Dev · IA Engineer · UI/UX Designer
+          {i.roles}
         </p>
         <div className="mt-8 flex justify-center gap-4">
           <Link
-            href="/projects"
+            href={`/${locale}/projects`}
             className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium text-white focus:ring-2 focus:ring-offset-2 focus:outline-none"
           >
-            Voir mes projets
+            {i.viewProjects}
           </Link>
           <Link
-            href="/contact"
+            href={`/${locale}/contact`}
             className="focus:ring-primary-500 inline-flex items-center rounded-full border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
           >
-            Me contacter
+            {i.contact}
           </Link>
         </div>
       </section>
 
       {/* Featured Projects */}
-      <section className="mb-20" aria-label="Projets vedettes">
+      <section className="mb-20" aria-label={i.featuredLabel}>
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">
-          Projets vedettes
+          {i.featuredHeading}
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((project) => (
@@ -70,9 +104,9 @@ export default function Home() {
       </section>
 
       {/* Other Projects */}
-      <section className="mb-20" aria-label="Autres projets">
+      <section className="mb-20" aria-label={i.otherLabel}>
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">
-          Autres projets
+          {i.otherHeading}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {others.map((project) => (
@@ -95,16 +129,16 @@ export default function Home() {
       {/* Contact CTA */}
       <section className="rounded-2xl bg-neutral-100 p-8 text-center dark:bg-neutral-900">
         <h2 className="text-2xl font-semibold tracking-tight">
-          Travaillons ensemble
+          {i.contactHeading}
         </h2>
         <p className="mt-2 text-neutral-600 dark:text-neutral-400">
-          Vous avez un projet en tête ? Discutons-en.
+          {i.contactText}
         </p>
         <Link
-          href="/contact"
+          href={`/${locale}/contact`}
           className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 mt-6 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium text-white focus:ring-2 focus:ring-offset-2 focus:outline-none"
         >
-          Me contacter
+          {i.contact}
         </Link>
       </section>
     </main>

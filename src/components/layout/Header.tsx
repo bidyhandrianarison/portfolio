@@ -22,7 +22,7 @@ export function Header({ locale }: { locale: string }) {
               href={`/${locale}${link.href}`}
               className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50"
             >
-              {link.labelKey}
+              {link.label[locale as keyof typeof link.label]}
             </Link>
           ))}
         </nav>

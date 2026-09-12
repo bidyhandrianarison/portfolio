@@ -86,7 +86,7 @@ export function MobileNav({ locale }: { locale: string }) {
                     onClick={() => setOpen(false)}
                     className="block rounded-lg px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                   >
-                    {link.labelKey}
+                    {link.label[locale as keyof typeof link.label]}
                   </Link>
                 </li>
               ))}
