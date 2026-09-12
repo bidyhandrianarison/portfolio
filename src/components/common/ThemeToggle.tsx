@@ -1,27 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
-function getThemeFromStorage(): "light" | "dark" {
-  if (typeof window === "undefined") return "light";
+function getThemeSnapshot(): "light" | "dark" {
   const stored = localStorage.getItem("theme") as "light" | "dark" | null;
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   return stored ?? (prefersDark ? "dark" : "light");
 }
 
+function getServerSnapshot(): "light" | "dark" {
+  return "light";
+}
+
+function subscribeTheme(callback: () => void) {
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const theme = useSyncExternalStore(
+    subscribeTheme,
+    getThemeSnapshot,
+    getServerSnapshot,
+  );
 
   useEffect(() => {
-    const t = getThemeFromStorage();
-    document.documentElement.classList.toggle("dark", t === "dark");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setTheme(t);
-  }, []);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   function toggle() {
     const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
     localStorage.setItem("theme", next);
     document.documentElement.classList.toggle("dark", next === "dark");
   }
