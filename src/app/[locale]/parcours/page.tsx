@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getTimelineEntries } from "@/lib/sanity/queries/timeline";
+import { getSettings } from "@/lib/sanity/queries/settings";
 import { ParcoursTimeline } from "@/components/parcours/ParcoursTimeline";
+import { CvDownloadButton } from "@/components/parcours/CvDownloadButton";
 import { RemoteNotice } from "@/components/parcours/RemoteNotice";
 
 const t = {
@@ -40,11 +42,16 @@ export default async function ParcoursPage({
   const i = t[locale as keyof typeof t] ?? t.fr;
 
   let entries: Awaited<ReturnType<typeof getTimelineEntries>>;
+  let settings: Awaited<ReturnType<typeof getSettings>>;
   try {
-    entries = await getTimelineEntries();
+    [entries, settings] = await Promise.all([
+      getTimelineEntries(),
+      getSettings(),
+    ]);
   } catch (err) {
-    console.error("[parcours] Failed to fetch timeline:", err);
+    console.error("[parcours] Failed to fetch data:", err);
     entries = [];
+    settings = null;
   }
 
   return (
@@ -54,6 +61,8 @@ export default async function ParcoursPage({
           {i.title}
         </h1>
       </section>
+
+      <CvDownloadButton settings={settings} locale={locale} />
 
       <RemoteNotice locale={locale} />
 

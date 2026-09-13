@@ -1,9 +1,15 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { projects } from "@/lib/constants/projects";
+import { getSettings } from "@/lib/sanity/queries/settings";
 import { HomeSkeleton } from "@/components/ui/skeleton";
+import { CvDownloadButton } from "@/components/parcours/CvDownloadButton";
 
-const featuredSlugs = ["redsmite", "codilee", "freelance"];
+const featuredSlugs = [
+  "assistant-emails",
+  "automatisation-commandes",
+  "compte-rendus",
+];
 
 const t = {
   fr: {
@@ -109,6 +115,13 @@ export default async function Home({
   const { locale } = await params;
   const i = t[locale as keyof typeof t];
 
+  let settings = null;
+  try {
+    settings = await getSettings();
+  } catch (err) {
+    console.error("[home] Failed to fetch settings:", err);
+  }
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-16">
       {/* Hero */}
@@ -122,7 +135,7 @@ export default async function Home({
         <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-500">
           {i.roles}
         </p>
-        <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
             href={`/${locale}/projects`}
             className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium text-white focus:ring-2 focus:ring-offset-2 focus:outline-none"
@@ -135,6 +148,7 @@ export default async function Home({
           >
             {i.contact}
           </Link>
+          <CvDownloadButton settings={settings} locale={locale} />
         </div>
       </section>
 
