@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { SkillsGrid } from "@/components/competences/SkillsGrid";
 import { CertificationList } from "@/components/competences/CertificationList";
-import { skills } from "@/lib/constants/skills";
-import { certifications } from "@/lib/constants/certifications";
+import { getSkills } from "@/lib/sanity/queries/skills";
+import { getCertifications } from "@/lib/sanity/queries/certifications";
 
 const t = {
   fr: {
@@ -41,6 +41,11 @@ export default async function CompetencesPage({
 }) {
   const { locale } = await params;
   const i = t[locale as keyof typeof t] ?? t.fr;
+
+  const [skills, certifications] = await Promise.all([
+    getSkills(),
+    getCertifications(),
+  ]);
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-16">

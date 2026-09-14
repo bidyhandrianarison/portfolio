@@ -41,6 +41,16 @@ export interface Skill {
   proficiency: "expert" | "advanced" | "intermediate";
 }
 
+export interface Certification {
+  _id: string;
+  _type: "certification";
+  name: string;
+  issuer: string;
+  date: string;
+  url?: string;
+  order: number;
+}
+
 export interface Timeline {
   _id: string;
   _type: "timeline";

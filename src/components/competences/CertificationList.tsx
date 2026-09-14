@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Certification } from "@/lib/constants/certifications";
+import type { Certification } from "@/sanity/types";
 
 interface CertificationListProps {
   certifications: Certification[];
@@ -10,7 +10,7 @@ export function CertificationList({ certifications }: CertificationListProps) {
     <ul className="space-y-4">
       {certifications.map((cert) => (
         <li
-          key={cert.id}
+          key={cert._id}
           className="flex items-start justify-between gap-4 rounded-lg border border-neutral-200 p-4 dark:border-neutral-800"
         >
           <div>

@@ -1,4 +1,4 @@
-import type { Skill } from "@/lib/constants/skills";
+import type { Skill } from "@/sanity/types";
 
 const categoryLabels: Record<string, { fr: string; en: string }> = {
   mobile: { fr: "Mobile", en: "Mobile" },
@@ -43,7 +43,7 @@ export function SkillsGrid({ skills, locale }: SkillsGridProps) {
           <div className="flex flex-wrap gap-2">
             {items?.map((skill) => (
               <span
-                key={skill.id}
+                key={skill._id}
                 className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium ${proficiencyColors[skill.proficiency]}`}
               >
                 {skill.name}
