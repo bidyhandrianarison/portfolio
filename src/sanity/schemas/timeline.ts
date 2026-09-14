@@ -26,6 +26,13 @@ export default defineType({
     localeField("title", "Title"),
     localeField("description", "Description", "text"),
     defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      description: "Photo de l'école ou de l'entreprise",
+      options: { hotspot: true },
+    }),
+    defineField({
       name: "tags",
       title: "Tags",
       type: "array",

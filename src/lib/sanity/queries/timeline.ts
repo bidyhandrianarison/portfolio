@@ -8,6 +8,7 @@ const TIMELINE_QUERY = `*[_type == "timeline"] | order(dateStart desc) {
   dateEnd,
   title,
   description,
+  image,
   tags,
   section,
   order

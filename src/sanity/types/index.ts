@@ -58,6 +58,7 @@ export interface Timeline {
   dateEnd?: string;
   title: LocaleString;
   description: LocaleText;
+  image?: { asset: { _ref: string }; hotspot?: unknown };
   tags: string[];
   section: "academic" | "professional";
   order: number;
