@@ -1,10 +1,5 @@
 import Link from "next/link";
-
-const socialLinks = [
-  { label: "GitHub", href: "https://github.com/sarobidy" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/sarobidy" },
-  { label: "Email", href: "mailto:contact@bidyhandrianarison.com" },
-];
+import { contactLinks } from "@/lib/constants/contacts";
 
 const footerLabels = {
   fr: { copyright: "© Tous droits réservés", ariaLabel: "Liens sociaux" },
@@ -23,12 +18,12 @@ export function Footer({ locale = "fr" }: { locale?: string }) {
         </p>
 
         <nav aria-label={labels.ariaLabel} className="flex gap-4">
-          {socialLinks.map((link) => (
+          {contactLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
               className="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-50"
             >
               {link.label}
