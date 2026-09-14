@@ -12,10 +12,16 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
-      name: "date",
-      title: "Date",
+      name: "dateStart",
+      title: "Date de début",
       type: "date",
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "dateEnd",
+      title: "Date de fin",
+      description: "Laisser vide si encore en poste",
+      type: "date",
     }),
     localeField("title", "Title"),
     localeField("description", "Description", "text"),
@@ -47,6 +53,6 @@ export default defineType({
     },
   ],
   preview: {
-    select: { title: "title.fr", subtitle: "date" },
+    select: { title: "title.fr", subtitle: "dateStart" },
   },
 });

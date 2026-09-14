@@ -1,10 +1,11 @@
 import { client } from "@/lib/sanity/client";
 import type { Timeline } from "@/sanity/types";
 
-const TIMELINE_QUERY = `*[_type == "timeline"] | order(date desc) {
+const TIMELINE_QUERY = `*[_type == "timeline"] | order(dateStart desc) {
   _id,
   _type,
-  date,
+  dateStart,
+  dateEnd,
   title,
   description,
   tags,

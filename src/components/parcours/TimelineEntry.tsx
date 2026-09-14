@@ -1,25 +1,34 @@
 import type { LocaleString, LocaleText } from "@/sanity/types";
 
 interface TimelineEntryProps {
-  date: string;
+  dateStart: string;
+  dateEnd?: string;
   title: LocaleString;
   description: LocaleText;
   tags: string[];
   locale: string;
 }
 
+function formatDate(dateStr: string, locale: string): string {
+  const d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString(locale, { year: "numeric", month: "long" });
+}
+
 export function TimelineEntry({
-  date,
+  dateStart,
+  dateEnd,
   title,
   description,
   tags,
   locale,
 }: TimelineEntryProps) {
   const loc = locale === "en" ? "en" : "fr";
-  const parsedDate = new Date(date);
-  const formattedDate = !Number.isNaN(parsedDate.getTime())
-    ? parsedDate.toLocaleDateString(loc, { year: "numeric", month: "long" })
-    : date;
+
+  const startFormatted = formatDate(dateStart, loc);
+  const dateDisplay = dateEnd
+    ? `${startFormatted} — ${formatDate(dateEnd, loc)}`
+    : startFormatted;
 
   return (
     <article className="relative pb-10 pl-8 last:pb-0">
@@ -27,7 +36,7 @@ export function TimelineEntry({
       <div className="absolute top-5 bottom-0 left-[5px] w-px bg-neutral-200 last:hidden dark:bg-neutral-800" />
 
       <time className="text-primary-600 dark:text-primary-400 text-sm font-bold">
-        {formattedDate}
+        {dateDisplay}
       </time>
       <h3 className="mt-1 font-sans text-lg font-semibold text-neutral-900 dark:text-neutral-100">
         {title[loc] ?? title.fr}

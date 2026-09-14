@@ -23,7 +23,8 @@ export function TimelineSection({
         {entries.map((entry) => (
           <TimelineEntry
             key={entry._id}
-            date={entry.date}
+            dateStart={entry.dateStart}
+            dateEnd={entry.dateEnd}
             title={entry.title}
             description={entry.description}
             tags={entry.tags}

@@ -44,7 +44,8 @@ export interface Skill {
 export interface Timeline {
   _id: string;
   _type: "timeline";
-  date: string;
+  dateStart: string;
+  dateEnd?: string;
   title: LocaleString;
   description: LocaleText;
   tags: string[];
