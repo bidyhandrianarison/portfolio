@@ -8,7 +8,7 @@ const t = {
     title: "Contact",
     heading: "Me contacter",
     description:
-      "Envoyez-mun message pour discuter de votre projet ou d'une collaboration.",
+      "Envoyez-moi un message pour discuter de votre projet ou d'une collaboration.",
     otherChannels: "Autres canaux",
   },
   en: {

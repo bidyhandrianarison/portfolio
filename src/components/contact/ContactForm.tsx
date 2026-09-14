@@ -54,21 +54,24 @@ export function ContactForm({ locale }: ContactFormProps) {
 
   function handleEmailChange(value: string) {
     setEmail(value);
-    setErrors((prev) => ({ ...prev, email: validateEmail(value) }));
+    setErrors((prev) => ({ ...prev, email: validateEmail(value, locale) }));
     if (status === "error" || status === "success") setStatus("idle");
   }
 
   function handleMessageChange(value: string) {
     setMessage(value);
-    setErrors((prev) => ({ ...prev, message: validateMessage(value) }));
+    setErrors((prev) => ({
+      ...prev,
+      message: validateMessage(value, locale),
+    }));
     if (status === "error" || status === "success") setStatus("idle");
   }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    const emailErr = validateEmail(email);
-    const messageErr = validateMessage(message);
+    const emailErr = validateEmail(email, locale);
+    const messageErr = validateMessage(message, locale);
     setErrors({ email: emailErr, message: messageErr });
     if (emailErr || messageErr) return;
 

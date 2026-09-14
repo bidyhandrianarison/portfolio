@@ -17,7 +17,11 @@ export async function POST(request: Request) {
 
   const { name, email, message } = body;
 
-  if (typeof email !== "string" || typeof message !== "string") {
+  if (
+    typeof email !== "string" ||
+    typeof message !== "string" ||
+    (typeof name !== "string" && typeof name !== "undefined")
+  ) {
     return NextResponse.json({ error: "Invalid fields" }, { status: 400 });
   }
 
@@ -34,14 +38,16 @@ export async function POST(request: Request) {
   }
 
   const resend = new Resend(resendKey);
+  const senderName =
+    typeof name === "string" && name.trim() ? name.trim() : "Anonymous";
 
   try {
     await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: contactEmail,
-      subject: `Contact: ${typeof name === "string" && name.trim() ? name : "Anonyme"}`,
+      subject: `New message from ${senderName}`,
       replyTo: email,
-      text: `Nom: ${typeof name === "string" ? name : ""}\nEmail: ${email}\n\n${message}`,
+      text: `From: ${senderName}\nEmail: ${email}\n\n${message}`,
     });
   } catch {
     return NextResponse.json({ error: "Send failed" }, { status: 502 });
