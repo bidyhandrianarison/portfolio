@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { validateEmail, validateMessage } from "@/lib/utils/validation";
+import { trackEvent } from "@/lib/utils/analytics";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
@@ -87,6 +88,7 @@ export function ContactForm({ locale }: ContactFormProps) {
 
       if (!res.ok) throw new Error("Send failed");
 
+      trackEvent("contact_submit");
       setStatus("success");
       setName("");
       setEmail("");

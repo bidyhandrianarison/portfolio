@@ -1,4 +1,7 @@
+"use client";
+
 import type { Settings } from "@/sanity/types";
+import { trackEvent } from "@/lib/utils/analytics";
 
 const label = {
   fr: "Télécharger mon CV",
@@ -17,10 +20,15 @@ export function CvDownloadButton({ settings, locale }: CvDownloadButtonProps) {
   const url = urls[locale as keyof typeof urls] ?? urls.fr;
   if (!url) return null;
 
+  function handleClick() {
+    trackEvent("cv_download", { lang: locale });
+  }
+
   return (
     <a
       href={url}
       download
+      onClick={handleClick}
       className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium text-white focus:ring-2 focus:ring-offset-2 focus:outline-none"
     >
       {label[locale as keyof typeof label] ?? label.fr}
