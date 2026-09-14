@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { getAllProjects } from "@/lib/content/projects";
+import { projects as allProjectsConstant } from "@/lib/constants/projects";
 import { HomeSkeleton } from "@/components/ui/skeleton";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 
@@ -63,15 +64,9 @@ function FeaturedProjects({
   );
 }
 
-function OtherProjects({
-  locale,
-  projects,
-}: {
-  locale: string;
-  projects: ReturnType<typeof getAllProjects>;
-}) {
-  const others = projects.filter(
-    (p) => !featuredSlugs.includes(p.frontmatter.slug),
+function OtherProjects({ locale }: { locale: string }) {
+  const others = allProjectsConstant.filter(
+    (p) => !featuredSlugs.includes(p.slug),
   );
   const i = t[locale as keyof typeof t] ?? t.fr;
 
@@ -83,15 +78,15 @@ function OtherProjects({
       <div className="grid gap-4 sm:grid-cols-2">
         {others.map((project) => (
           <ProjectCard
-            key={project.frontmatter.slug}
-            slug={project.frontmatter.slug}
-            title={project.frontmatter.title}
-            role={project.frontmatter.role}
-            period={project.frontmatter.period}
-            description={project.frontmatter.description}
-            tags={project.frontmatter.tags}
+            key={project.slug}
+            slug={project.slug}
+            title={project.title}
+            role={project.role}
+            period={project.period}
+            description={project.description}
+            tags={project.tags}
             locale={locale}
-            href={`/${locale}/projects/${project.frontmatter.slug}`}
+            href={`/${locale}/projects/${project.slug}`}
           />
         ))}
       </div>
@@ -106,7 +101,7 @@ export default async function ProjectsPage({
 }) {
   const { locale } = await params;
   const i = t[locale as keyof typeof t] ?? t.fr;
-  const allProjects = getAllProjects(locale);
+  const contentProjects = getAllProjects(locale);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-16">
@@ -117,12 +112,10 @@ export default async function ProjectsPage({
       </section>
 
       <Suspense fallback={<HomeSkeleton />}>
-        <FeaturedProjects locale={locale} projects={allProjects} />
+        <FeaturedProjects locale={locale} projects={contentProjects} />
       </Suspense>
 
-      <Suspense fallback={<HomeSkeleton />}>
-        <OtherProjects locale={locale} projects={allProjects} />
-      </Suspense>
+      <OtherProjects locale={locale} />
     </main>
   );
 }
