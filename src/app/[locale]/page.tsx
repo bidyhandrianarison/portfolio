@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { projects } from "@/lib/constants/projects";
+import { getProjects } from "@/lib/sanity/queries/projects";
 import { getSettings } from "@/lib/sanity/queries/settings";
 import { HomeSkeleton } from "@/components/ui/skeleton";
 import { CvDownloadButton } from "@/components/parcours/CvDownloadButton";
@@ -42,7 +42,10 @@ const t = {
 } as const;
 
 async function FeaturedProjects({ locale }: { locale: string }) {
-  const featured = projects.filter((p) => featuredSlugs.includes(p.slug));
+  const allProjects = await getProjects();
+  const featured = allProjects.filter((p) =>
+    featuredSlugs.includes(p.slug.current),
+  );
   const i = t[locale as keyof typeof t];
 
   return (
@@ -54,15 +57,20 @@ async function FeaturedProjects({ locale }: { locale: string }) {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((project) => (
             <article
-              key={project.slug}
+              key={project._id}
               className="group hover:border-primary-300 dark:hover:border-primary-700 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
             >
-              <h3 className="text-lg font-semibold">{project.title}</h3>
+              <h3 className="text-lg font-semibold">
+                {project.title[locale as keyof typeof project.title] ??
+                  project.title.fr}
+              </h3>
               <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
                 {project.role} · {project.period}
               </p>
               <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-                {project.description}
+                {project.description[
+                  locale as keyof typeof project.description
+                ] ?? project.description.fr}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {project.tags.slice(0, 3).map((tag) => (
@@ -83,7 +91,10 @@ async function FeaturedProjects({ locale }: { locale: string }) {
 }
 
 async function OtherProjects({ locale }: { locale: string }) {
-  const others = projects.filter((p) => !featuredSlugs.includes(p.slug));
+  const allProjects = await getProjects();
+  const others = allProjects.filter(
+    (p) => !featuredSlugs.includes(p.slug.current),
+  );
   const i = t[locale as keyof typeof t];
 
   return (
@@ -95,15 +106,20 @@ async function OtherProjects({ locale }: { locale: string }) {
         <div className="grid gap-4 sm:grid-cols-2">
           {others.map((project) => (
             <article
-              key={project.slug}
+              key={project._id}
               className="hover:border-primary-300 dark:hover:border-primary-700 rounded-xl border border-neutral-200 bg-white p-5 transition-all hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
             >
-              <h3 className="font-semibold">{project.title}</h3>
+              <h3 className="font-semibold">
+                {project.title[locale as keyof typeof project.title] ??
+                  project.title.fr}
+              </h3>
               <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
                 {project.role} · {project.period}
               </p>
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                {project.description}
+                {project.description[
+                  locale as keyof typeof project.description
+                ] ?? project.description.fr}
               </p>
             </article>
           ))}

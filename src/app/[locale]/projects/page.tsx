@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import { getAllProjects } from "@/lib/content/projects";
-import { projects as allProjectsConstant } from "@/lib/constants/projects";
+import { getProjects } from "@/lib/sanity/queries/projects";
 import { HomeSkeleton } from "@/components/ui/skeleton";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 
@@ -32,10 +31,10 @@ function FeaturedProjects({
   projects,
 }: {
   locale: string;
-  projects: ReturnType<typeof getAllProjects>;
+  projects: Awaited<ReturnType<typeof getProjects>>;
 }) {
   const featured = projects.filter((p) =>
-    featuredSlugs.includes(p.frontmatter.slug),
+    featuredSlugs.includes(p.slug.current),
   );
   const i = t[locale as keyof typeof t] ?? t.fr;
 
@@ -47,15 +46,21 @@ function FeaturedProjects({
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {featured.map((project) => (
           <ProjectCard
-            key={project.frontmatter.slug}
-            slug={project.frontmatter.slug}
-            title={project.frontmatter.title}
-            role={project.frontmatter.role}
-            period={project.frontmatter.period}
-            description={project.frontmatter.description}
-            tags={project.frontmatter.tags}
+            key={project._id}
+            slug={project.slug.current}
+            title={
+              project.title[locale as keyof typeof project.title] ??
+              project.title.fr
+            }
+            role={project.role}
+            period={project.period}
+            description={
+              project.description[locale as keyof typeof project.description] ??
+              project.description.fr
+            }
+            tags={project.tags}
             locale={locale}
-            href={`/${locale}/projects/${project.frontmatter.slug}`}
+            href={`/${locale}/projects/${project.slug.current}`}
             variant="featured"
           />
         ))}
@@ -64,9 +69,15 @@ function FeaturedProjects({
   );
 }
 
-function OtherProjects({ locale }: { locale: string }) {
-  const others = allProjectsConstant.filter(
-    (p) => !featuredSlugs.includes(p.slug),
+function OtherProjects({
+  locale,
+  projects,
+}: {
+  locale: string;
+  projects: Awaited<ReturnType<typeof getProjects>>;
+}) {
+  const others = projects.filter(
+    (p) => !featuredSlugs.includes(p.slug.current),
   );
   const i = t[locale as keyof typeof t] ?? t.fr;
 
@@ -78,15 +89,21 @@ function OtherProjects({ locale }: { locale: string }) {
       <div className="grid gap-4 sm:grid-cols-2">
         {others.map((project) => (
           <ProjectCard
-            key={project.slug}
-            slug={project.slug}
-            title={project.title}
+            key={project._id}
+            slug={project.slug.current}
+            title={
+              project.title[locale as keyof typeof project.title] ??
+              project.title.fr
+            }
             role={project.role}
             period={project.period}
-            description={project.description}
+            description={
+              project.description[locale as keyof typeof project.description] ??
+              project.description.fr
+            }
             tags={project.tags}
             locale={locale}
-            href={`/${locale}/projects/${project.slug}`}
+            href={`/${locale}/projects/${project.slug.current}`}
           />
         ))}
       </div>
@@ -101,7 +118,7 @@ export default async function ProjectsPage({
 }) {
   const { locale } = await params;
   const i = t[locale as keyof typeof t] ?? t.fr;
-  const contentProjects = getAllProjects(locale);
+  const projects = await getProjects();
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-16">
@@ -112,10 +129,10 @@ export default async function ProjectsPage({
       </section>
 
       <Suspense fallback={<HomeSkeleton />}>
-        <FeaturedProjects locale={locale} projects={contentProjects} />
+        <FeaturedProjects locale={locale} projects={projects} />
       </Suspense>
 
-      <OtherProjects locale={locale} />
+      <OtherProjects locale={locale} projects={projects} />
     </main>
   );
 }
