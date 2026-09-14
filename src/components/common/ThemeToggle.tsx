@@ -1,38 +1,38 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 
-function getThemeSnapshot(): "light" | "dark" {
+function getInitialTheme(): "light" | "dark" {
+  if (typeof window === "undefined") return "light";
   const stored = localStorage.getItem("theme") as "light" | "dark" | null;
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  return stored ?? (prefersDark ? "dark" : "light");
-}
-
-function getServerSnapshot(): "light" | "dark" {
-  return "light";
-}
-
-function subscribeTheme(callback: () => void) {
-  const mq = window.matchMedia("(prefers-color-scheme: dark)");
-  mq.addEventListener("change", callback);
-  return () => mq.removeEventListener("change", callback);
+  if (stored) return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(
-    subscribeTheme,
-    getThemeSnapshot,
-    getServerSnapshot,
-  );
+  const [theme, setTheme] = useState<"light" | "dark">(getInitialTheme);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    function onChange(e: MediaQueryListEvent) {
+      const stored = localStorage.getItem("theme");
+      if (!stored) {
+        setTheme(e.matches ? "dark" : "light");
+      }
+    }
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   function toggle() {
-    const next = theme === "light" ? "dark" : "light";
-    localStorage.setItem("theme", next);
-    document.documentElement.classList.toggle("dark", next === "dark");
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
   }
 
   return (

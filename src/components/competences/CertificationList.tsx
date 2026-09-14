@@ -17,7 +17,7 @@ export function CertificationList({ certifications }: CertificationListProps) {
             <h3 className="font-medium text-neutral-900 dark:text-neutral-50">
               {cert.name}
             </h3>
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
               {cert.issuer} — {cert.date}
             </p>
           </div>

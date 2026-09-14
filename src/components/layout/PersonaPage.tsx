@@ -20,7 +20,10 @@ export function PersonaPage({
 }: PersonaPageProps) {
   return (
     <main className="mx-auto max-w-4xl px-4 py-16">
-      <nav aria-label="Breadcrumb" className="mb-8 text-sm text-neutral-500">
+      <nav
+        aria-label="Breadcrumb"
+        className="mb-8 text-sm text-neutral-500 dark:text-neutral-400"
+      >
         <Link
           href="/"
           className="hover:text-neutral-900 dark:hover:text-neutral-50"
@@ -62,7 +65,9 @@ export function PersonaPage({
           {projects.map((project) => (
             <Card key={project.slug}>
               <h3 className="font-semibold">{project.title}</h3>
-              <p className="text-sm text-neutral-500">{project.role}</p>
+              <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                {project.role}
+              </p>
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                 {project.description}
               </p>
