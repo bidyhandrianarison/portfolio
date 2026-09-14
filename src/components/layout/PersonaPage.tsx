@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import type { Project } from "@/lib/constants/projects";
-import type { Skill } from "@/lib/constants/skills";
+import type { Skill } from "@/sanity/types";
 
 interface PersonaPageProps {
   title: string;
@@ -47,7 +47,7 @@ export function PersonaPage({
         <div className="flex flex-wrap gap-2">
           {skills.map((skill) => (
             <span
-              key={skill.id}
+              key={skill._id}
               className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-3 py-1 text-sm font-medium"
             >
               {skill.name}
