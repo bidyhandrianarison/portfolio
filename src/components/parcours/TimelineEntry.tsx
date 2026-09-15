@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import type { Timeline } from "@/sanity/types";
 import { urlFor } from "@/lib/sanity/image";
 
@@ -61,31 +60,32 @@ export function TimelineEntry({
         transition={{ duration: 0.3, delay: index * 0.05 }}
         className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950"
       >
-        {entry.image && (
-          <div className="relative h-40 overflow-hidden">
-            <Image
-              src={urlFor(entry.image).width(600).height(300).url()}
-              alt={entry.title[lang] ?? ""}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 640px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="p-5">
+          <div className="flex items-start gap-3">
+            {entry.image && (
+              <Image
+                src={urlFor(entry.image).width(96).height(96).url()}
+                alt={entry.title[lang] ?? ""}
+                width={48}
+                height={48}
+                className="shrink-0 rounded-full object-cover ring-2 ring-white dark:ring-neutral-950"
+              />
+            )}
+            <div className="min-w-0 flex-1">
+              <time className="text-primary-600 text-sm font-semibold">
+                {startDate} — {endDate}
+              </time>
+              <h3 className="mt-1 text-base font-semibold text-neutral-900 dark:text-neutral-50">
+                {entry.title[lang]}
+              </h3>
+            </div>
             <span
-              className={`absolute top-3 right-3 rounded-full px-2.5 py-0.5 text-xs font-medium ${badge.color}`}
+              className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${badge.color}`}
             >
               {badge[lang]}
             </span>
           </div>
-        )}
-        <div className="p-5">
-          <time className="text-primary-600 text-sm font-semibold">
-            {startDate} — {endDate}
-          </time>
-          <h3 className="mt-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-            {entry.title[lang]}
-          </h3>
-          <p className="mt-2 line-clamp-3 text-sm text-neutral-600 dark:text-neutral-400">
+          <p className="mt-3 line-clamp-3 text-sm text-neutral-600 dark:text-neutral-400">
             {entry.description[lang]}
           </p>
           {entry.tags.length > 0 && (
@@ -122,40 +122,32 @@ export function TimelineEntry({
 
       {/* Content card */}
       <div className="group flex-1 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950">
-        {entry.image && (
-          <div className="relative h-48 overflow-hidden">
-            <Image
-              src={urlFor(entry.image).width(800).height(400).url()}
-              alt={entry.title[lang] ?? ""}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 60vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            <div className="absolute right-4 bottom-3 left-4">
-              <time className="text-sm font-semibold text-white drop-shadow">
+        <div className="p-5">
+          <div className="flex items-start gap-3">
+            {entry.image && (
+              <Image
+                src={urlFor(entry.image).width(96).height(96).url()}
+                alt={entry.title[lang] ?? ""}
+                width={48}
+                height={48}
+                className="shrink-0 rounded-full object-cover ring-2 ring-white dark:ring-neutral-950"
+              />
+            )}
+            <div className="min-w-0 flex-1">
+              <time className="text-primary-600 text-sm font-semibold">
                 {startDate} — {endDate}
               </time>
+              <h3 className="mt-1 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+                {entry.title[lang]}
+              </h3>
             </div>
-          </div>
-        )}
-        <div className="p-5">
-          {!entry.image && (
-            <time className="text-primary-600 text-sm font-semibold">
-              {startDate} — {endDate}
-            </time>
-          )}
-          <div className="mt-2 flex items-center gap-2">
-            <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              {entry.title[lang]}
-            </h3>
             <span
               className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${badge.color}`}
             >
               {badge[lang]}
             </span>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+          <p className="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
             {entry.description[lang]}
           </p>
           {entry.tags.length > 0 && (
