@@ -76,9 +76,6 @@
     color: var(--color-neutral-900);
     -webkit-font-smoothing: antialiased;
     font-family: var(--font-sans);
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
   }
 
   .dark body {
@@ -88,12 +85,6 @@
 
   .dark * {
     border-color: var(--color-neutral-800);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    body {
-      transition: none;
-    }
   }
 }
 

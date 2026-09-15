@@ -14,45 +14,41 @@ export function GlitchReveal({
   delay = 0,
 }: GlitchRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const prefersReducedRef = useRef(true);
-  const [state, setState] = useState<"hidden" | "glitching" | "visible">(
-    "hidden",
-  );
+  const [glitching, setGlitching] = useState(false);
 
   useEffect(() => {
-    prefersReducedRef.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReducedRef.current) {
-      setState("visible");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (prefersReducedRef.current) return;
-
     const el = ref.current;
     if (!el) return;
 
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReduced) return;
+
+    // Hide element immediately via DOM (bypasses React state in effect)
+    el.style.opacity = "0";
+    el.style.transform = "translateY(16px)";
+
     let glitchTimer: ReturnType<typeof setTimeout> | null = null;
+    let outerTimer: ReturnType<typeof setTimeout> | null = null;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const timer = setTimeout(() => {
-            setState("glitching");
-            glitchTimer = setTimeout(() => {
-              setState("visible");
-            }, 400);
+          outerTimer = setTimeout(() => {
+            el.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+            el.style.opacity = "1";
+            el.style.transform = "none";
+
+            setGlitching(true);
+            glitchTimer = setTimeout(() => setGlitching(false), 400);
           }, delay);
           observer.unobserve(el);
-          outerTimer = timer;
         }
       },
       { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
     );
 
-    let outerTimer: ReturnType<typeof setTimeout> | null = null;
     observer.observe(el);
     return () => {
       observer.disconnect();
@@ -61,26 +57,13 @@ export function GlitchReveal({
     };
   }, [delay]);
 
-  const isVisible = state === "visible";
-  const isGlitching = state === "glitching";
-
   return (
-    <div
-      ref={ref}
-      className={`relative ${className}`}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "none" : "translateY(16px)",
-        transition: "opacity 0.5s ease, transform 0.5s ease",
-      }}
-    >
-      {/* Glitch overlay */}
-      {isGlitching && (
+    <div ref={ref} className={`relative ${className}`}>
+      {glitching && (
         <div
           className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
           aria-hidden="true"
         >
-          {/* Horizontal slice copies */}
           <div
             className="glitch-slice-1 absolute inset-0"
             style={{
@@ -114,14 +97,10 @@ export function GlitchReveal({
           >
             {children}
           </div>
-          {/* Scan line */}
           <div
             className="glitch-scanline bg-primary-500/60 absolute right-0 left-0 h-px"
-            style={{
-              animation: "glitch-scanline 0.4s linear forwards",
-            }}
+            style={{ animation: "glitch-scanline 0.4s linear forwards" }}
           />
-          {/* Color shift flicker */}
           <div
             className="absolute inset-0"
             style={{
