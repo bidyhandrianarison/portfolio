@@ -5,7 +5,7 @@ import { getSettings } from "@/lib/sanity/queries/settings";
 import { HomeSkeleton } from "@/components/ui/skeleton";
 import { CvDownloadButton } from "@/components/parcours/CvDownloadButton";
 import { ProfileHero } from "@/components/visual/ProfileHero";
-import { ScrollReveal } from "@/components/visual/ScrollReveal";
+import { GlitchReveal } from "@/components/visual/GlitchReveal";
 
 const featuredSlugs = [
   "assistant-emails",
@@ -49,7 +49,7 @@ async function FeaturedProjects({ locale }: { locale: string }) {
   const i = t[locale as keyof typeof t];
 
   return (
-    <ScrollReveal>
+    <GlitchReveal>
       <section className="mb-20" aria-label={i.featuredLabel}>
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">
           {i.featuredHeading}
@@ -86,7 +86,7 @@ async function FeaturedProjects({ locale }: { locale: string }) {
           ))}
         </div>
       </section>
-    </ScrollReveal>
+    </GlitchReveal>
   );
 }
 
@@ -98,7 +98,7 @@ async function OtherProjects({ locale }: { locale: string }) {
   const i = t[locale as keyof typeof t];
 
   return (
-    <ScrollReveal>
+    <GlitchReveal>
       <section className="mb-20" aria-label={i.otherLabel}>
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">
           {i.otherHeading}
@@ -125,7 +125,7 @@ async function OtherProjects({ locale }: { locale: string }) {
           ))}
         </div>
       </section>
-    </ScrollReveal>
+    </GlitchReveal>
   );
 }
 
@@ -167,7 +167,7 @@ export default async function Home({
       </Suspense>
 
       {/* Contact CTA */}
-      <ScrollReveal>
+      <GlitchReveal>
         <section className="rounded-2xl bg-neutral-100 p-8 text-center dark:bg-neutral-900">
           <h2 className="text-2xl font-semibold tracking-tight">
             {i.contactHeading}
@@ -182,7 +182,7 @@ export default async function Home({
             {i.contact}
           </Link>
         </section>
-      </ScrollReveal>
+      </GlitchReveal>
     </main>
   );
 }
