@@ -10,3 +10,4 @@ next-env.d.ts
 _bmad*
 .opencode
 .DS_Store
+.sanity/
