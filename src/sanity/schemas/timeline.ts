@@ -24,6 +24,7 @@ export default defineType({
       type: "date",
     }),
     localeField("title", "Title"),
+    localeField("organization", "Organization", "string"),
     localeField("description", "Description", "text"),
     defineField({
       name: "image",

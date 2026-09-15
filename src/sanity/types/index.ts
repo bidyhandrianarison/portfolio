@@ -57,6 +57,7 @@ export interface Timeline {
   dateStart: string;
   dateEnd?: string;
   title: LocaleString;
+  organization?: LocaleString;
   description: LocaleText;
   image?: { asset: { _ref: string }; hotspot?: unknown };
   tags: string[];
