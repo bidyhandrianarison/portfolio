@@ -29,6 +29,7 @@ const sectionBadge: Record<string, { fr: string; en: string; color: string }> =
 
 function formatDate(dateStr: string, locale: string) {
   const date = new Date(dateStr);
+  if (Number.isNaN(date.getTime())) return dateStr;
   return date.toLocaleDateString(locale === "fr" ? "fr-FR" : "en-US", {
     month: "short",
     year: "numeric",
@@ -76,7 +77,7 @@ export function TimelineEntry({
                 {startDate} — {endDate}
               </time>
               <h3 className="mt-1 text-base font-semibold text-neutral-900 dark:text-neutral-50">
-                {entry.title[lang]}
+                {entry.title[lang] ?? entry.title.fr}
               </h3>
               {entry.organization?.[lang] && (
                 <p className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -91,14 +92,14 @@ export function TimelineEntry({
             </span>
           </div>
           <p className="mt-3 line-clamp-3 text-sm text-neutral-600 dark:text-neutral-400">
-            {entry.description[lang]}
+            {entry.description[lang] ?? entry.description.fr}
           </p>
           {entry.tags.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1.5">
               {entry.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400"
+                  className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-xs font-medium"
                 >
                   {tag}
                 </span>
@@ -143,7 +144,7 @@ export function TimelineEntry({
                 {startDate} — {endDate}
               </time>
               <h3 className="mt-1 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                {entry.title[lang]}
+                {entry.title[lang] ?? entry.title.fr}
               </h3>
             </div>
             <span
@@ -152,8 +153,8 @@ export function TimelineEntry({
               {badge[lang]}
             </span>
           </div>
-          <p className="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-            {entry.description[lang]}
+          <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+            {entry.description[lang] ?? entry.description.fr}
           </p>
           {entry.tags.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1.5">

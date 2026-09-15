@@ -3,9 +3,17 @@
 interface ViewToggleProps {
   view: "timeline" | "grid";
   onChange: (view: "timeline" | "grid") => void;
+  locale: string;
 }
 
-export function ViewToggle({ view, onChange }: ViewToggleProps) {
+const ariaLabel: Record<string, { fr: string; en: string }> = {
+  timeline: { fr: "Vue timeline", en: "Timeline view" },
+  grid: { fr: "Vue grille", en: "Grid view" },
+};
+
+export function ViewToggle({ view, onChange, locale }: ViewToggleProps) {
+  const lang = locale === "en" ? "en" : "fr";
+
   return (
     <div className="flex rounded-lg border border-neutral-200 dark:border-neutral-800">
       <button
@@ -15,7 +23,7 @@ export function ViewToggle({ view, onChange }: ViewToggleProps) {
             ? "bg-primary-600 text-white"
             : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50"
         }`}
-        aria-label="Vue timeline"
+        aria-label={ariaLabel.timeline[lang]}
       >
         <svg
           className="h-4 w-4"
@@ -38,7 +46,7 @@ export function ViewToggle({ view, onChange }: ViewToggleProps) {
             ? "bg-primary-600 text-white"
             : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50"
         }`}
-        aria-label="Vue grille"
+        aria-label={ariaLabel.grid[lang]}
       >
         <svg
           className="h-4 w-4"

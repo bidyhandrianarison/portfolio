@@ -18,6 +18,8 @@ export function ParcoursTimeline({ entries, locale }: ParcoursTimelineProps) {
   const [filter, setFilter] = useState<Filter>("all");
   const [view, setView] = useState<"timeline" | "grid">("timeline");
 
+  if (entries.length === 0) return null;
+
   const filtered =
     filter === "all" ? entries : entries.filter((e) => e.section === filter);
 
@@ -37,7 +39,7 @@ export function ParcoursTimeline({ entries, locale }: ParcoursTimelineProps) {
               ? `${entries.length} ${locale === "fr" ? "entrées" : "entries"}`
               : `${filtered.length} / ${filter === "academic" ? academicCount : professionalCount}`}
           </span>
-          <ViewToggle view={view} onChange={setView} />
+          <ViewToggle view={view} onChange={setView} locale={locale} />
         </div>
       </div>
 
