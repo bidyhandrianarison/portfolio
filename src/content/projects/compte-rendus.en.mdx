@@ -1,0 +1,55 @@
+---
+title: "Meeting Minutes Generator"
+slug: "compte-rendus"
+role: "AI, Development"
+period: "2025 – 2026"
+tags: ["#ai", "#summary", "#meeting"]
+description: "Tool producing summaries, decisions and follow-up actions from meeting notes."
+
+hero:
+  headline: "Meeting Minutes Generator"
+  subtext: "From notes taken during meetings, the tool produces a summary, identifies decisions and follow-up actions."
+
+architecture:
+  mermaid: |
+    graph TD
+      A[Meeting Notes] --> B[AI Analysis]
+      B --> C[Summary]
+      B --> D[Decisions]
+      B --> E[Follow-up Actions]
+  nodes:
+    - id: "notes"
+      label: "Meeting Notes"
+      type: "external"
+    - id: "ai"
+      label: "AI Analysis"
+      type: "file"
+    - id: "summary"
+      label: "Summary"
+      type: "file"
+
+metrics:
+  - label: "Writing time"
+    value: "Reduced by 90%"
+    trend: "up"
+  - label: "Action tracking"
+    value: "100% traceable"
+    trend: "up"
+
+beforeAfter:
+  beforeLabel: "Before"
+  afterLabel: "After"
+  beforeContent: |
+    - Manual note-taking during meeting
+    - Post-meeting drafting (30min)
+    - Frequent missed decisions
+    - Untracked follow-up actions
+  afterContent: |
+    - Real-time structured notes
+    - Minutes generated in 30 seconds
+    - All decisions captured
+    - Actions assigned and auto-tracked
+
+---
+
+Case study content: Meeting Minutes Generator.

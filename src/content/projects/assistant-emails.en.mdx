@@ -1,0 +1,55 @@
+---
+title: "Email Processing Assistant"
+slug: "assistant-emails"
+role: "UX Design, AI, Development, Automation"
+period: "2025 – 2026"
+tags: ["#ai", "#automation", "#email", "#rag"]
+description: "AI assistant that reads emails and prepares responses in the usual inbox."
+
+hero:
+  headline: "Email Processing Assistant"
+  subtext: "For a executive receiving a high volume of messages, the assistant reads emails and prepares responses. The executive validates and sends."
+
+architecture:
+  mermaid: |
+    graph TD
+      A[Email Inbox] --> B[AI - Reading & Analysis]
+      B --> C[Response Generation]
+      C --> D[Usual Inbox]
+      D --> E[Executive Validation]
+  nodes:
+    - id: "inbox"
+      label: "Email Inbox"
+      type: "external"
+    - id: "ai"
+      label: "AI - Reading & Analysis"
+      type: "file"
+    - id: "responses"
+      label: "Response Generation"
+      type: "file"
+
+metrics:
+  - label: "Time saved per day"
+    value: "2h"
+    trend: "up"
+  - label: "Emails processed"
+    value: "50+ per day"
+    trend: "up"
+
+beforeAfter:
+  beforeLabel: "Before"
+  afterLabel: "After"
+  beforeContent: |
+    - 2h/day sorting and responding manually
+    - Frequent missed important follow-ups
+    - Stress from growing message volume
+    - Inconsistent responses based on mood
+  afterContent: |
+    - Automatic priority and intent sorting
+    - Pre-filled responses validated in 30s
+    - Zero missed follow-ups, automated tracking
+    - Consistent tone and style across every email
+
+---
+
+Case study content: Email Processing Assistant.

@@ -1,0 +1,55 @@
+---
+title: "Assistant de traitement d'emails"
+slug: "assistant-emails"
+role: "Conception UX, IA, Développement, Automatisation"
+period: "2025 – 2026"
+tags: ["#ia", "#automatisation", "#email", "#rag"]
+description: "Assistant IA qui lit les emails et prépare des réponses dans la boîte habituelle."
+
+hero:
+  headline: "Assistant de traitement d'emails"
+  subtext: "Pour un dirigeant recevant un grand volume de messages, l'assistant lit les emails et prépare des réponses. Le dirigeant valide puis envoie."
+
+architecture:
+  mermaid: |
+    graph TD
+      A[Email Inbox] --> B[IA - Lecture & Analyse]
+      B --> C[Génération de réponses]
+      C --> D[Boîte habituelle]
+      D --> E[Validation dirigeant]
+  nodes:
+    - id: "inbox"
+      label: "Email Inbox"
+      type: "external"
+    - id: "ai"
+      label: "IA - Lecture & Analyse"
+      type: "file"
+    - id: "responses"
+      label: "Génération de réponses"
+      type: "file"
+
+metrics:
+  - label: "Temps gagné par jour"
+    value: "2h"
+    trend: "up"
+  - label: "Emails traités"
+    value: "50+ par jour"
+    trend: "up"
+
+beforeAfter:
+  beforeLabel: "Avant"
+  afterLabel: "Après"
+  beforeContent: |
+    - 2h/jour à trier et répondre manuellement
+    - Oublis fréquents de relances importantes
+    - Stress lié au volume croissant de messages
+    - Réponses incohérentes selon l'humeur
+  afterContent: |
+    - Tri automatique par priorité et intention
+    - Réponses pré-remplies validées en 30s
+    - Zéro oubli de relance, suivi automatisé
+    - Ton et style cohérents sur chaque email
+
+---
+
+Contenu de l'étude de cas : Assistant de traitement d'emails.

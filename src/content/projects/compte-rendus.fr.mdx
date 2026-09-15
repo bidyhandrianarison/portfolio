@@ -1,0 +1,55 @@
+---
+title: "Générateur de comptes-rendus"
+slug: "compte-rendus"
+role: "IA, Développement"
+period: "2025 – 2026"
+tags: ["#ia", "#résumé", "#réunion"]
+description: "Outil produisant résumés, décisions et actions de suivi à partir de notes de réunions."
+
+hero:
+  headline: "Générateur de comptes-rendus"
+  subtext: "À partir de notes prises lors de réunions, l'outil produit un résumé, identifie les décisions et les actions de suivi."
+
+architecture:
+  mermaid: |
+    graph TD
+      A[Notes de réunion] --> B[Analyse IA]
+      B --> C[Résumé]
+      B --> D[Décisions]
+      B --> E[Actions de suivi]
+  nodes:
+    - id: "notes"
+      label: "Notes de réunion"
+      type: "external"
+    - id: "ai"
+      label: "Analyse IA"
+      type: "file"
+    - id: "summary"
+      label: "Résumé"
+      type: "file"
+
+metrics:
+  - label: "Temps de rédaction"
+    value: "Réduit de 90%"
+    trend: "up"
+  - label: "Suivi des actions"
+    value: "100% traçable"
+    trend: "up"
+
+beforeAfter:
+  beforeLabel: "Avant"
+  afterLabel: "Après"
+  beforeContent: |
+    - Prise de notes manuelle pendant la réunion
+    - Rédaction du compte-rendu après coup (30min)
+    - Oubli fréquent de certaines décisions
+    - Actions de suivi non tracées
+  afterContent: |
+    - Notes structurées en temps réel
+    - Compte-rendu généré en 30 secondes
+    - Toutes les décisions capturées
+    - Actions assignées et tracées automatiquement
+
+---
+
+Contenu de l'étude de cas : Générateur de comptes-rendus.

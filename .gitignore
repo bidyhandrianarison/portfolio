@@ -7,5 +7,6 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .agents
-.opencode
 _bmad*
+.opencode
+.DS_Store

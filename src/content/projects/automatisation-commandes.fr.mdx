@@ -1,0 +1,55 @@
+---
+title: "Automatisation de la planification des commandes"
+slug: "automatisation-commandes"
+role: "Projet de bout en bout"
+period: "2025 – 2026"
+tags: ["#automatisation", "#data", "#processus"]
+description: "Système traitant les données et générant des suggestions de commande pour remplacer un cycle manuel de deux semaines."
+
+hero:
+  headline: "Automatisation de la planification des commandes"
+  subtext: "Le cycle mensuel mobilisait environ deux semaines. Le système traite les données et génère des suggestions de commande."
+
+architecture:
+  mermaid: |
+    graph TD
+      A[Données approvisionnement] --> B[Traitements IA]
+      B --> C[Suggestions de commande]
+      C --> D[Équipe ajuste]
+      D --> E[Décision finale]
+  nodes:
+    - id: "data"
+      label: "Données approvisionnement"
+      type: "external"
+    - id: "ai"
+      label: "Traitements IA"
+      type: "file"
+    - id: "suggestions"
+      label: "Suggestions de commande"
+      type: "file"
+
+metrics:
+  - label: "Temps d'économie"
+    value: "2 semaines → 2 jours"
+    trend: "up"
+  - label: "Cycle mensuel"
+    value: "Réduit de 85%"
+    trend: "up"
+
+beforeAfter:
+  beforeLabel: "Avant"
+  afterLabel: "Après"
+  beforeContent: |
+    - Cycle manuel de 2 semaines chaque mois
+    - Extraction manuelle des données fournisseurs
+    - Calculs Excel complexes et error-prone
+    - Validation par équipe de 5 personnes
+  afterContent: |
+    - Cycle automatisé de 2 jours
+    - Import automatique des données
+    - Suggestions IA en quelques minutes
+    - Validation simplifiée en 1 clic
+
+---
+
+Contenu de l'étude de cas : Automatisation de la planification des commandes.

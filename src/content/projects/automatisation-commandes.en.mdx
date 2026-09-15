@@ -1,0 +1,55 @@
+---
+title: "Order Planning Automation"
+slug: "automatisation-commandes"
+role: "End-to-End Project"
+period: "2025 – 2026"
+tags: ["#automation", "#data", "#process"]
+description: "System processing data and generating order suggestions to replace a two-week manual cycle."
+
+hero:
+  headline: "Order Planning Automation"
+  subtext: "The monthly cycle took about two weeks. The system processes data and generates order suggestions."
+
+architecture:
+  mermaid: |
+    graph TD
+      A[Supply Data] --> B[AI Processing]
+      B --> C[Order Suggestions]
+      C --> D[Team Adjusts]
+      D --> E[Final Decision]
+  nodes:
+    - id: "data"
+      label: "Supply Data"
+      type: "external"
+    - id: "ai"
+      label: "AI Processing"
+      type: "file"
+    - id: "suggestions"
+      label: "Order Suggestions"
+      type: "file"
+
+metrics:
+  - label: "Time savings"
+    value: "2 weeks → 2 days"
+    trend: "up"
+  - label: "Monthly cycle"
+    value: "Reduced by 85%"
+    trend: "up"
+
+beforeAfter:
+  beforeLabel: "Before"
+  afterLabel: "After"
+  beforeContent: |
+    - 2-week manual cycle every month
+    - Manual supplier data extraction
+    - Complex, error-prone Excel calculations
+    - 5-person team validation required
+  afterContent: |
+    - 2-day automated cycle
+    - Automatic data import
+    - AI suggestions in minutes
+    - Simplified 1-click validation
+
+---
+
+Case study content: Order Planning Automation.
