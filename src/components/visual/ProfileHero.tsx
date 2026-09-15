@@ -44,7 +44,7 @@ export function ProfileHero({
             <div className="from-primary-400 dark:from-primary-600 absolute -inset-2 rounded-full bg-gradient-to-br to-orange-400 opacity-60 blur-md transition-opacity group-hover:opacity-100 dark:to-orange-600" />
             <div className="relative h-36 w-36 overflow-hidden rounded-full border-4 border-white shadow-xl sm:h-44 sm:w-44 dark:border-neutral-950">
               <Image
-                src="/pdp.png"
+                src="/pdp.jpg"
                 alt={name}
                 fill
                 className="object-cover"

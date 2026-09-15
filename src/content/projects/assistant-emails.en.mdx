@@ -29,8 +29,8 @@ architecture:
       type: "file"
 
 metrics:
-  - label: "Time saved per day"
-    value: "2h"
+  - label: "Processing time"
+    value: "2h → 25min"
     trend: "up"
   - label: "Emails processed"
     value: "50+ per day"
@@ -52,4 +52,30 @@ beforeAfter:
 
 ---
 
-Case study content: Email Processing Assistant.
+## Context
+
+A business executive receives an average of 50 emails per day requiring a response. Manual processing — sorting, reading, drafting, sending — took approximately 2 hours per day, or 10 hours per week. This time was spent on low-value tasks that delayed important decisions.
+
+## Problem
+
+Message volume was growing without a corresponding increase in processing capacity. Important follow-ups were sometimes missed, responses varied based on mood, and inbox-related stress was impacting overall productivity.
+
+## Approach
+
+I designed an AI assistant that operates directly within the existing email client, requiring no change in the user's behavior:
+
+1. **Reading and analysis** — The system classifies each email by intent (information request, action request, information to retain) and by priority.
+2. **Response generation** — For each email requiring a response, the assistant proposes a pre-filled reply based on the conversation context and the executive's past responses.
+3. **Validation** — The executive validates, modifies, or rejects each response with one click. Only validated responses are sent.
+
+The architecture relies on RAG (Retrieval-Augmented Generation) to leverage exchange history and ensure tone consistency.
+
+## Challenges
+
+- **Initial response quality** — Early generations lacked context. Resolved by enriching the prompt with the last 5 exchanges of each conversation.
+- **Multilingual email management** — The executive receives messages in both French and English. The system must detect the language and respond in the same language.
+- **Non-disruptive integration** — The assistant must never send an email without human validation. The validation circuit was designed as an unavoidable safeguard.
+
+## Result
+
+Processing time dropped from 2 hours to approximately 25 minutes per day. Follow-ups are no longer missed thanks to automated tracking. Response tone is now consistent regardless of the executive's workload.

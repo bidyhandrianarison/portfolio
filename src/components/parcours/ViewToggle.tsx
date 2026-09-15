@@ -17,6 +17,7 @@ export function ViewToggle({ view, onChange, locale }: ViewToggleProps) {
   return (
     <div className="flex rounded-lg border border-neutral-200 dark:border-neutral-800">
       <button
+        type="button"
         onClick={() => onChange("timeline")}
         className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-colors ${
           view === "timeline"
@@ -40,6 +41,7 @@ export function ViewToggle({ view, onChange, locale }: ViewToggleProps) {
         </svg>
       </button>
       <button
+        type="button"
         onClick={() => onChange("grid")}
         className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-colors ${
           view === "grid"

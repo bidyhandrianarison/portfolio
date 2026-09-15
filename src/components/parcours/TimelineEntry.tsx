@@ -59,7 +59,7 @@ export function TimelineEntry({
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.3, delay: index * 0.05 }}
-        className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950"
+        className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md motion-reduce:transition-none dark:border-neutral-800 dark:bg-neutral-950"
       >
         <div className="p-5">
           <div className="flex items-start gap-3">
@@ -69,7 +69,7 @@ export function TimelineEntry({
                 alt={entry.title[lang] ?? ""}
                 width={48}
                 height={48}
-                className="shrink-0 rounded-full object-cover ring-2 ring-white dark:ring-neutral-950"
+                className="shrink-0 rounded-full bg-white object-cover ring-2 ring-white dark:bg-neutral-100 dark:ring-neutral-950"
               />
             )}
             <div className="min-w-0 flex-1">
@@ -136,7 +136,7 @@ export function TimelineEntry({
                 alt={entry.title[lang] ?? ""}
                 width={48}
                 height={48}
-                className="shrink-0 rounded-full object-cover ring-2 ring-white dark:ring-neutral-950"
+                className="shrink-0 rounded-full bg-white object-cover ring-2 ring-white dark:bg-neutral-100 dark:ring-neutral-950"
               />
             )}
             <div className="min-w-0 flex-1">

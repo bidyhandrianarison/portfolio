@@ -21,11 +21,19 @@ export async function generateMetadata({
   const description =
     locale === "fr"
       ? "Ingénieur hybride construisant des applications mobiles, des systèmes IA et des design systems. Freelance & ouvert aux opportunités."
-      : "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & hiring.";
+      : "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & open to opportunities.";
 
   return {
+    metadataBase: new URL("https://sarobidy-andrianarison.netlify.app"),
     title,
     description,
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}`,
+      languages: {
+        fr: "https://sarobidy-andrianarison.netlify.app/fr",
+        en: "https://sarobidy-andrianarison.netlify.app/en",
+      },
+    },
     openGraph: {
       title,
       description,

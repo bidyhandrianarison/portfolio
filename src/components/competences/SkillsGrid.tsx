@@ -16,11 +16,11 @@ const proficiencyLabels: Record<string, { fr: string; en: string }> = {
 
 const proficiencyColors: Record<string, string> = {
   expert:
-    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+    "bg-orange-100 text-orange-900 dark:bg-orange-900 dark:text-orange-100",
   advanced:
-    "bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200",
+    "bg-primary-100 text-primary-900 dark:bg-primary-900 dark:text-primary-100",
   intermediate:
-    "bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200",
+    "bg-neutral-100 text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100",
 };
 
 interface SkillsGridProps {
@@ -47,7 +47,7 @@ export function SkillsGrid({ skills, locale }: SkillsGridProps) {
                 className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium ${proficiencyColors[skill.proficiency]}`}
               >
                 {skill.name}
-                <span className="text-xs opacity-70">
+                <span className="text-xs">
                   {proficiencyLabels[skill.proficiency]?.[lang] ??
                     skill.proficiency}
                 </span>

@@ -46,6 +46,7 @@ export function ContactForm({ locale }: ContactFormProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState("");
   const [errors, setErrors] = useState<{
     email?: string | null;
     message?: string | null;
@@ -86,7 +87,7 @@ export function ContactForm({ locale }: ContactFormProps) {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, website }),
       });
 
       if (!res.ok) throw new Error("Send failed");
@@ -133,9 +134,12 @@ export function ContactForm({ locale }: ContactFormProps) {
         <input
           id="contact-name"
           type="text"
+          name="name"
+          autoComplete="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={t.namePlaceholder}
+          maxLength={200}
           className="focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-2 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
         />
       </div>
@@ -150,10 +154,13 @@ export function ContactForm({ locale }: ContactFormProps) {
         <input
           id="contact-email"
           type="email"
+          name="email"
+          autoComplete="email"
           required
           value={email}
           onChange={(e) => handleEmailChange(e.target.value)}
           placeholder={t.emailPlaceholder}
+          maxLength={320}
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? "email-error" : undefined}
           className="focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-2 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
@@ -174,11 +181,13 @@ export function ContactForm({ locale }: ContactFormProps) {
         </label>
         <textarea
           id="contact-message"
+          name="message"
           required
           rows={5}
           value={message}
           onChange={(e) => handleMessageChange(e.target.value)}
           placeholder={t.messagePlaceholder}
+          maxLength={5000}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
           className="focus:border-primary-500 focus:ring-primary-500/20 w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-2 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
@@ -188,6 +197,22 @@ export function ContactForm({ locale }: ContactFormProps) {
             {errors.message}
           </p>
         )}
+      </div>
+
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] opacity-0"
+        tabIndex={-1}
+      >
+        <label htmlFor="contact-website">Leave this empty</label>
+        <input
+          id="contact-website"
+          type="text"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
 
       <Button

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s — Sarobidy Andrianarison",
   },
   description:
-    "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & hiring.",
+    "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & open to opportunities.",
 };
 
 const jsonLd = {
@@ -18,8 +18,11 @@ const jsonLd = {
   "@type": "Person",
   name: "Sarobidy Andrianarison",
   jobTitle: "Mobile Dev · AI Engineer · UI/UX Designer",
-  url: "https://bidyhandrianarison.com",
-  sameAs: ["https://github.com/sarobidy", "https://linkedin.com/in/sarobidy"],
+  url: "https://sarobidy-andrianarison.netlify.app",
+  sameAs: [
+    "https://github.com/bidyhandrianarison",
+    "https://linkedin.com/in/n-sarobidy-andrianarison-075554203",
+  ],
 };
 
 export default function RootLayout({
@@ -31,6 +34,11 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var p=location.pathname,m=p.match(/^\\/(fr|en)/);if(m)document.documentElement.lang=m[1]})()`,
+          }}
+        />
       </head>
       <body className="flex min-h-screen flex-col">
         <Script

@@ -2,8 +2,16 @@ import Link from "next/link";
 import { contactLinks } from "@/lib/constants/contacts";
 
 const footerLabels = {
-  fr: { copyright: "© Tous droits réservés", ariaLabel: "Liens sociaux" },
-  en: { copyright: "© All rights reserved", ariaLabel: "Social links" },
+  fr: {
+    copyright: "© Tous droits réservés",
+    legal: "Mentions légales",
+    ariaLabel: "Liens sociaux",
+  },
+  en: {
+    copyright: "© All rights reserved",
+    legal: "Legal notice",
+    ariaLabel: "Social links",
+  },
 };
 
 export function Footer({ locale = "fr" }: { locale?: string }) {
@@ -14,10 +22,16 @@ export function Footer({ locale = "fr" }: { locale?: string }) {
     <footer className="border-t border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-8 sm:flex-row sm:justify-between">
         <p className="text-sm text-neutral-500">
-          {labels.copyright} Sarobidy Andrianarison
+          {labels.copyright} {new Date().getFullYear()} Sarobidy Andrianarison
         </p>
 
         <nav aria-label={labels.ariaLabel} className="flex gap-4">
+          <Link
+            href={`/${locale}/mentions-legales`}
+            className="text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-50"
+          >
+            {labels.legal}
+          </Link>
           {contactLinks.map((link) => (
             <Link
               key={link.href}

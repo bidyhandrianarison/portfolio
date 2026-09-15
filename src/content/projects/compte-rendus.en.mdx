@@ -30,7 +30,7 @@ architecture:
 
 metrics:
   - label: "Writing time"
-    value: "Reduced by 90%"
+    value: "30 min → 30 s"
     trend: "up"
   - label: "Action tracking"
     value: "100% traceable"
@@ -52,4 +52,28 @@ beforeAfter:
 
 ---
 
-Case study content: Meeting Minutes Generator.
+## Context
+
+Team meetings generate decisions, actions, and responsibilities that need to be tracked. In many organizations, writing meeting minutes is a manual post-meeting task, often rushed due to time constraints.
+
+## Problem
+
+The executive spent 30 minutes after each meeting drafting minutes. Some decisions were forgotten, follow-up actions were not always assigned, and the lack of reliable written records created team friction.
+
+## Approach
+
+I developed a tool that transforms meeting notes into structured documents:
+
+1. **Structured input** — During the meeting, participants record key points in a guided format (decision, action, owner, deadline).
+2. **AI analysis** — The system automatically identifies decisions, follow-up actions, and responsible parties from free-form notes.
+3. **Minutes generation** — A structured document is produced in 30 seconds, with clear sections: summary, decisions, actions, next steps.
+
+## Challenges
+
+- **Heterogeneous notes** — Note-taking styles vary enormously between individuals. The model was trained on hundreds of real notes to handle this variability.
+- **Decision vs. action distinction** — Some items are decisions (to remember) while others are actions (to do). The system learns to distinguish them through context and linguistic markers.
+- **Confidentiality** — Minutes contain sensitive information. The tool runs locally, without sending data to external services.
+
+## Result
+
+Drafting dropped from 30 minutes to 30 seconds. All decisions are now captured and tracked. Follow-up actions are automatically assigned and monitored, reducing missed items to zero.

@@ -47,7 +47,7 @@ export function ParcoursTimeline({ entries, locale }: ParcoursTimelineProps) {
       {view === "timeline" && (
         <div className="relative">
           <div className="absolute top-0 bottom-0 left-[7px] w-px bg-neutral-200 dark:bg-neutral-800" />
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence>
             {filtered.map((entry, i) => (
               <TimelineEntry
                 key={entry._id}

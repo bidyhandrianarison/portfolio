@@ -29,8 +29,8 @@ architecture:
       type: "file"
 
 metrics:
-  - label: "Temps gagné par jour"
-    value: "2h"
+  - label: "Temps de traitement"
+    value: "2h → 25min"
     trend: "up"
   - label: "Emails traités"
     value: "50+ par jour"
@@ -52,4 +52,30 @@ beforeAfter:
 
 ---
 
-Contenu de l'étude de cas : Assistant de traitement d'emails.
+## Contexte
+
+Un dirigeant d'entreprise reçoit en moyenne 50 emails par jour nécessitant une réponse. Le traitement manuel — tri, lecture, rédaction, envoi — occupait environ 2 heures par jour, soit 10 heures par semaine. Ce temps portait sur des tâches à faible valeur ajoutée qui retardaient les décisions importantes.
+
+## Problème
+
+Le volume de messages croissait sans que la capacité de traitement augmente. Les relances importantes étaient parfois oubliées, les réponses variaient selon l'humeur du moment, et le stress lié à la boîte de réception impactait la productivité globale.
+
+## Approche
+
+J'ai conçu un assistant IA fonctionnant directement dans la boîte mail existante, sans changement de comportement pour l'utilisateur :
+
+1. **Lecture et analyse** — Le système classifie chaque email par intention (demande d'information, demande d'action, information à conserver) et par priorité.
+2. **Génération de réponses** — Pour chaque email nécessitant une réponse, l'assistant propose une réponse pré-remplie en s'appuyant sur le contexte de la conversation précédente et sur les réponses passées du dirigeant.
+3. **Validation** — Le dirigeant valide, modifie ou rejette chaque réponse en un clic. Seules les réponses validées sont envoyées.
+
+L'architecture repose sur du RAG (Retrieval-Augmented Generation) pour exploiter l'historique des échanges et garantir la cohérence du ton.
+
+## Obstacles
+
+- **Qualité des réponses initiales** — Les premières générations manquaient de contexte. Résolu en enrichissant le prompt avec les 5 derniers échanges de chaque conversation.
+- **Gestion des emails multilingues** — Le dirigeant reçoit des messages en français et en anglais. Le système doit détecter la langue et répondre dans la même langue.
+- **Intégration sans disruption** — L'assistant ne devait en aucun cas envoyer un email sans validation humaine. Le circuit de validation a été conçu comme un garde-fou incontournable.
+
+## Résultat
+
+Le temps de traitement est passé de 2 heures à environ 25 minutes par jour. Les relances ne sont plus oubliées grâce au suivi automatisé. Le ton des réponses est désormais cohérent, quelle que soit la charge de travail du dirigeant.

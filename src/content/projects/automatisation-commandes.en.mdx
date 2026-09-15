@@ -29,11 +29,11 @@ architecture:
       type: "file"
 
 metrics:
-  - label: "Time savings"
+  - label: "Cycle duration"
     value: "2 weeks → 2 days"
     trend: "up"
-  - label: "Monthly cycle"
-    value: "Reduced by 85%"
+  - label: "Processing time"
+    value: "Reduced by 86%"
     trend: "up"
 
 beforeAfter:
@@ -52,4 +52,28 @@ beforeAfter:
 
 ---
 
-Case study content: Order Planning Automation.
+## Context
+
+A distribution company managed a planning cycle that occupied the team for approximately two weeks each month. The process involved manual supplier data extraction, complex spreadsheet calculations, and collective validation involving five people.
+
+## Problem
+
+The manual cycle was lengthy, prone to calculation errors, and impossible to speed up without reducing decision quality. Decision-makers waited for order suggestions while stocks fluctuated, creating risks of stockouts or overstocking.
+
+## Approach
+
+I built a three-stage system:
+
+1. **Automatic data import** — Supplier data (pricing, lead times, volumes) is extracted and normalized automatically, replacing the manual extraction phase.
+2. **Suggestion generation** — A model analyzes historical data, consumption trends, and logistical constraints to propose costed order suggestions.
+3. **Simplified validation** — The team reviews suggestions on a unified dashboard and validates with one click, with the ability to adjust before confirmation.
+
+## Challenges
+
+- **Source data quality** — Supplier data arrived in heterogeneous formats (CSV, PDF, emails). A cleanup pipeline was built to normalize inputs.
+- **Team trust** — Moving from collective decisions to automated suggestions required a calibration phase, where suggestions were compared to manual decisions over three historical cycles.
+- **Exception handling** — Certain products require specific rules (minimum order quantities, multi-year contracts). The system integrates configurable business rules.
+
+## Result
+
+The planning cycle dropped from two weeks to two days. Calculation errors were eliminated. The team now dedicates their time to strategic analysis rather than data extraction.

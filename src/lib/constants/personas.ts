@@ -17,7 +17,10 @@ export const personas: Persona[] = [
     subtext:
       "Flutter/Dart expert. CI/CD zero-touch. Tests automatisés. Architecture clean. Prêt à rejoindre votre squad ou lead le mobile.",
     ctaPrimary: { label: "Voir projets mobile →", href: "/persona/mobile" },
-    ctaSecondary: { label: "Mon GitHub", href: "https://github.com/sarobidy" },
+    ctaSecondary: {
+      label: "Mon GitHub",
+      href: "https://github.com/bidyhandrianarison",
+    },
     tags: [
       "#mobile",
       "#flutter",

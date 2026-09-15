@@ -32,8 +32,8 @@ export async function generateMetadata({
     title: i.title,
     description:
       locale === "fr"
-        ? "Compétences techniques et certifications de Bidy Andrianarison"
-        : "Bidy Andrianarison's technical skills and certifications",
+        ? "Compétences techniques et certifications de Sarobidy Andrianarison"
+        : "Sarobidy Andrianarison's technical skills and certifications",
   };
 }
 

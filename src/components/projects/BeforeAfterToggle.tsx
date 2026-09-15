@@ -21,7 +21,7 @@ function ContentList({ content }: { content: string }) {
   );
 
   return (
-    <ul className="list-disc space-y-1 pl-4 text-sm">
+    <ul className="list-disc space-y-1 pl-4 text-sm text-neutral-800 dark:text-neutral-200">
       {items.map((item, i) => (
         <li key={i}>{item}</li>
       ))}
@@ -89,8 +89,27 @@ export function BeforeAfterToggle({
     } else if (e.key === "ArrowRight") {
       e.preventDefault();
       setPosition((p) => Math.min(100, p + 5));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setPosition(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      setPosition(100);
     }
   }, []);
+
+  const panelContent = (
+    <>
+      <div className="mb-3">
+        <span className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 inline-block rounded-full px-3 py-1 text-xs font-medium">
+          {data.afterLabel}
+        </span>
+      </div>
+      <div className="prose prose-sm prose-neutral dark:prose-invert max-w-none text-neutral-800 dark:text-neutral-200">
+        <ContentList content={data.afterContent} />
+      </div>
+    </>
+  );
 
   return (
     <div
@@ -107,26 +126,22 @@ export function BeforeAfterToggle({
       aria-valuenow={Math.round(position)}
       aria-valuemin={0}
       aria-valuemax={100}
+      aria-valuetext={`${Math.round(position)}% ${data.beforeLabel}`}
     >
-      {/* After (full width, underneath) */}
-      <div className="p-6">
-        <span className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 mb-3 inline-block rounded-full px-3 py-1 text-xs font-medium">
-          {data.afterLabel}
-        </span>
-        <div className="prose prose-sm prose-neutral dark:prose-invert max-w-none">
-          <ContentList content={data.afterContent} />
-        </div>
-      </div>
+      {/* After panel — full width, underneath */}
+      <div className="p-6">{panelContent}</div>
 
-      {/* Before (clipped) */}
+      {/* Before panel — clipped via clip-path, renders ON TOP */}
       <div
-        className="border-primary-500 absolute top-0 bottom-0 left-0 overflow-hidden border-r-2 bg-white p-6 transition-[width] duration-150 ease-out motion-reduce:transition-none dark:bg-neutral-950"
-        style={{ width: `${position}%` }}
+        className="border-primary-500 pointer-events-none absolute inset-0 border-r-2 bg-white p-6 dark:bg-neutral-950"
+        style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
       >
-        <span className="mb-3 inline-block rounded-full bg-neutral-200 px-3 py-1 text-xs font-medium text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200">
-          {data.beforeLabel}
-        </span>
-        <div className="prose prose-sm prose-neutral dark:prose-invert max-w-none">
+        <div className="mb-3">
+          <span className="mb-3 inline-block rounded-full bg-neutral-200 px-3 py-1 text-xs font-medium text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200">
+            {data.beforeLabel}
+          </span>
+        </div>
+        <div className="prose prose-sm prose-neutral dark:prose-invert max-w-none text-neutral-800 dark:text-neutral-200">
           <ContentList content={data.beforeContent} />
         </div>
       </div>

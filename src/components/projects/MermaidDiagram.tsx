@@ -30,9 +30,8 @@ export function MermaidDiagram({ chart }: { chart: string }) {
   }, [chart]);
 
   return (
-    <div
-      ref={ref}
-      className="overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900"
-    />
+    <div className="mx-auto w-fit overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+      <div ref={ref} />
+    </div>
   );
 }

@@ -95,7 +95,9 @@ export function SkillsWordCloud({ skills, locale }: SkillsWordCloudProps) {
       {/* Category filter pills */}
       <div className="flex flex-wrap justify-center gap-2">
         <button
+          type="button"
           onClick={() => setActiveCategory(null)}
+          aria-pressed={activeCategory === null}
           className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
             activeCategory === null
               ? "bg-primary-600 text-white shadow-md"
@@ -109,8 +111,10 @@ export function SkillsWordCloud({ skills, locale }: SkillsWordCloudProps) {
           const isActive = activeCategory === cat;
           return (
             <button
+              type="button"
               key={cat}
               onClick={() => setActiveCategory(isActive ? null : cat)}
+              aria-pressed={isActive}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all ${
                 isActive
                   ? `${colors.bg} ${colors.text} ${colors.darkBg} ${colors.darkText} shadow-md ring-2 ring-current/20`
@@ -134,6 +138,7 @@ export function SkillsWordCloud({ skills, locale }: SkillsWordCloudProps) {
 
           return (
             <button
+              type="button"
               key={skill._id}
               className={`skill-word inline-flex items-center gap-1.5 rounded-lg px-3 py-1 font-sans select-none ${
                 isHovered

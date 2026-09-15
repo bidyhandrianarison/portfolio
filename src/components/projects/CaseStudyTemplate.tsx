@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import type { Project } from "@/lib/content/projects";
 import { MermaidDiagram } from "./MermaidDiagram";
 import { BeforeAfterToggle } from "./BeforeAfterToggle";
+import { caseStudyComponents } from "./CaseStudyMDXComponents";
 
 const t = {
   fr: {
@@ -169,8 +170,13 @@ export function CaseStudyTemplate({
         </section>
       )}
 
-      <article className="prose prose-neutral dark:prose-invert mt-12 max-w-none">
-        {project.content && <MDXRemote source={project.content} />}
+      <article className="mt-12 max-w-3xl">
+        {project.content && (
+          <MDXRemote
+            source={project.content}
+            components={caseStudyComponents}
+          />
+        )}
       </article>
     </main>
   );

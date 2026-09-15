@@ -30,10 +30,10 @@ architecture:
 
 metrics:
   - label: "Temps de rédaction"
-    value: "Réduit de 90%"
+    value: "30 min → 30 s"
     trend: "up"
   - label: "Suivi des actions"
-    value: "100% traçable"
+    value: "100 % traçable"
     trend: "up"
 
 beforeAfter:
@@ -52,4 +52,28 @@ beforeAfter:
 
 ---
 
-Contenu de l'étude de cas : Générateur de comptes-rendus.
+## Contexte
+
+Les réunions d'équipe génèrent des décisions, des actions et des responsabilités qui doivent être tracées. Dans de nombreuses organisations, la rédaction du compte-rendu est une tâche manuelle effectuée après coup, souvent bâclée par manque de temps.
+
+## Problème
+
+Le dirigeant passait 30 minutes après chaque réunion à rédiger le compte-rendu. Certaines décisions étaient oubliées, les actions de suivi n'étaient pas toujours attribuées, et l'absence de trace écrite fiable créait des frictions en équipe.
+
+## Approche
+
+J'ai développé un outil qui transforme les notes de réunion en documents structurés :
+
+1. **Saisie structurée** — Pendant la réunion, les participants notent les points clés dans un format guidé (décision, action, responsable, échéance).
+2. **Analyse IA** — Le système identifie automatiquement les décisions, les actions de suivi et les responsables à partir des notes libres.
+3. **Génération du compte-rendu** — Un document structuré est produit en 30 secondes, avec des sections claires : résumé, décisions, actions, prochaines étapes.
+
+## Obstacles
+
+- **Notes hétérogènes** — Les styles de prise de notes varient énormément d'une personne à l'autre. Le modèle a été entraîné sur des centaines de notes réelles pour gérer la variabilité.
+- **Distinction décision/action** — Certains items sont des décisions (à retenir) tandis que d'autres sont des actions (à faire). Le système apprend à les distinguer grâce au contexte et aux marqueurs linguistiques.
+- **Confidentialité** — Les comptes-rendus contiennent des informations sensibles. L'outil fonctionne en local, sans envoi de données vers des services externes.
+
+## Résultat
+
+La rédaction est passée de 30 minutes à 30 secondes. Toutes les décisions sont maintenant capturées et tracées. Les actions de suivi sont automatiquement assignées et suivies, réduisant les oublis à zéro.

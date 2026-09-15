@@ -29,11 +29,11 @@ architecture:
       type: "file"
 
 metrics:
-  - label: "Temps d'économie"
+  - label: "Durée du cycle"
     value: "2 semaines → 2 jours"
     trend: "up"
-  - label: "Cycle mensuel"
-    value: "Réduit de 85%"
+  - label: "Temps de traitement"
+    value: "Réduit de 86%"
     trend: "up"
 
 beforeAfter:
@@ -52,4 +52,28 @@ beforeAfter:
 
 ---
 
-Contenu de l'étude de cas : Automatisation de la planification des commandes.
+## Contexte
+
+Une entreprise de distribution gère un cycle de planification des commandes qui mobilisait l'équipe pendant environ deux semaines chaque mois. Le processus impliquait l'extraction manuelle des données fournisseurs, des calculs complexes dans des tableurs, et une validation collective impliquant cinq personnes.
+
+## Problème
+
+Le cycle manuel était long, source d'erreurs de calcul, et impossible à accélérer sans réduire la qualité des décisions. Les décideurs attendaient les suggestions de commande pendant que les stocks fluctuaient, créant des risques de rupture ou de surstockage.
+
+## Approche
+
+J'ai construit un système en trois étapes :
+
+1. **Import automatique des données** — Les données fournisseurs (prix, délais, volumes) sont extraites et normalisées automatiquement, remplaçant la phase manuelle d'extraction.
+2. **Génération de suggestions** — Un modèle analyse les données historiques, les tendances de consommation et les contraintes logistiques pour proposer des suggestions de commande chiffrées.
+3. **Validation simplifiée** — L'équipe review les suggestions sur un tableau de bord unifié et valide en un clic, avec possibilité d'ajustement avant confirmation.
+
+## Obstacles
+
+- **Qualité des données sources** — Les données fournisseurs arrivaient dans des formats hétérogènes (CSV, PDF, emails). Un pipeline de nettoyage a été mis en place pour normaliser les entrées.
+- **Confiance de l'équipe** — Passer de décisions collectives à des suggestions automatisées a nécessité une phase de calibration, où les suggestions étaient comparées aux décisions manuelles sur trois cycles historiques.
+- **Gestion des exceptions** — Certains produits nécessitent des règles spécifiques (minimum de commande, contrats pluriannuels). Le système intègre des règles métier configurables.
+
+## Résultat
+
+Le cycle de planification est passé de deux semaines à deux jours. Les erreurs de calcul ont été éliminées. L'équipe consacre désormais son temps à l'analyse stratégique plutôt qu'à l'extraction de données.
