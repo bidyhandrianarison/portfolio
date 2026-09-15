@@ -146,6 +146,11 @@ export function TimelineEntry({
               <h3 className="mt-1 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
                 {entry.title[lang] ?? entry.title.fr}
               </h3>
+              {entry.organization?.[lang] && (
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  {entry.organization[lang]}
+                </p>
+              )}
             </div>
             <span
               className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${badge.color}`}
