@@ -2,7 +2,7 @@ import type { Skill } from "@/sanity/types";
 
 const categoryLabels: Record<string, { fr: string; en: string }> = {
   mobile: { fr: "Mobile", en: "Mobile" },
-  ia: { fr: "Intelligence Artificielle", en: "AI" },
+  ia: { fr: "IA", en: "AI" },
   design: { fr: "Design", en: "Design" },
   data: { fr: "Data", en: "Data" },
   infra: { fr: "Infrastructure", en: "Infrastructure" },

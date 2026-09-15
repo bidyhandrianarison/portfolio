@@ -133,7 +133,7 @@ export function SkillsWordCloud({ skills, locale }: SkillsWordCloudProps) {
             hoveredSkill !== null && hoveredSkill !== skill._id;
 
           return (
-            <span
+            <button
               key={skill._id}
               className={`skill-word inline-flex items-center gap-1.5 rounded-lg px-3 py-1 font-sans select-none ${
                 isHovered
@@ -150,8 +150,6 @@ export function SkillsWordCloud({ skills, locale }: SkillsWordCloudProps) {
               }}
               onMouseEnter={() => setHoveredSkill(skill._id)}
               onMouseLeave={() => setHoveredSkill(null)}
-              role="button"
-              tabIndex={0}
               aria-label={`${skill.name} — ${categoryLabels[skill.category]?.[lang] ?? skill.category}`}
             >
               {skill.name}
@@ -171,7 +169,7 @@ export function SkillsWordCloud({ skills, locale }: SkillsWordCloudProps) {
                         : "Intermediate"}
                 </span>
               )}
-            </span>
+            </button>
           );
         })}
       </div>

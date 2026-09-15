@@ -34,25 +34,31 @@ export function GlitchReveal({
     const el = ref.current;
     if (!el) return;
 
+    let glitchTimer: ReturnType<typeof setTimeout> | null = null;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           const timer = setTimeout(() => {
             setState("glitching");
-            const glitchTimer = setTimeout(() => {
+            glitchTimer = setTimeout(() => {
               setState("visible");
             }, 400);
-            return () => clearTimeout(glitchTimer);
           }, delay);
           observer.unobserve(el);
-          return () => clearTimeout(timer);
+          outerTimer = timer;
         }
       },
       { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
     );
 
+    let outerTimer: ReturnType<typeof setTimeout> | null = null;
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (outerTimer) clearTimeout(outerTimer);
+      if (glitchTimer) clearTimeout(glitchTimer);
+    };
   }, [delay]);
 
   const isVisible = state === "visible";
