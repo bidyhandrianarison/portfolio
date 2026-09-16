@@ -52,7 +52,7 @@ export function ProfileHero({
                 src="/pdp.jpg"
                 alt={name}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 priority
                 sizes="(max-width: 640px) 144px, 176px"
               />
