@@ -27,10 +27,15 @@ export function ProfileHero({
   const { ref: heroRef, isVisible } = useScrollReveal();
 
   return (
-    <section ref={heroRef} className="relative mb-20 overflow-hidden">
-      <AnimatedBlob />
-      <SvgPattern />
-      <Particles />
+    <section ref={heroRef} className="relative mb-20">
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden
+      >
+        <AnimatedBlob />
+        <SvgPattern />
+        <Particles />
+      </div>
 
       <div className="relative z-10 flex flex-col items-center gap-10 py-12 sm:flex-row sm:items-center sm:py-20">
         {/* Profile image */}
