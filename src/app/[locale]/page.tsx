@@ -46,7 +46,7 @@ async function FeaturedProjects({ locale }: { locale: string }) {
   const featured = allProjects.filter((p) =>
     featuredSlugs.includes(p.slug.current),
   );
-  const i = t[locale as keyof typeof t];
+  const i = t[locale as keyof typeof t] ?? t.fr;
 
   return (
     <GlitchReveal>
@@ -95,7 +95,7 @@ async function OtherProjects({ locale }: { locale: string }) {
   const others = allProjects.filter(
     (p) => !featuredSlugs.includes(p.slug.current),
   );
-  const i = t[locale as keyof typeof t];
+  const i = t[locale as keyof typeof t] ?? t.fr;
 
   return (
     <GlitchReveal>
@@ -135,7 +135,7 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const i = t[locale as keyof typeof t];
+  const i = t[locale as keyof typeof t] ?? t.fr;
 
   let settings = null;
   try {
