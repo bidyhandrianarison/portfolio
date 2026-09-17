@@ -27,7 +27,7 @@ export function ProfileHero({
   const { ref: heroRef, isVisible } = useScrollReveal();
 
   return (
-    <section ref={heroRef} className="relative mb-20">
+    <section ref={heroRef} className="relative mb-10 sm:mb-16">
       {/* Fond full-bleed — s'étend sur toute la largeur */}
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"

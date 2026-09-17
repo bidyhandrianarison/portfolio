@@ -157,7 +157,7 @@ export default async function Home({
       />
 
       {/* Contenu principal */}
-      <div className="mx-auto max-w-6xl px-4 py-16">
+      <div className="mx-auto max-w-6xl px-4 pt-8 pb-16 sm:pt-12">
         {/* Featured Projects */}
         <Suspense fallback={<HomeSkeleton />}>
           <FeaturedProjects locale={locale} />
