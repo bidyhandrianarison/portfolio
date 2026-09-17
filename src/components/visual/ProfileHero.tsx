@@ -28,6 +28,7 @@ export function ProfileHero({
 
   return (
     <section ref={heroRef} className="relative mb-20">
+      {/* Fond full-bleed — s'étend sur toute la largeur */}
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden
@@ -37,7 +38,8 @@ export function ProfileHero({
         <Particles />
       </div>
 
-      <div className="relative z-10 flex flex-col items-center gap-10 py-12 sm:flex-row sm:items-center sm:py-20">
+      {/* Contenu centré dans le conteneur */}
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-12 sm:flex-row sm:items-center sm:py-20">
         {/* Profile image */}
         <div
           className={`shrink-0 transition-all duration-700 ${

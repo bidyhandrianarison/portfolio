@@ -145,8 +145,8 @@ export default async function Home({
   }
 
   return (
-    <main className="relative mx-auto max-w-6xl px-4 py-16">
-      {/* Hero */}
+    <main className="relative">
+      {/* Hero — full-bleed, sort du conteneur */}
       <ProfileHero
         name="Sarobidy Andrianarison"
         tagline={i.tagline}
@@ -156,33 +156,36 @@ export default async function Home({
         locale={locale}
       />
 
-      {/* Featured Projects */}
-      <Suspense fallback={<HomeSkeleton />}>
-        <FeaturedProjects locale={locale} />
-      </Suspense>
+      {/* Contenu principal */}
+      <div className="mx-auto max-w-6xl px-4 py-16">
+        {/* Featured Projects */}
+        <Suspense fallback={<HomeSkeleton />}>
+          <FeaturedProjects locale={locale} />
+        </Suspense>
 
-      {/* Other Projects */}
-      <Suspense fallback={<HomeSkeleton />}>
-        <OtherProjects locale={locale} />
-      </Suspense>
+        {/* Other Projects */}
+        <Suspense fallback={<HomeSkeleton />}>
+          <OtherProjects locale={locale} />
+        </Suspense>
 
-      {/* Contact CTA */}
-      <GlitchReveal>
-        <section className="rounded-2xl bg-neutral-100 p-8 text-center dark:bg-neutral-900">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            {i.contactHeading}
-          </h2>
-          <p className="mt-2 text-neutral-600 dark:text-neutral-400">
-            {i.contactText}
-          </p>
-          <Link
-            href={`/${locale}/contact`}
-            className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 mt-6 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium text-white focus:ring-2 focus:ring-offset-2 focus:outline-none"
-          >
-            {i.contact}
-          </Link>
-        </section>
-      </GlitchReveal>
+        {/* Contact CTA */}
+        <GlitchReveal>
+          <section className="rounded-2xl bg-neutral-100 p-8 text-center dark:bg-neutral-900">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              {i.contactHeading}
+            </h2>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              {i.contactText}
+            </p>
+            <Link
+              href={`/${locale}/contact`}
+              className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 mt-6 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium text-white focus:ring-2 focus:ring-offset-2 focus:outline-none"
+            >
+              {i.contact}
+            </Link>
+          </section>
+        </GlitchReveal>
+      </div>
     </main>
   );
 }
