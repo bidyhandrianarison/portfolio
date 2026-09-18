@@ -1,3 +1,9 @@
+export const featuredSlugs: string[] = [
+  "assistant-emails",
+  "automatisation-commandes",
+  "compte-rendus",
+];
+
 export interface Project {
   slug: string;
   title: string;

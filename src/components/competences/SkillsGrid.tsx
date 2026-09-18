@@ -1,18 +1,5 @@
 import type { Skill } from "@/sanity/types";
-
-const categoryLabels: Record<string, { fr: string; en: string }> = {
-  mobile: { fr: "Mobile", en: "Mobile" },
-  ia: { fr: "IA", en: "AI" },
-  design: { fr: "Design", en: "Design" },
-  data: { fr: "Data", en: "Data" },
-  infra: { fr: "Infrastructure", en: "Infrastructure" },
-};
-
-const proficiencyLabels: Record<string, { fr: string; en: string }> = {
-  expert: { fr: "Expert", en: "Expert" },
-  advanced: { fr: "Avancé", en: "Advanced" },
-  intermediate: { fr: "Intermédiaire", en: "Intermediate" },
-};
+import { categoryLabels, proficiencyLabels } from "@/lib/constants/skills";
 
 const proficiencyColors: Record<string, string> = {
   expert:

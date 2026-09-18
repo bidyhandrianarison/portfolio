@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import type { Project } from "@/lib/content/projects";
+import type { Project } from "@/sanity/types";
 import { MermaidDiagram } from "./MermaidDiagram";
 import { BeforeAfterToggle } from "./BeforeAfterToggle";
-import { caseStudyComponents } from "./CaseStudyMDXComponents";
+import { PortableTextContent } from "./PortableTextContent";
 
 const t = {
   fr: {
@@ -26,11 +25,7 @@ const t = {
   },
 } as const;
 
-function MetricsBar({
-  metrics,
-}: {
-  metrics: NonNullable<Project["frontmatter"]["metrics"]>;
-}) {
+function MetricsBar({ metrics }: { metrics: NonNullable<Project["metrics"]> }) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
       {metrics.map((m) => (
@@ -51,7 +46,7 @@ function MetricsBar({
 function CodeSnippet({
   snippet,
 }: {
-  snippet: NonNullable<Project["frontmatter"]["codeSnippets"]>[number];
+  snippet: NonNullable<Project["codeSnippets"]>[number];
 }) {
   return (
     <div className="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
@@ -78,10 +73,9 @@ export function CaseStudyTemplate({
   locale: string;
 }) {
   const i = t[locale as keyof typeof t] ?? t.fr;
-  const { frontmatter: fm } = project;
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-16">
+    <main className="mx-auto max-w-6xl px-4 py-16">
       <Link
         href={`/${locale}/projects`}
         className="text-primary-600 hover:text-primary-700 mb-8 inline-block text-sm"
@@ -91,16 +85,20 @@ export function CaseStudyTemplate({
 
       <header className="mb-12">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          {fm.title}
+          {project.title[locale as keyof typeof project.title] ??
+            project.title.fr}
         </h1>
         <p className="mt-2 text-neutral-500 dark:text-neutral-400">
-          {fm.role} · {fm.period}
+          {project.role && project.period
+            ? `${project.role} · ${project.period}`
+            : project.role || project.period || ""}
         </p>
         <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
-          {fm.description}
+          {project.description[locale as keyof typeof project.description] ??
+            project.description.fr}
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
-          {fm.tags.map((tag) => (
+          {project.tags.map((tag) => (
             <span
               key={tag}
               className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-xs font-medium"
@@ -110,9 +108,9 @@ export function CaseStudyTemplate({
           ))}
         </div>
         <div className="mt-6 flex gap-3">
-          {fm.repoUrl && (
+          {project.repoUrl && (
             <a
-              href={fm.repoUrl}
+              href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-primary-600 hover:bg-primary-700 rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
@@ -120,9 +118,9 @@ export function CaseStudyTemplate({
               {i.repo}
             </a>
           )}
-          {fm.demoUrl && (
+          {project.demoUrl && (
             <a
-              href={fm.demoUrl}
+              href={project.demoUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
@@ -133,51 +131,69 @@ export function CaseStudyTemplate({
         </div>
       </header>
 
-      {fm.confidential && (
+      {project.confidential && (
         <div className="border-warning-300 bg-warning-50 dark:border-warning-800 dark:bg-warning-950/30 mb-8 rounded-lg border p-4">
           <p className="text-warning-800 dark:text-warning-200 text-sm font-medium">
             ⚠ Ce projet contient des données sous NDA. Les détails sensibles ont
             été masqués.
-            {fm.confidentialNote && ` ${fm.confidentialNote}`}
+            {project.confidentialNote && ` ${project.confidentialNote}`}
           </p>
         </div>
       )}
 
-      {fm.metrics && <MetricsBar metrics={fm.metrics} />}
-
-      {fm.beforeAfter && (
-        <section className="mt-12">
-          <h2 className="mb-4 text-xl font-semibold">{i.result}</h2>
-          <BeforeAfterToggle data={fm.beforeAfter} />
-        </section>
+      {project.metrics && project.metrics.length > 0 && (
+        <MetricsBar metrics={project.metrics} />
       )}
 
-      {fm.architecture && (
+      {project.beforeAfter &&
+        (project.beforeAfter.beforeContent ||
+          project.beforeAfter.afterContent) && (
+          <section className="mt-12">
+            <h2 className="mb-4 text-xl font-semibold">{i.result}</h2>
+            <BeforeAfterToggle
+              data={{
+                beforeLabel:
+                  project.beforeAfter.beforeLabel ||
+                  (locale === "en" ? "Before" : "Avant"),
+                afterLabel:
+                  project.beforeAfter.afterLabel ||
+                  (locale === "en" ? "After" : "Après"),
+                beforeContent: project.beforeAfter.beforeContent || "",
+                afterContent: project.beforeAfter.afterContent || "",
+              }}
+            />
+          </section>
+        )}
+
+      {project.architecture?.mermaid && (
         <section className="mt-12">
           <h2 className="mb-4 text-xl font-semibold">{i.solution}</h2>
-          <MermaidDiagram chart={fm.architecture.mermaid} />
+          <MermaidDiagram chart={project.architecture.mermaid} />
         </section>
       )}
 
-      {fm.codeSnippets && fm.codeSnippets.length > 0 && (
+      {project.codeSnippets && project.codeSnippets.length > 0 && (
         <section className="mt-12">
           <h2 className="mb-4 text-xl font-semibold">{i.contribution}</h2>
           <div className="space-y-4">
-            {fm.codeSnippets.map((snippet) => (
+            {project.codeSnippets.map((snippet) => (
               <CodeSnippet key={snippet.path} snippet={snippet} />
             ))}
           </div>
         </section>
       )}
 
-      <article className="mt-12 max-w-3xl">
-        {project.content && (
-          <MDXRemote
-            source={project.content}
-            components={caseStudyComponents}
+      {project.body && (
+        <section className="mt-12">
+          <PortableTextContent
+            value={
+              project.body[locale as keyof typeof project.body] ??
+              project.body.fr ??
+              []
+            }
           />
-        )}
-      </article>
+        </section>
+      )}
     </main>
   );
 }

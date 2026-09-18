@@ -21,6 +21,73 @@ export interface Persona {
   order: number;
 }
 
+export interface ProjectHero {
+  headline?: string;
+  subtext?: string;
+  image?: {
+    asset: {
+      _ref: string;
+      url: string;
+      metadata?: {
+        lqip?: string;
+        dimensions?: { width: number; height: number };
+      };
+    };
+    alt: string;
+    hotspot?: { x: number; y: number; height: number; width: number };
+  };
+}
+
+export interface ProjectArchitecture {
+  mermaid?: string;
+  nodes?: Array<{
+    id: string;
+    label: string;
+    type?: "file" | "route" | "external";
+    url?: string;
+  }>;
+}
+
+export interface ProjectMetric {
+  label: string;
+  value: string;
+  baseline?: string;
+  trend?: "up" | "down" | "neutral";
+}
+
+export interface ProjectBeforeAfter {
+  beforeLabel?: string;
+  afterLabel?: string;
+  beforeContent?: string;
+  afterContent?: string;
+}
+
+export interface ProjectCodeSnippet {
+  path: string;
+  language: string;
+  code?: string;
+  githubUrl?: string;
+}
+
+export interface PortableTextBlock {
+  _type: "block";
+  _key: string;
+  style?: "normal" | "h2" | "h3" | "blockquote";
+  list?: "bullet" | "number";
+  children: Array<{
+    _type: "span";
+    _key: string;
+    text: string;
+    marks?: string[];
+  }>;
+  markDefs?: Array<{
+    _type: string;
+    _key: string;
+    href?: string;
+    openInNewTab?: boolean;
+  }>;
+}
+
 export interface Project {
   _id: string;
   _type: "project";
@@ -31,6 +98,20 @@ export interface Project {
   period: string;
   tags: string[];
   order: number;
+  featured?: boolean;
+  hero?: ProjectHero;
+  architecture?: ProjectArchitecture;
+  metrics?: ProjectMetric[];
+  beforeAfter?: ProjectBeforeAfter;
+  codeSnippets?: ProjectCodeSnippet[];
+  confidential?: boolean;
+  confidentialNote?: string;
+  repoUrl?: string;
+  demoUrl?: string;
+  body?: {
+    fr?: PortableTextBlock[];
+    en?: PortableTextBlock[];
+  };
 }
 
 export interface Skill {
@@ -41,13 +122,37 @@ export interface Skill {
   proficiency: "expert" | "advanced" | "intermediate";
 }
 
+export interface CertificationDescription {
+  why?: string;
+  what?: string;
+  result?: string;
+}
+
+export interface CertificationImage {
+  asset: {
+    _ref: string;
+    url: string;
+    metadata?: {
+      lqip?: string;
+      dimensions?: { width: number; height: number };
+    };
+  };
+  alt: string;
+  hotspot?: { x: number; y: number; height: number; width: number };
+}
+
 export interface Certification {
   _id: string;
   _type: "certification";
   name: string;
+  slug: { current: string };
   issuer: string;
   date: string;
+  category: "ia" | "mobile" | "web" | "cloud" | "design";
+  description?: CertificationDescription;
+  image?: CertificationImage;
   url?: string;
+  featured?: boolean;
   order: number;
 }
 

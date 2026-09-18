@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import type { Skill } from "@/sanity/types";
+import { categoryLabels } from "@/lib/constants/skills";
 
 interface SkillsWordCloudProps {
   skills: Skill[];
@@ -48,14 +49,6 @@ const levelWeight: Record<string, number> = {
   intermediate: 300,
   advanced: 500,
   expert: 700,
-};
-
-const categoryLabels: Record<string, { fr: string; en: string }> = {
-  mobile: { fr: "Mobile", en: "Mobile" },
-  ia: { fr: "IA", en: "AI" },
-  design: { fr: "Design", en: "Design" },
-  data: { fr: "Data", en: "Data" },
-  infra: { fr: "Infrastructure", en: "Infrastructure" },
 };
 
 export function SkillsWordCloud({ skills, locale }: SkillsWordCloudProps) {

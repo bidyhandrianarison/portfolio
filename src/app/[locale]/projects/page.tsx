@@ -2,12 +2,7 @@ import { Suspense } from "react";
 import { getProjects } from "@/lib/sanity/queries/projects";
 import { HomeSkeleton } from "@/components/ui/skeleton";
 import { ProjectCard } from "@/components/projects/ProjectCard";
-
-const featuredSlugs = [
-  "assistant-emails",
-  "automatisation-commandes",
-  "compte-rendus",
-];
+import { featuredSlugs } from "@/lib/constants/projects";
 
 const t = {
   fr: {

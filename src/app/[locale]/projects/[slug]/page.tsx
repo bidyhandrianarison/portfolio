@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
-import { getAllProjects, getProjectBySlug } from "@/lib/content/projects";
+import { getProjects, getProjectBySlug } from "@/lib/sanity/queries/projects";
 import { CaseStudyTemplate } from "@/components/projects/CaseStudyTemplate";
+import { ProjectDetailTemplate } from "@/components/projects/ProjectDetailTemplate";
+import { featuredSlugs } from "@/lib/constants/projects";
 
-export function generateStaticParams() {
-  const frProjects = getAllProjects("fr");
-  const enProjects = getAllProjects("en");
-  const allSlugs = new Set([
-    ...frProjects.map((p) => p.frontmatter.slug),
-    ...enProjects.map((p) => p.frontmatter.slug),
-  ]);
-  return Array.from(allSlugs).map((slug) => ({ slug }));
+const supportedLocales = ["fr", "en"] as const;
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return supportedLocales.flatMap((locale) =>
+    projects.map((p) => ({ slug: p.slug.current, locale })),
+  );
 }
 
 export async function generateMetadata({
@@ -18,12 +19,17 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale } = await params;
-  const project = getProjectBySlug(slug, locale);
+  if (!supportedLocales.includes(locale as (typeof supportedLocales)[number])) {
+    return {};
+  }
+  const project = await getProjectBySlug(slug);
   if (!project) return {};
 
   return {
-    title: `${project.frontmatter.title} — Sarobidy`,
-    description: project.frontmatter.description,
+    title: `${project.title[locale as keyof typeof project.title] ?? project.title.fr} — Sarobidy`,
+    description:
+      project.description[locale as keyof typeof project.description] ??
+      project.description.fr,
   };
 }
 
@@ -33,8 +39,17 @@ export default async function ProjectPage({
   params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug, locale } = await params;
-  const project = getProjectBySlug(slug, locale);
+  if (!supportedLocales.includes(locale as (typeof supportedLocales)[number])) {
+    notFound();
+  }
+  const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
-  return <CaseStudyTemplate project={project} locale={locale} />;
+  const isFeatured = project.featured ?? featuredSlugs.includes(slug);
+
+  return isFeatured ? (
+    <CaseStudyTemplate project={project} locale={locale} />
+  ) : (
+    <ProjectDetailTemplate project={project} locale={locale} />
+  );
 }
