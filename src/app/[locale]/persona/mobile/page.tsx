@@ -22,6 +22,9 @@ export async function generateMetadata({
       locale === "fr"
         ? "Engagez un ingénieur mobile qui livre vite, écrit des tests, et fait le pont avec l'IA/Design."
         : "Hire a mobile engineer who ships fast, writes tests, and bridges with AI/Design.",
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/persona/mobile`,
+    },
   };
 }
 

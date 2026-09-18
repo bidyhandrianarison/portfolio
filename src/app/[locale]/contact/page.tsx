@@ -31,6 +31,9 @@ export async function generateMetadata({
   return {
     title: i.title,
     description: i.description,
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/contact`,
+    },
   };
 }
 

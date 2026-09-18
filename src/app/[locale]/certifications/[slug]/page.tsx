@@ -42,6 +42,9 @@ export async function generateMetadata({
     title: `${certification.name} — ${certification.issuer}`,
     description:
       certification.description?.why || `Certification ${certification.name}`,
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/certifications/${slug}`,
+    },
   };
 }
 

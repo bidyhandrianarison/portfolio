@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getProjects } from "@/lib/sanity/queries/projects";
 import { HomeSkeleton } from "@/components/ui/skeleton";
@@ -7,6 +8,8 @@ import { featuredSlugs } from "@/lib/constants/projects";
 const t = {
   fr: {
     title: "Projets",
+    description:
+      "Projets et études de cas de Sarobidy Andrianarison — développeur mobile, ingénieur IA et UI/UX Designer.",
     featuredHeading: "Études de cas",
     featuredLabel: "Études de cas",
     otherHeading: "Autres projets",
@@ -14,12 +17,31 @@ const t = {
   },
   en: {
     title: "Projects",
+    description:
+      "Projects and case studies by Sarobidy Andrianarison — mobile developer, AI engineer, and UI/UX Designer.",
     featuredHeading: "Case Studies",
     featuredLabel: "Case Studies",
     otherHeading: "Other Projects",
     otherLabel: "Other Projects",
   },
 } as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const i = t[locale as keyof typeof t] ?? t.fr;
+
+  return {
+    title: i.title,
+    description: i.description,
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/projects`,
+    },
+  };
+}
 
 function FeaturedProjects({
   locale,

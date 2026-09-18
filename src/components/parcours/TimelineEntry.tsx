@@ -66,7 +66,7 @@ export function TimelineEntry({
             {entry.image && (
               <Image
                 src={urlFor(entry.image).width(96).height(96).url()}
-                alt={entry.title[lang] ?? ""}
+                alt={entry.title[lang] ?? entry.title.fr}
                 width={48}
                 height={48}
                 className="shrink-0 rounded-full bg-white object-cover ring-2 ring-white dark:bg-neutral-100 dark:ring-neutral-950"
@@ -133,7 +133,7 @@ export function TimelineEntry({
             {entry.image && (
               <Image
                 src={urlFor(entry.image).width(96).height(96).url()}
-                alt={entry.title[lang] ?? ""}
+                alt={entry.title[lang] ?? entry.title.fr}
                 width={48}
                 height={48}
                 className="shrink-0 rounded-full bg-white object-cover ring-2 ring-white dark:bg-neutral-100 dark:ring-neutral-950"

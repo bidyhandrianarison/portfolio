@@ -22,6 +22,9 @@ export async function generateMetadata({
       locale === "fr"
         ? "RAG production-ready, systèmes d'agents, pipelines d'évaluation. Construisons votre produit IA."
         : "Production-grade RAG, agent systems, evaluation pipelines. Let's build your AI product.",
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/persona/ia`,
+    },
   };
 }
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -11,6 +12,25 @@ import { GlitchReveal } from "@/components/visual/GlitchReveal";
 import { featuredSlugs } from "@/lib/constants/projects";
 import { CATEGORY_LABELS } from "@/lib/constants/certifications";
 import { urlFor } from "@/lib/sanity/image";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const description =
+    locale === "fr"
+      ? "Ingénieur hybride construisant des applications mobiles, des systèmes IA et des design systems."
+      : "Hybrid engineer building mobile apps, AI systems, and design systems.";
+
+  return {
+    description,
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}`,
+    },
+  };
+}
 
 const t = {
   fr: {

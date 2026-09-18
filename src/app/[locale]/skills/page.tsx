@@ -32,6 +32,9 @@ export async function generateMetadata({
       locale === "fr"
         ? "Compétences techniques et certifications de Sarobidy Andrianarison"
         : "Sarobidy Andrianarison's technical skills and certifications",
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/skills`,
+    },
   };
 }
 

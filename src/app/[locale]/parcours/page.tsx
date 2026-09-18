@@ -30,6 +30,9 @@ export async function generateMetadata({
       locale === "fr"
         ? "Parcours académique et professionnel de Sarobidy Andrianarison."
         : "Academic and professional journey of Sarobidy Andrianarison.",
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/parcours`,
+    },
   };
 }
 

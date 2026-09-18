@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { I18nProvider } from "@/components/providers/i18n-provider";
@@ -28,7 +29,6 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}`,
       languages: {
         fr: "https://sarobidy-andrianarison.netlify.app/fr",
         en: "https://sarobidy-andrianarison.netlify.app/en",
@@ -53,9 +53,43 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
+      images: ["/og.png"],
     },
   };
 }
+
+const jsonLd = (locale: string) => ({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      name: "Sarobidy Andrianarison",
+      jobTitle:
+        locale === "fr"
+          ? "Développeur Mobile · Ingénieur IA · UI/UX Designer"
+          : "Mobile Dev · AI Engineer · UI/UX Designer",
+      url: "https://sarobidy-andrianarison.netlify.app",
+      sameAs: [
+        "https://github.com/bidyhandrianarison",
+        "https://linkedin.com/in/n-sarobidy-andrianarison-075554203",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      name: "Sarobidy Andrianarison",
+      url: "https://sarobidy-andrianarison.netlify.app",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate:
+            "https://sarobidy-andrianarison.netlify.app/{locale}/projects?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ],
+});
 
 export default async function LocaleLayout({
   children,
@@ -68,6 +102,14 @@ export default async function LocaleLayout({
 
   return (
     <I18nProvider locale={locale}>
+      <Script
+        id="json-ld"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd(locale)),
+        }}
+      />
       <Header locale={locale} />
       <div id="main-content" className="flex-1">
         {children}

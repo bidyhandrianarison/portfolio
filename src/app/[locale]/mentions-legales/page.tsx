@@ -92,7 +92,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const i = t[locale as keyof typeof t] ?? t.fr;
-  return { title: i.title };
+  return {
+    title: i.title,
+    description:
+      locale === "fr"
+        ? "Mentions légales du site sarobidy-andrianarison.netlify.app"
+        : "Legal notice for sarobidy-andrianarison.netlify.app",
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/mentions-legales`,
+    },
+  };
 }
 
 export default async function LegalNoticePage({

@@ -30,6 +30,9 @@ export async function generateMetadata({
     description:
       project.description[locale as keyof typeof project.description] ??
       project.description.fr,
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/projects/${slug}`,
+    },
   };
 }
 

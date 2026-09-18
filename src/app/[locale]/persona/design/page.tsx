@@ -22,6 +22,9 @@ export async function generateMetadata({
       locale === "fr"
         ? "Design tokens, bibliothèques de composants, Figma-to-code. Des systèmes que les développeurs utilisent vraiment."
         : "Design tokens, component libraries, Figma-to-code. Systems that developers actually use.",
+    alternates: {
+      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/persona/design`,
+    },
   };
 }
 

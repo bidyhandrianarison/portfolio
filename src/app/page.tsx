@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import { personas } from "@/lib/constants/personas";
 import { PersonaCard } from "@/components/layout/PersonaCard";
+
+export const metadata: Metadata = {
+  title: "Sarobidy Andrianarison",
+  description:
+    "Ingénieur hybride construisant des applications mobiles, des systèmes IA et des design systems.",
+  alternates: {
+    languages: {
+      fr: "/fr",
+      en: "/en",
+    },
+  },
+};
 
 export default function Home() {
   return (

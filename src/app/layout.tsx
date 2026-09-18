@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { ThemeScript } from "@/components/providers/theme-script";
 import "./globals.css";
 
@@ -11,18 +10,6 @@ export const metadata: Metadata = {
   },
   description:
     "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & open to opportunities.",
-};
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Sarobidy Andrianarison",
-  jobTitle: "Mobile Dev · AI Engineer · UI/UX Designer",
-  url: "https://sarobidy-andrianarison.netlify.app",
-  sameAs: [
-    "https://github.com/bidyhandrianarison",
-    "https://linkedin.com/in/n-sarobidy-andrianarison-075554203",
-  ],
 };
 
 export default function RootLayout({
@@ -41,12 +28,6 @@ export default function RootLayout({
         />
       </head>
       <body className="flex min-h-screen flex-col">
-        <Script
-          id="json-ld"
-          type="application/ld+json"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
         <a
           href="#main-content"
           className="focus:bg-primary-600 sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[9999] focus:rounded-lg focus:px-4 focus:py-2 focus:text-white"

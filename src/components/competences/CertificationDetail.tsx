@@ -67,7 +67,7 @@ export function CertificationDetail({
         <div className="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
           <Image
             src={urlFor(certification.image).width(1200).height(800).url()}
-            alt={certification.image.alt}
+            alt={certification.image.alt || certification.name}
             width={1200}
             height={800}
             className="w-full object-contain"
