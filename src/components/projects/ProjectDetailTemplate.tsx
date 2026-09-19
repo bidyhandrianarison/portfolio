@@ -93,6 +93,10 @@ export function ProjectDetailTemplate({
             ? `${project.role} · ${project.period}`
             : project.role || project.period || ""}
         </p>
+        <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
+          {project.description[locale as keyof typeof project.description] ??
+            project.description.fr}
+        </p>
         <div className="mt-4 flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <span
