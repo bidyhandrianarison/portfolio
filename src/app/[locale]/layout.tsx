@@ -78,15 +78,6 @@ const jsonLd = (locale: string) => ({
       "@type": "WebSite",
       name: "Sarobidy Andrianarison",
       url: "https://sarobidy-andrianarison.netlify.app",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: {
-          "@type": "EntryPoint",
-          urlTemplate:
-            "https://sarobidy-andrianarison.netlify.app/{locale}/projects?q={search_term_string}",
-        },
-        "query-input": "required name=search_term_string",
-      },
     },
   ],
 });

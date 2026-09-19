@@ -5,73 +5,76 @@ import { getCertifications } from "@/lib/sanity/queries/certifications";
 const BASE_URL = "https://sarobidy-andrianarison.netlify.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [projects, certifications] = await Promise.all([
-    getProjects(),
-    getCertifications(),
-  ]);
+  let projects: Awaited<ReturnType<typeof getProjects>> = [];
+  let certifications: Awaited<ReturnType<typeof getCertifications>> = [];
 
-  const staticPages: MetadataRoute.Sitemap = [
+  try {
+    [projects, certifications] = await Promise.all([
+      getProjects(),
+      getCertifications(),
+    ]);
+  } catch {
+    // Graceful degradation: return static pages only
+  }
+
+  const locales = ["fr", "en"] as const;
+
+  const staticPages: MetadataRoute.Sitemap = locales.flatMap((locale) => [
     {
-      url: `${BASE_URL}/fr`,
+      url: `${BASE_URL}/${locale}`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "weekly" as const,
       priority: 1.0,
     },
     {
-      url: `${BASE_URL}/en`,
+      url: `${BASE_URL}/${locale}/projects`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${BASE_URL}/fr/projects`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "weekly" as const,
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/en/projects`,
+      url: `${BASE_URL}/${locale}/skills`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/fr/skills`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/en/skills`,
+      url: `${BASE_URL}/${locale}/parcours`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/fr/parcours`,
+      url: `${BASE_URL}/${locale}/contact`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/en/parcours`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/fr/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "monthly" as const,
       priority: 0.7,
     },
     {
-      url: `${BASE_URL}/en/contact`,
+      url: `${BASE_URL}/${locale}/persona/mobile`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
+      changeFrequency: "yearly" as const,
+      priority: 0.5,
     },
-  ];
+    {
+      url: `${BASE_URL}/${locale}/persona/ia`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/${locale}/persona/design`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/${locale}/mentions-legales`,
+      lastModified: new Date(),
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    },
+  ]);
 
   const projectPages: MetadataRoute.Sitemap = projects.flatMap((project) =>
     (["fr", "en"] as const).map((locale) => ({
