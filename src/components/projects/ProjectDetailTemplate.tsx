@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/sanity/types";
 import { urlFor } from "@/lib/sanity/image";
+import { MermaidDiagram } from "./MermaidDiagram";
+import { BeforeAfterToggle } from "./BeforeAfterToggle";
 import { PortableTextContent } from "./PortableTextContent";
 
 const t = {
@@ -9,13 +11,59 @@ const t = {
     back: "← Retour aux projets",
     repo: "Voir le code",
     demo: "Voir la démo",
+    solution: "Solution",
+    result: "Résultat",
+    contribution: "Contribution",
   },
   en: {
     back: "← Back to projects",
     repo: "View code",
     demo: "View demo",
+    solution: "Solution",
+    result: "Results",
+    contribution: "Contribution",
   },
 } as const;
+
+function MetricsBar({ metrics }: { metrics: NonNullable<Project["metrics"]> }) {
+  return (
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+      {metrics.map((m) => (
+        <div
+          key={m.label}
+          className="rounded-xl border border-neutral-200 bg-white p-4 text-center dark:border-neutral-800 dark:bg-neutral-950"
+        >
+          <p className="text-primary-600 text-2xl font-bold">{m.value}</p>
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+            {m.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CodeSnippet({
+  snippet,
+}: {
+  snippet: NonNullable<Project["codeSnippets"]>[number];
+}) {
+  return (
+    <div className="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
+      <div className="flex items-center justify-between border-b border-neutral-200 bg-neutral-100 px-4 py-2 dark:border-neutral-800 dark:bg-neutral-900">
+        <code className="text-xs text-neutral-600 dark:text-neutral-400">
+          {snippet.path}
+        </code>
+        <span className="text-xs text-neutral-400">{snippet.language}</span>
+      </div>
+      <pre className="overflow-x-auto p-4 text-sm">
+        <code className="font-mono text-neutral-800 dark:text-neutral-200">
+          {snippet.code}
+        </code>
+      </pre>
+    </div>
+  );
+}
 
 export function ProjectDetailTemplate({
   project,
@@ -89,6 +137,58 @@ export function ProjectDetailTemplate({
             className="h-auto w-full object-cover"
           />
         </div>
+      )}
+
+      {project.confidential && (
+        <div className="border-warning-300 bg-warning-50 dark:border-warning-800 dark:bg-warning-950/30 mb-8 rounded-lg border p-4">
+          <p className="text-warning-800 dark:text-warning-200 text-sm font-medium">
+            ⚠ Ce projet contient des données sous NDA. Les détails sensibles ont
+            été masqués.
+            {project.confidentialNote && ` ${project.confidentialNote}`}
+          </p>
+        </div>
+      )}
+
+      {project.metrics && project.metrics.length > 0 && (
+        <MetricsBar metrics={project.metrics} />
+      )}
+
+      {project.beforeAfter &&
+        (project.beforeAfter.beforeContent ||
+          project.beforeAfter.afterContent) && (
+          <section className="mt-12">
+            <h2 className="mb-4 text-xl font-semibold">{i.result}</h2>
+            <BeforeAfterToggle
+              data={{
+                beforeLabel:
+                  project.beforeAfter.beforeLabel ||
+                  (locale === "en" ? "Before" : "Avant"),
+                afterLabel:
+                  project.beforeAfter.afterLabel ||
+                  (locale === "en" ? "After" : "Après"),
+                beforeContent: project.beforeAfter.beforeContent || "",
+                afterContent: project.beforeAfter.afterContent || "",
+              }}
+            />
+          </section>
+        )}
+
+      {project.architecture?.mermaid && (
+        <section className="mt-12">
+          <h2 className="mb-4 text-xl font-semibold">{i.solution}</h2>
+          <MermaidDiagram chart={project.architecture.mermaid} />
+        </section>
+      )}
+
+      {project.codeSnippets && project.codeSnippets.length > 0 && (
+        <section className="mt-12">
+          <h2 className="mb-4 text-xl font-semibold">{i.contribution}</h2>
+          <div className="space-y-4">
+            {project.codeSnippets.map((snippet) => (
+              <CodeSnippet key={snippet.path} snippet={snippet} />
+            ))}
+          </div>
+        </section>
       )}
 
       {project.body && (
