@@ -18,7 +18,13 @@ interface SkillsGridProps {
 export function SkillsGrid({ skills, locale }: SkillsGridProps) {
   const lang = (locale === "en" ? "en" : "fr") as "fr" | "en";
 
-  const grouped = Object.groupBy(skills, (s) => s.category);
+  const grouped = skills.reduce(
+    (acc, s) => {
+      (acc[s.category] ??= []).push(s);
+      return acc;
+    },
+    {} as Record<string, Skill[]>,
+  );
 
   return (
     <div className="space-y-8">
