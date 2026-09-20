@@ -152,8 +152,8 @@ export default defineType({
         defineArrayMember({
           type: "object",
           fields: [
-            defineField({ name: "label", title: "Label", type: "string" }),
-            defineField({ name: "value", title: "Value", type: "string" }),
+            localeField("label", "Label"),
+            localeField("value", "Value"),
             defineField({
               name: "baseline",
               title: "Baseline",
@@ -180,30 +180,10 @@ export default defineType({
       title: "Before/After Comparison",
       type: "object",
       fields: [
-        defineField({
-          name: "beforeLabel",
-          title: "Before Label",
-          type: "string",
-          initialValue: "Before",
-        }),
-        defineField({
-          name: "afterLabel",
-          title: "After Label",
-          type: "string",
-          initialValue: "After",
-        }),
-        defineField({
-          name: "beforeContent",
-          title: "Before Content",
-          type: "text",
-          rows: 5,
-        }),
-        defineField({
-          name: "afterContent",
-          title: "After Content",
-          type: "text",
-          rows: 5,
-        }),
+        localeField("beforeLabel", "Before Label"),
+        localeField("afterLabel", "After Label"),
+        localeField("beforeContent", "Before Content", "text", { rows: 5 }),
+        localeField("afterContent", "After Content", "text", { rows: 5 }),
       ],
     }),
     defineField({

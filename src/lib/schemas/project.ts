@@ -61,9 +61,14 @@ const aiPipelineSchema = z
   })
   .optional();
 
+const localeStringSchema = z.union([
+  z.string(),
+  z.object({ fr: z.string(), en: z.string() }),
+]);
+
 const metricSchema = z.object({
-  label: z.string(),
-  value: z.string(),
+  label: localeStringSchema,
+  value: localeStringSchema,
   baseline: z.string().optional(),
   trend: z.enum(["up", "down", "neutral"]).optional(),
   threshold: z
@@ -108,10 +113,10 @@ export const projectFrontmatterSchema = z.object({
   metrics: z.array(metricSchema).optional(),
   beforeAfter: z
     .object({
-      beforeLabel: z.string(),
-      afterLabel: z.string(),
-      beforeContent: z.string(),
-      afterContent: z.string(),
+      beforeLabel: localeStringSchema,
+      afterLabel: localeStringSchema,
+      beforeContent: localeStringSchema,
+      afterContent: localeStringSchema,
     })
     .optional(),
   confidential: z.boolean().optional(),

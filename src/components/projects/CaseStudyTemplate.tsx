@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Project } from "@/sanity/types";
+import { resolveLocale } from "@/lib/utils/locale";
 import { MermaidDiagram } from "./MermaidDiagram";
 import { BeforeAfterToggle } from "./BeforeAfterToggle";
 import { PortableTextContent } from "./PortableTextContent";
@@ -25,17 +26,25 @@ const t = {
   },
 } as const;
 
-function MetricsBar({ metrics }: { metrics: NonNullable<Project["metrics"]> }) {
+function MetricsBar({
+  metrics,
+  locale,
+}: {
+  metrics: NonNullable<Project["metrics"]>;
+  locale: string;
+}) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-      {metrics.map((m) => (
+      {metrics.map((m, i) => (
         <div
-          key={m.label}
+          key={i}
           className="rounded-xl border border-neutral-200 bg-white p-4 text-center dark:border-neutral-800 dark:bg-neutral-950"
         >
-          <p className="text-primary-600 text-2xl font-bold">{m.value}</p>
+          <p className="text-primary-600 text-2xl font-bold">
+            {resolveLocale(m.value, locale)}
+          </p>
           <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-            {m.label}
+            {resolveLocale(m.label, locale)}
           </p>
         </div>
       ))}
@@ -142,24 +151,37 @@ export function CaseStudyTemplate({
       )}
 
       {project.metrics && project.metrics.length > 0 && (
-        <MetricsBar metrics={project.metrics} />
+        <MetricsBar metrics={project.metrics} locale={locale} />
       )}
 
       {project.beforeAfter &&
-        (project.beforeAfter.beforeContent ||
-          project.beforeAfter.afterContent) && (
+        (() => {
+          const bc = project.beforeAfter.beforeContent
+            ? resolveLocale(project.beforeAfter.beforeContent, locale)
+            : "";
+          const ac = project.beforeAfter.afterContent
+            ? resolveLocale(project.beforeAfter.afterContent, locale)
+            : "";
+          return bc || ac;
+        })() && (
           <section className="mt-12">
             <h2 className="mb-4 text-xl font-semibold">{i.result}</h2>
             <BeforeAfterToggle
               data={{
                 beforeLabel:
-                  project.beforeAfter.beforeLabel ||
-                  (locale === "en" ? "Before" : "Avant"),
+                  (project.beforeAfter.beforeLabel
+                    ? resolveLocale(project.beforeAfter.beforeLabel, locale)
+                    : null) || (locale === "en" ? "Before" : "Avant"),
                 afterLabel:
-                  project.beforeAfter.afterLabel ||
-                  (locale === "en" ? "After" : "Après"),
-                beforeContent: project.beforeAfter.beforeContent || "",
-                afterContent: project.beforeAfter.afterContent || "",
+                  (project.beforeAfter.afterLabel
+                    ? resolveLocale(project.beforeAfter.afterLabel, locale)
+                    : null) || (locale === "en" ? "After" : "Après"),
+                beforeContent: project.beforeAfter.beforeContent
+                  ? resolveLocale(project.beforeAfter.beforeContent, locale)
+                  : "",
+                afterContent: project.beforeAfter.afterContent
+                  ? resolveLocale(project.beforeAfter.afterContent, locale)
+                  : "",
               }}
             />
           </section>

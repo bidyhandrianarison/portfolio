@@ -9,6 +9,7 @@ export function localeField(
   name: string,
   title: string,
   type: "string" | "text" = "string",
+  options?: { rows?: number },
 ) {
   return defineField({
     name,
@@ -19,6 +20,7 @@ export function localeField(
         name: lang.id,
         title: lang.title,
         type,
+        ...(type === "text" && options?.rows ? { rows: options.rows } : {}),
       }),
     ),
   });

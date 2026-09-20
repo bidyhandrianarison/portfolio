@@ -49,17 +49,17 @@ export interface ProjectArchitecture {
 }
 
 export interface ProjectMetric {
-  label: string;
-  value: string;
+  label: LocaleString;
+  value: LocaleString;
   baseline?: string;
   trend?: "up" | "down" | "neutral";
 }
 
 export interface ProjectBeforeAfter {
-  beforeLabel?: string;
-  afterLabel?: string;
-  beforeContent?: string;
-  afterContent?: string;
+  beforeLabel?: LocaleString;
+  afterLabel?: LocaleString;
+  beforeContent?: LocaleString;
+  afterContent?: LocaleString;
 }
 
 export interface ProjectCodeSnippet {
