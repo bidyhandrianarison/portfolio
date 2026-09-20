@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity/client";
+import { getClient } from "@/lib/sanity/client";
 import type { Skill } from "@/sanity/types";
 
 const SKILLS_QUERY = `*[_type == "skill"] | order(order asc) {
@@ -10,5 +10,5 @@ const SKILLS_QUERY = `*[_type == "skill"] | order(order asc) {
 }`;
 
 export async function getSkills(): Promise<Skill[]> {
-  return client.fetch<Skill[]>(SKILLS_QUERY);
+  return getClient().fetch<Skill[]>(SKILLS_QUERY);
 }

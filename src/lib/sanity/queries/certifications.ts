@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity/client";
+import { getClient } from "@/lib/sanity/client";
 import type { Certification } from "@/sanity/types";
 
 const CERTIFICATIONS_QUERY = `*[_type == "certification"] | order(order asc) {
@@ -80,17 +80,17 @@ const CERTIFICATION_BY_SLUG_QUERY = `*[_type == "certification" && slug.current 
 }`;
 
 export async function getCertifications(): Promise<Certification[]> {
-  return client.fetch<Certification[]>(CERTIFICATIONS_QUERY);
+  return getClient().fetch<Certification[]>(CERTIFICATIONS_QUERY);
 }
 
 export async function getFeaturedCertifications(): Promise<Certification[]> {
-  return client.fetch<Certification[]>(FEATURED_CERTIFICATIONS_QUERY);
+  return getClient().fetch<Certification[]>(FEATURED_CERTIFICATIONS_QUERY);
 }
 
 export async function getCertificationBySlug(
   slug: string,
 ): Promise<Certification | null> {
-  return client.fetch<Certification | null>(CERTIFICATION_BY_SLUG_QUERY, {
+  return getClient().fetch<Certification | null>(CERTIFICATION_BY_SLUG_QUERY, {
     slug,
   });
 }

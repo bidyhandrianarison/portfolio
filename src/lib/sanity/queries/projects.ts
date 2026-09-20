@@ -1,5 +1,5 @@
 import { defineQuery } from "groq";
-import { client } from "@/lib/sanity/client";
+import { getClient } from "@/lib/sanity/client";
 import type { Project } from "@/sanity/types";
 
 export const PROJECTS_QUERY =
@@ -57,9 +57,9 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(
 );
 
 export async function getProjects(): Promise<Project[]> {
-  return client.fetch<Project[]>(PROJECTS_QUERY);
+  return getClient().fetch<Project[]>(PROJECTS_QUERY);
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
-  return client.fetch<Project | null>(PROJECT_BY_SLUG_QUERY, { slug });
+  return getClient().fetch<Project | null>(PROJECT_BY_SLUG_QUERY, { slug });
 }

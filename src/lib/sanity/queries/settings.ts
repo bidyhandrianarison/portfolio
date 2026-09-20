@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity/client";
+import { getClient } from "@/lib/sanity/client";
 import type { Settings } from "@/sanity/types";
 
 const SETTINGS_QUERY = `*[_type == "settings"][0] {
@@ -11,5 +11,5 @@ const SETTINGS_QUERY = `*[_type == "settings"][0] {
 }`;
 
 export async function getSettings(): Promise<Settings | null> {
-  return client.fetch<Settings | null>(SETTINGS_QUERY);
+  return getClient().fetch<Settings | null>(SETTINGS_QUERY);
 }

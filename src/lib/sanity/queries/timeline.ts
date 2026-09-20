@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanity/client";
+import { getClient } from "@/lib/sanity/client";
 import type { Timeline } from "@/sanity/types";
 
 const TIMELINE_QUERY = `*[_type == "timeline"] | order(dateStart desc) {
@@ -16,5 +16,5 @@ const TIMELINE_QUERY = `*[_type == "timeline"] | order(dateStart desc) {
 }`;
 
 export async function getTimelineEntries(): Promise<Timeline[]> {
-  return client.fetch<Timeline[]>(TIMELINE_QUERY);
+  return getClient().fetch<Timeline[]>(TIMELINE_QUERY);
 }
