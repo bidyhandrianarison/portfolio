@@ -80,17 +80,23 @@ const CERTIFICATION_BY_SLUG_QUERY = `*[_type == "certification" && slug.current 
 }`;
 
 export async function getCertifications(): Promise<Certification[]> {
-  return getClient().fetch<Certification[]>(CERTIFICATIONS_QUERY);
+  const client = getClient();
+  if (!client) return [];
+  return client.fetch<Certification[]>(CERTIFICATIONS_QUERY);
 }
 
 export async function getFeaturedCertifications(): Promise<Certification[]> {
-  return getClient().fetch<Certification[]>(FEATURED_CERTIFICATIONS_QUERY);
+  const client = getClient();
+  if (!client) return [];
+  return client.fetch<Certification[]>(FEATURED_CERTIFICATIONS_QUERY);
 }
 
 export async function getCertificationBySlug(
   slug: string,
 ): Promise<Certification | null> {
-  return getClient().fetch<Certification | null>(CERTIFICATION_BY_SLUG_QUERY, {
+  const client = getClient();
+  if (!client) return null;
+  return client.fetch<Certification | null>(CERTIFICATION_BY_SLUG_QUERY, {
     slug,
   });
 }

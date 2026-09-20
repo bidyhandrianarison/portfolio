@@ -10,5 +10,7 @@ const SKILLS_QUERY = `*[_type == "skill"] | order(order asc) {
 }`;
 
 export async function getSkills(): Promise<Skill[]> {
-  return getClient().fetch<Skill[]>(SKILLS_QUERY);
+  const client = getClient();
+  if (!client) return [];
+  return client.fetch<Skill[]>(SKILLS_QUERY);
 }

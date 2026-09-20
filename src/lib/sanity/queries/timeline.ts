@@ -16,5 +16,7 @@ const TIMELINE_QUERY = `*[_type == "timeline"] | order(dateStart desc) {
 }`;
 
 export async function getTimelineEntries(): Promise<Timeline[]> {
-  return getClient().fetch<Timeline[]>(TIMELINE_QUERY);
+  const client = getClient();
+  if (!client) return [];
+  return client.fetch<Timeline[]>(TIMELINE_QUERY);
 }

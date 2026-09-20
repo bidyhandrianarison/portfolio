@@ -11,5 +11,7 @@ const SETTINGS_QUERY = `*[_type == "settings"][0] {
 }`;
 
 export async function getSettings(): Promise<Settings | null> {
-  return getClient().fetch<Settings | null>(SETTINGS_QUERY);
+  const client = getClient();
+  if (!client) return null;
+  return client.fetch<Settings | null>(SETTINGS_QUERY);
 }

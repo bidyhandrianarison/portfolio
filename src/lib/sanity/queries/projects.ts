@@ -57,9 +57,13 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(
 );
 
 export async function getProjects(): Promise<Project[]> {
-  return getClient().fetch<Project[]>(PROJECTS_QUERY);
+  const client = getClient();
+  if (!client) return [];
+  return client.fetch<Project[]>(PROJECTS_QUERY);
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
-  return getClient().fetch<Project | null>(PROJECT_BY_SLUG_QUERY, { slug });
+  const client = getClient();
+  if (!client) return null;
+  return client.fetch<Project | null>(PROJECT_BY_SLUG_QUERY, { slug });
 }
