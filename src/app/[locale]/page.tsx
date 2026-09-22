@@ -68,9 +68,14 @@ const t = {
   },
 } as const;
 
-async function FeaturedProjects({ locale }: { locale: string }) {
-  const allProjects = await getProjects();
-  const featured = allProjects.filter((p) =>
+async function FeaturedProjects({
+  locale,
+  projects,
+}: {
+  locale: string;
+  projects: Awaited<ReturnType<typeof getProjects>>;
+}) {
+  const featured = projects.filter((p) =>
     featuredSlugs.includes(p.slug.current),
   );
   const i = t[locale as keyof typeof t] ?? t.fr;
@@ -162,7 +167,7 @@ async function FeaturedCertifications({ locale }: { locale: string }) {
                     src={urlFor(cert.image).width(600).height(300).url()}
                     alt={cert.image.alt || (resolveLocale(cert.name) ?? "")}
                     fill
-                    className="object-cover opacity-20 transition-opacity group-hover:opacity-30"
+                    className="object-cover opacity-60 transition-opacity group-hover:opacity-80"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
@@ -204,9 +209,14 @@ async function FeaturedCertifications({ locale }: { locale: string }) {
   );
 }
 
-async function OtherProjects({ locale }: { locale: string }) {
-  const allProjects = await getProjects();
-  const others = allProjects.filter(
+async function OtherProjects({
+  locale,
+  projects,
+}: {
+  locale: string;
+  projects: Awaited<ReturnType<typeof getProjects>>;
+}) {
+  const others = projects.filter(
     (p) => !featuredSlugs.includes(p.slug.current),
   );
   const i = t[locale as keyof typeof t] ?? t.fr;
@@ -264,6 +274,13 @@ export default async function Home({
     console.error("[home] Failed to fetch settings:", err);
   }
 
+  let projects: Awaited<ReturnType<typeof getProjects>> = [];
+  try {
+    projects = await getProjects();
+  } catch (err) {
+    console.error("[home] Failed to fetch projects:", err);
+  }
+
   return (
     <main className="relative">
       {/* Hero — full-bleed, sort du conteneur */}
@@ -280,12 +297,12 @@ export default async function Home({
       <div className="mx-auto max-w-6xl px-4 pt-8 pb-16 sm:pt-12">
         {/* Featured Projects */}
         <Suspense fallback={<HomeSkeleton />}>
-          <FeaturedProjects locale={locale} />
+          <FeaturedProjects locale={locale} projects={projects} />
         </Suspense>
 
         {/* Other Projects */}
         <Suspense fallback={<HomeSkeleton />}>
-          <OtherProjects locale={locale} />
+          <OtherProjects locale={locale} projects={projects} />
         </Suspense>
 
         {/* Featured Certifications */}
@@ -295,7 +312,7 @@ export default async function Home({
 
         {/* Contact CTA */}
         <GlitchReveal>
-          <section className="rounded-2xl bg-neutral-100 p-8 text-center dark:bg-neutral-900">
+          <section className="from-primary-50 to-primary-100/50 dark:from-primary-950/50 dark:to-primary-900/30 rounded-2xl bg-gradient-to-br p-8 text-center">
             <h2 className="text-2xl font-semibold tracking-tight">
               {i.contactHeading}
             </h2>

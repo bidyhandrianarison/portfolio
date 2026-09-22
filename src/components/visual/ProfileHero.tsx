@@ -52,7 +52,7 @@ export function ProfileHero({
             <div className="relative h-36 w-36 overflow-hidden rounded-full border-4 border-white shadow-xl sm:h-44 sm:w-44 dark:border-neutral-950">
               <Image
                 src="/pdp.jpg"
-                alt={name}
+                alt={`Photo de profil de ${name}, ingénieur hybride`}
                 fill
                 className="object-cover object-top"
                 priority
