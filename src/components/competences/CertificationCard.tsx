@@ -27,14 +27,28 @@ export function CertificationCard({
   locale,
 }: CertificationCardProps) {
   const i = t[locale as keyof typeof t] ?? t.fr;
-  const hasDescription =
-    certification.description?.why ||
-    certification.description?.what ||
-    certification.description?.result;
+  const lang = (locale === "en" ? "en" : "fr") as "fr" | "en";
+
+  const desc = certification.description;
+  const resolveLocale = (val: unknown): string | undefined => {
+    if (!val) return undefined;
+    if (typeof val === "string") return val;
+    if (typeof val === "object" && val !== null) {
+      const obj = val as Record<string, string>;
+      return obj[lang] ?? obj.fr ?? undefined;
+    }
+    return undefined;
+  };
+
+  const why = resolveLocale(desc?.why);
+  const what = resolveLocale(desc?.what);
+  const result = resolveLocale(desc?.result);
+  const name = resolveLocale(certification.name) ?? "";
+  const issuer = resolveLocale(certification.issuer) ?? "";
+
+  const hasDescription = why || what || result;
 
   if (!certification.slug?.current) return null;
-
-  const lang = (locale === "en" ? "en" : "fr") as "fr" | "en";
 
   return (
     <Link
@@ -46,7 +60,7 @@ export function CertificationCard({
           <div className="relative h-48 overflow-hidden">
             <Image
               src={urlFor(certification.image).width(800).height(400).url()}
-              alt={certification.image.alt || certification.name}
+              alt={certification.image.alt || name}
               fill
               className="object-cover opacity-20 transition-opacity group-hover:opacity-30"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -67,31 +81,31 @@ export function CertificationCard({
           </div>
 
           <h3 className="mb-1 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-            {certification.name}
+            {name}
           </h3>
           <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
-            {certification.issuer}
+            {issuer}
           </p>
 
           {hasDescription && (
             <div className="mb-4 space-y-2 text-sm">
-              {certification.description?.why && (
+              {why && (
                 <p>
                   <span className="font-medium text-neutral-700 dark:text-neutral-300">
                     {i.why}
                   </span>{" "}
                   <span className="text-neutral-600 dark:text-neutral-400">
-                    {certification.description.why}
+                    {why}
                   </span>
                 </p>
               )}
-              {certification.description?.result && (
+              {result && (
                 <p>
                   <span className="font-medium text-neutral-700 dark:text-neutral-300">
                     {i.result}
                   </span>{" "}
                   <span className="text-neutral-600 dark:text-neutral-400">
-                    {certification.description.result}
+                    {result}
                   </span>
                 </p>
               )}

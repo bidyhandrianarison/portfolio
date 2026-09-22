@@ -13,7 +13,18 @@ export const PROJECTS_QUERY =
   period,
   tags,
   order,
-  featured
+  featured,
+  hero {
+    image {
+      asset->{
+        _ref,
+        url,
+        metadata { lqip, dimensions { width, height } }
+      },
+      alt,
+      hotspot
+    }
+  }
 }`);
 
 export const PROJECT_BY_SLUG_QUERY = defineQuery(

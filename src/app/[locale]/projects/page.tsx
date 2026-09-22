@@ -79,6 +79,9 @@ function FeaturedProjects({
             locale={locale}
             href={`/${locale}/projects/${project.slug.current}`}
             variant="featured"
+            imageUrl={project.hero?.image?.asset?.url}
+            imageAlt={project.hero?.image?.alt}
+            imageLqip={project.hero?.image?.asset?.metadata?.lqip}
           />
         ))}
       </div>
@@ -121,6 +124,9 @@ function OtherProjects({
             tags={project.tags}
             locale={locale}
             href={`/${locale}/projects/${project.slug.current}`}
+            imageUrl={project.hero?.image?.asset?.url}
+            imageAlt={project.hero?.image?.alt}
+            imageLqip={project.hero?.image?.asset?.metadata?.lqip}
           />
         ))}
       </div>

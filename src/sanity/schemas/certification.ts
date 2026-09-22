@@ -1,29 +1,20 @@
 import { defineField, defineType } from "sanity";
+import { localeField } from "./locale";
 
 export default defineType({
   name: "certification",
   title: "Certification",
   type: "document",
   fields: [
-    defineField({
-      name: "name",
-      title: "Name",
-      type: "string",
-      validation: (rule) => rule.required(),
-    }),
+    localeField("name", "Name"),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: { source: "name", maxLength: 96 },
+      options: { source: "name.fr", maxLength: 96 },
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: "issuer",
-      title: "Issuer",
-      type: "string",
-      validation: (rule) => rule.required(),
-    }),
+    localeField("issuer", "Issuer"),
     defineField({
       name: "date",
       title: "Date",
@@ -51,27 +42,9 @@ export default defineType({
       title: "Description",
       type: "object",
       fields: [
-        defineField({
-          name: "why",
-          title: "Why I got this",
-          type: "text",
-          rows: 2,
-          description: "Pourquoi tu as obtenu cette certification",
-        }),
-        defineField({
-          name: "what",
-          title: "What I learned",
-          type: "text",
-          rows: 2,
-          description: "Ce que tu as appris",
-        }),
-        defineField({
-          name: "result",
-          title: "Result",
-          type: "text",
-          rows: 2,
-          description: "Ce que ça t'a permis de faire concrètement",
-        }),
+        localeField("why", "Why I got this", "text", { rows: 2 }),
+        localeField("what", "What I learned", "text", { rows: 2 }),
+        localeField("result", "Result", "text", { rows: 2 }),
       ],
     }),
     defineField({
@@ -119,8 +92,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: "name",
-      subtitle: "issuer",
+      title: "name.fr",
+      subtitle: "issuer.fr",
       category: "category",
       media: "image",
     },

@@ -33,10 +33,16 @@ function ProjectCardSkeleton() {
 
 function ProjectListSkeleton() {
   return (
-    <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-950">
-      <Skeleton className="mb-2 h-5 w-1/2" />
-      <Skeleton className="mb-2 h-4 w-1/3" />
-      <Skeleton className="h-4 w-full" />
+    <div className="flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-3 dark:border-neutral-800 dark:bg-neutral-950">
+      <Skeleton className="h-20 w-20 flex-shrink-0 rounded-lg" />
+      <div className="flex-1">
+        <Skeleton className="mb-2 h-5 w-1/2" />
+        <Skeleton className="mb-2 h-4 w-1/3" />
+        <div className="flex gap-1">
+          <Skeleton className="h-4 w-12 rounded-full" />
+          <Skeleton className="h-4 w-14 rounded-full" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -64,7 +70,8 @@ export function HomeSkeleton() {
       {/* Others skeleton */}
       <section className="mb-20">
         <Skeleton className="mb-8 h-7 w-36" />
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="flex flex-col gap-3">
+          <ProjectListSkeleton />
           <ProjectListSkeleton />
           <ProjectListSkeleton />
         </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { I18nProvider } from "@/components/providers/i18n-provider";
@@ -93,10 +93,9 @@ export default async function LocaleLayout({
 
   return (
     <I18nProvider locale={locale}>
-      <Script
+      <script
         id="json-ld"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd(locale)),
         }}

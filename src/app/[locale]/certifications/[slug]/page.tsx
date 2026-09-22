@@ -38,12 +38,32 @@ export async function generateMetadata({
     return { title: t[locale as keyof typeof t]?.notFound ?? t.fr.notFound };
   }
 
+  const lang = (locale === "en" ? "en" : "fr") as "fr" | "en";
+
+  const resolveLocale = (val: unknown): string | undefined => {
+    if (!val) return undefined;
+    if (typeof val === "string") return val;
+    if (typeof val === "object" && val !== null) {
+      const obj = val as Record<string, string>;
+      return obj[lang] ?? obj.fr ?? undefined;
+    }
+    return undefined;
+  };
+
+  const certName = resolveLocale(certification.name) ?? "";
+  const certIssuer = resolveLocale(certification.issuer) ?? "";
+
   return {
-    title: `${certification.name} — ${certification.issuer}`,
+    title: `${certName} — ${certIssuer}`,
     description:
-      certification.description?.why || `Certification ${certification.name}`,
+      resolveLocale(certification.description?.why) ??
+      `Certification ${certName}`,
     alternates: {
       canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/certifications/${slug}`,
+      languages: {
+        fr: `/fr/certifications/${slug}`,
+        en: `/en/certifications/${slug}`,
+      },
     },
   };
 }

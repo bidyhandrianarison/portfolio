@@ -123,9 +123,9 @@ export interface Skill {
 }
 
 export interface CertificationDescription {
-  why?: string;
-  what?: string;
-  result?: string;
+  why?: LocaleText;
+  what?: LocaleText;
+  result?: LocaleText;
 }
 
 export interface CertificationImage {
@@ -144,9 +144,9 @@ export interface CertificationImage {
 export interface Certification {
   _id: string;
   _type: "certification";
-  name: string;
+  name: LocaleString;
   slug: { current: string };
-  issuer: string;
+  issuer: LocaleString;
   date: string;
   category: "ia" | "mobile" | "web" | "cloud" | "design";
   description?: CertificationDescription;

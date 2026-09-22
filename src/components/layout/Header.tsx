@@ -13,8 +13,15 @@ export function Header({ locale }: { locale: string }) {
         <Link
           href={`/${locale}`}
           className="hover:text-primary-600 dark:hover:text-primary-400 flex items-center gap-2 text-lg font-bold transition-colors"
+          title={locale === "fr" ? "Retour à l'accueil" : "Back to home"}
         >
           <Logo className="text-primary-600 dark:text-primary-400 h-12 w-12" />
+          <span className="sr-only">
+            {locale === "fr" ? "Accueil" : "Home"}
+          </span>
+          <span className="hidden text-base font-semibold sm:inline">
+            Sarobidy
+          </span>
         </Link>
 
         <nav

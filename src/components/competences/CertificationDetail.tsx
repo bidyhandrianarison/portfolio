@@ -34,6 +34,19 @@ export function CertificationDetail({
 
   const lang = (locale === "en" ? "en" : "fr") as "fr" | "en";
 
+  const resolveLocale = (val: unknown): string | undefined => {
+    if (!val) return undefined;
+    if (typeof val === "string") return val;
+    if (typeof val === "object" && val !== null) {
+      const obj = val as Record<string, string>;
+      return obj[lang] ?? obj.fr ?? undefined;
+    }
+    return undefined;
+  };
+
+  const name = resolveLocale(certification.name) ?? "";
+  const issuer = resolveLocale(certification.issuer) ?? "";
+
   return (
     <article className="mx-auto max-w-3xl space-y-8">
       <Link
@@ -55,11 +68,11 @@ export function CertificationDetail({
         </div>
 
         <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
-          {certification.name}
+          {name}
         </h1>
 
         <p className="text-lg text-neutral-600 dark:text-neutral-400">
-          {certification.issuer}
+          {issuer}
         </p>
       </header>
 
@@ -67,7 +80,7 @@ export function CertificationDetail({
         <div className="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
           <Image
             src={urlFor(certification.image).width(1200).height(800).url()}
-            alt={certification.image.alt || certification.name}
+            alt={certification.image.alt || name}
             width={1200}
             height={800}
             className="w-full object-contain"
@@ -79,35 +92,35 @@ export function CertificationDetail({
 
       {certification.description && (
         <div className="space-y-6 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-800 dark:bg-neutral-900">
-          {certification.description.why && (
+          {resolveLocale(certification.description.why) && (
             <div>
               <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
                 {i.why}
               </h2>
               <p className="text-neutral-700 dark:text-neutral-300">
-                {certification.description.why}
+                {resolveLocale(certification.description.why)}
               </p>
             </div>
           )}
 
-          {certification.description.what && (
+          {resolveLocale(certification.description.what) && (
             <div>
               <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
                 {i.what}
               </h2>
               <p className="text-neutral-700 dark:text-neutral-300">
-                {certification.description.what}
+                {resolveLocale(certification.description.what)}
               </p>
             </div>
           )}
 
-          {certification.description.result && (
+          {resolveLocale(certification.description.result) && (
             <div>
               <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
                 {i.result}
               </h2>
               <p className="text-neutral-700 dark:text-neutral-300">
-                {certification.description.result}
+                {resolveLocale(certification.description.result)}
               </p>
             </div>
           )}

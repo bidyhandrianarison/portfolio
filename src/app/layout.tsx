@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   },
   description:
     "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & open to opportunities.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({

@@ -10,6 +10,7 @@ import { CvDownloadButton } from "@/components/parcours/CvDownloadButton";
 import { ProfileHero } from "@/components/visual/ProfileHero";
 import { GlitchReveal } from "@/components/visual/GlitchReveal";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectListItem } from "@/components/projects/ProjectListItem";
 import { featuredSlugs } from "@/lib/constants/projects";
 import { CATEGORY_LABELS } from "@/lib/constants/certifications";
 import { urlFor } from "@/lib/sanity/image";
@@ -100,6 +101,9 @@ async function FeaturedProjects({ locale }: { locale: string }) {
               locale={locale}
               href={`/${locale}/projects/${project.slug.current}`}
               variant="featured"
+              imageUrl={project.hero?.image?.asset?.url}
+              imageAlt={project.hero?.image?.alt}
+              imageLqip={project.hero?.image?.asset?.metadata?.lqip}
             />
           ))}
         </div>
@@ -116,7 +120,17 @@ async function FeaturedCertifications({ locale }: { locale: string }) {
     return null;
   }
   const i = t[locale as keyof typeof t] ?? t.fr;
-  const lang = locale === "en" ? "en" : "fr";
+  const lang = locale === "en" ? "en" : ("fr" as "fr" | "en");
+
+  const resolveLocale = (val: unknown): string | undefined => {
+    if (!val) return undefined;
+    if (typeof val === "string") return val;
+    if (typeof val === "object" && val !== null) {
+      const obj = val as Record<string, string>;
+      return obj[lang] ?? obj.fr ?? undefined;
+    }
+    return undefined;
+  };
 
   if (certifications.length === 0) return null;
 
@@ -146,7 +160,7 @@ async function FeaturedCertifications({ locale }: { locale: string }) {
                 <div className="relative h-32 overflow-hidden rounded-t-xl">
                   <Image
                     src={urlFor(cert.image).width(600).height(300).url()}
-                    alt={cert.image.alt || cert.name}
+                    alt={cert.image.alt || (resolveLocale(cert.name) ?? "")}
                     fill
                     className="object-cover opacity-20 transition-opacity group-hover:opacity-30"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -162,13 +176,15 @@ async function FeaturedCertifications({ locale }: { locale: string }) {
                   </span>
                   <span className="text-xs text-neutral-400">{cert.date}</span>
                 </div>
-                <h3 className="text-lg font-semibold">{cert.name}</h3>
+                <h3 className="text-lg font-semibold">
+                  {resolveLocale(cert.name) ?? ""}
+                </h3>
                 <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-                  {cert.issuer}
+                  {resolveLocale(cert.issuer) ?? ""}
                 </p>
-                {cert.description?.why && (
+                {resolveLocale(cert.description?.why) && (
                   <p className="mt-2 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    {cert.description.why}
+                    {resolveLocale(cert.description?.why)}
                   </p>
                 )}
               </div>
@@ -195,15 +211,17 @@ async function OtherProjects({ locale }: { locale: string }) {
   );
   const i = t[locale as keyof typeof t] ?? t.fr;
 
+  if (others.length === 0) return null;
+
   return (
     <GlitchReveal>
       <section className="mb-20" aria-label={i.otherLabel}>
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">
           {i.otherHeading}
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="flex flex-col gap-3">
           {others.map((project) => (
-            <ProjectCard
+            <ProjectListItem
               key={project._id}
               slug={project.slug.current}
               title={
@@ -212,17 +230,20 @@ async function OtherProjects({ locale }: { locale: string }) {
               }
               role={project.role}
               period={project.period}
-              description={
-                project.description[
-                  locale as keyof typeof project.description
-                ] ?? project.description.fr
-              }
               tags={project.tags}
               locale={locale}
               href={`/${locale}/projects/${project.slug.current}`}
+              imageUrl={project.hero?.image?.asset?.url}
+              imageAlt={project.hero?.image?.alt}
             />
           ))}
         </div>
+        <Link
+          href={`/${locale}/projects`}
+          className="text-primary-600 dark:text-primary-400 mt-6 inline-flex items-center gap-1 text-sm font-medium hover:underline"
+        >
+          {locale === "fr" ? "Voir tous les projets" : "View all projects"} →
+        </Link>
       </section>
     </GlitchReveal>
   );
