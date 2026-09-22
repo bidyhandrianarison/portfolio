@@ -10,7 +10,7 @@ import { CvDownloadButton } from "@/components/parcours/CvDownloadButton";
 import { ProfileHero } from "@/components/visual/ProfileHero";
 import { GlitchReveal } from "@/components/visual/GlitchReveal";
 import { ProjectCard } from "@/components/projects/ProjectCard";
-import { ProjectListItem } from "@/components/projects/ProjectListItem";
+import { CompactProjectCard } from "@/components/projects/CompactProjectCard";
 import { featuredSlugs } from "@/lib/constants/projects";
 import { CATEGORY_LABELS } from "@/lib/constants/certifications";
 import { urlFor } from "@/lib/sanity/image";
@@ -223,15 +223,17 @@ async function OtherProjects({
 
   if (others.length === 0) return null;
 
+  const visibleProjects = others.slice(0, 4);
+
   return (
     <GlitchReveal>
       <section className="mb-20" aria-label={i.otherLabel}>
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">
           {i.otherHeading}
         </h2>
-        <div className="flex flex-col gap-3">
-          {others.map((project) => (
-            <ProjectListItem
+        <div className="grid gap-4 sm:grid-cols-2">
+          {visibleProjects.map((project) => (
+            <CompactProjectCard
               key={project._id}
               slug={project.slug.current}
               title={
@@ -241,7 +243,6 @@ async function OtherProjects({
               role={project.role}
               period={project.period}
               tags={project.tags}
-              locale={locale}
               href={`/${locale}/projects/${project.slug.current}`}
               imageUrl={project.hero?.image?.asset?.url}
               imageAlt={project.hero?.image?.alt}

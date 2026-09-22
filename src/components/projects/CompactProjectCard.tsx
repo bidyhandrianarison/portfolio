@@ -4,29 +4,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { trackEvent } from "@/lib/utils/analytics";
 
-interface ProjectListItemProps {
+interface CompactProjectCardProps {
   slug: string;
   title: string;
   role: string;
   period: string;
   tags: string[];
-  locale: string;
   href: string;
   imageUrl?: string;
   imageAlt?: string;
 }
 
-export function ProjectListItem({
+export function CompactProjectCard({
   slug,
   title,
   role,
   period,
   tags,
-  locale,
   href,
   imageUrl,
   imageAlt,
-}: ProjectListItemProps) {
+}: CompactProjectCardProps) {
   function handleClick() {
     trackEvent("project_open", { slug });
   }
@@ -35,30 +33,28 @@ export function ProjectListItem({
     <Link
       href={href}
       onClick={handleClick}
-      className="group hover:border-primary-300 dark:hover:border-primary-700 flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-3 transition-all hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
+      className="group hover:border-primary-300 dark:hover:border-primary-700 flex items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3 transition-all hover:-translate-y-0.5 dark:border-neutral-800 dark:bg-neutral-950"
     >
       {imageUrl ? (
-        <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-900">
+        <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100 dark:bg-neutral-900">
           <Image
             src={imageUrl}
             alt={imageAlt ?? title}
             fill
-            sizes="80px"
+            sizes="56px"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
-            loader={({ src }) => src}
-            unoptimized
           />
         </div>
       ) : (
-        <div className="from-primary-100 dark:from-primary-900 flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br to-orange-100 dark:to-orange-900">
-          <span className="text-primary-400 dark:text-primary-600 text-xl font-bold">
+        <div className="from-primary-100 dark:from-primary-900 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br to-orange-100 dark:to-orange-900">
+          <span className="text-primary-400 dark:text-primary-600 text-lg font-bold">
             {title.charAt(0)}
           </span>
         </div>
       )}
       <div className="min-w-0 flex-1">
-        <h3 className="truncate font-semibold">{title}</h3>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+        <h3 className="truncate text-sm font-semibold">{title}</h3>
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
           {role} · {period}
         </p>
         <div className="mt-1.5 flex flex-wrap gap-1">
