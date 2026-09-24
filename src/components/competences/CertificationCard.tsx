@@ -9,27 +9,12 @@ interface CertificationCardProps {
   locale: string;
 }
 
-const t = {
-  fr: {
-    why: "Pourquoi :",
-    result: "Résultat :",
-    viewDetail: "Voir le détail →",
-  },
-  en: {
-    why: "Why:",
-    result: "Result:",
-    viewDetail: "View details →",
-  },
-} as const;
-
 export function CertificationCard({
   certification,
   locale,
 }: CertificationCardProps) {
-  const i = t[locale as keyof typeof t] ?? t.fr;
   const lang = (locale === "en" ? "en" : "fr") as "fr" | "en";
 
-  const desc = certification.description;
   const resolveLocale = (val: unknown): string | undefined => {
     if (!val) return undefined;
     if (typeof val === "string") return val;
@@ -40,85 +25,46 @@ export function CertificationCard({
     return undefined;
   };
 
-  const why = resolveLocale(desc?.why);
-  const what = resolveLocale(desc?.what);
-  const result = resolveLocale(desc?.result);
   const name = resolveLocale(certification.name) ?? "";
   const issuer = resolveLocale(certification.issuer) ?? "";
-
-  const hasDescription = why || what || result;
+  const why = resolveLocale(certification.description?.why);
 
   if (!certification.slug?.current) return null;
 
   return (
     <Link
       href={`/${locale}/certifications/${certification.slug.current}`}
-      className="group block"
+      className="group hover:border-primary-300 dark:hover:border-primary-700 rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950"
     >
-      <article className="relative overflow-hidden rounded-xl border border-neutral-200 bg-white transition-all hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
-        {certification.image && (
-          <div className="relative h-48 overflow-hidden">
-            <Image
-              src={urlFor(certification.image).width(800).height(400).url()}
-              alt={certification.image.alt || name}
-              fill
-              className="object-cover opacity-20 transition-opacity group-hover:opacity-30"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent dark:from-neutral-900" />
-          </div>
-        )}
-
-        <div className="relative p-6">
-          <div className="mb-3 flex items-start justify-between gap-2">
-            <span className="bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 inline-block rounded-full px-3 py-1 text-xs font-medium">
-              {CATEGORY_LABELS[certification.category]?.[lang] ??
-                certification.category}
-            </span>
-            <span className="text-sm text-neutral-500 dark:text-neutral-400">
-              {certification.date}
-            </span>
-          </div>
-
-          <h3 className="mb-1 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-            {name}
-          </h3>
-          <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
-            {issuer}
-          </p>
-
-          {hasDescription && (
-            <div className="mb-4 space-y-2 text-sm">
-              {why && (
-                <p>
-                  <span className="font-medium text-neutral-700 dark:text-neutral-300">
-                    {i.why}
-                  </span>{" "}
-                  <span className="text-neutral-600 dark:text-neutral-400">
-                    {why}
-                  </span>
-                </p>
-              )}
-              {result && (
-                <p>
-                  <span className="font-medium text-neutral-700 dark:text-neutral-300">
-                    {i.result}
-                  </span>{" "}
-                  <span className="text-neutral-600 dark:text-neutral-400">
-                    {result}
-                  </span>
-                </p>
-              )}
-            </div>
-          )}
-
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1 rounded-md bg-neutral-100 px-2 py-1 text-xs text-neutral-600 group-hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:group-hover:bg-neutral-700">
-              {i.viewDetail}
-            </span>
-          </div>
+      {certification.image && (
+        <div className="relative h-32 overflow-hidden rounded-t-xl">
+          <Image
+            src={urlFor(certification.image).width(600).height(300).url()}
+            alt={certification.image.alt || name}
+            fill
+            className="object-cover opacity-60 transition-opacity group-hover:opacity-80"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         </div>
-      </article>
+      )}
+      <div className="p-5">
+        <div className="mb-2 flex items-center gap-2">
+          <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 text-xs font-medium text-neutral-600 dark:bg-neutral-900 dark:text-neutral-400">
+            {CATEGORY_LABELS[certification.category]?.[lang] ??
+              certification.category}
+          </span>
+          <span className="text-xs text-neutral-400">{certification.date}</span>
+        </div>
+        <h3 className="text-lg font-semibold">{name}</h3>
+        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+          {issuer}
+        </p>
+        {why && (
+          <p className="mt-2 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400">
+            {why}
+          </p>
+        )}
+      </div>
     </Link>
   );
 }

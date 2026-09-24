@@ -10,38 +10,47 @@ interface SkillsPageTabsProps {
   skills: Skill[];
   certifications: Certification[];
   locale: string;
-  labels: { skillsTab: string; certificationsTab: string };
-}
-
-function getInitialTab(): "skills" | "certifications" {
-  if (typeof window === "undefined") return "skills";
-  const params = new URLSearchParams(window.location.search);
-  return params.get("tab") === "certifications" ? "certifications" : "skills";
+  initialTab: "skills" | "certifications";
+  labels: {
+    skillsTab: string;
+    certificationsTab: string;
+    tabsAria: string;
+  };
 }
 
 export function SkillsPageTabs({
   skills,
   certifications,
   locale,
+  initialTab,
   labels,
 }: SkillsPageTabsProps) {
-  const [activeTab, setActiveTab] = useState<"skills" | "certifications">(
-    getInitialTab,
-  );
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  const selectTab = (tab: "skills" | "certifications") => {
+    setActiveTab(tab);
+    const url = new URL(window.location.href);
+    if (tab === "skills") {
+      url.searchParams.delete("tab");
+    } else {
+      url.searchParams.set("tab", tab);
+    }
+    window.history.replaceState(window.history.state, "", url);
+  };
 
   return (
     <div>
       <div
         className="mb-8 flex gap-1 rounded-xl border border-neutral-200 bg-neutral-100 p-1 dark:border-neutral-800 dark:bg-neutral-900"
         role="tablist"
-        aria-label={labels.skillsTab}
+        aria-label={labels.tabsAria}
       >
         <button
           type="button"
           role="tab"
           aria-selected={activeTab === "skills"}
           aria-controls="panel-skills"
-          onClick={() => setActiveTab("skills")}
+          onClick={() => selectTab("skills")}
           className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
             activeTab === "skills"
               ? "bg-white text-neutral-900 shadow-sm dark:bg-neutral-800 dark:text-neutral-50"
@@ -55,7 +64,7 @@ export function SkillsPageTabs({
           role="tab"
           aria-selected={activeTab === "certifications"}
           aria-controls="panel-certifications"
-          onClick={() => setActiveTab("certifications")}
+          onClick={() => selectTab("certifications")}
           className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
             activeTab === "certifications"
               ? "bg-white text-neutral-900 shadow-sm dark:bg-neutral-800 dark:text-neutral-50"
@@ -67,9 +76,7 @@ export function SkillsPageTabs({
       </div>
 
       <div id="panel-skills" role="tabpanel" hidden={activeTab !== "skills"}>
-        {activeTab === "skills" && (
-          <SkillsTab skills={skills} locale={locale} />
-        )}
+        <SkillsTab skills={skills} locale={locale} />
       </div>
 
       <div
@@ -77,9 +84,7 @@ export function SkillsPageTabs({
         role="tabpanel"
         hidden={activeTab !== "certifications"}
       >
-        {activeTab === "certifications" && (
-          <CertificationsTab certifications={certifications} locale={locale} />
-        )}
+        <CertificationsTab certifications={certifications} locale={locale} />
       </div>
     </div>
   );

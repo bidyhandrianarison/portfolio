@@ -1,7 +1,7 @@
 import { getClient } from "@/lib/sanity/client";
 import type { Skill } from "@/sanity/types";
 
-const SKILLS_QUERY = `*[_type == "skill"] | order(order asc) {
+const SKILLS_QUERY = `*[_type == "skill"] | order(name asc) {
   _id,
   _type,
   name,
