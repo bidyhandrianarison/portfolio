@@ -174,7 +174,7 @@ export function ProjectTypeFilter({
     } else {
       url.searchParams.set("type", type);
     }
-    window.history.replaceState(window.history.state, "", url);
+    window.history.pushState(window.history.state, "", url);
     trackEvent("project_filter", { type });
     urlListeners.forEach((listener) => listener());
   };
