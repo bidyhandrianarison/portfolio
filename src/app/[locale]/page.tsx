@@ -8,7 +8,7 @@ import { HomeSkeleton } from "@/components/ui/skeleton";
 import { ProfileHero } from "@/components/visual/ProfileHero";
 import { GlitchReveal } from "@/components/visual/GlitchReveal";
 import { ProjectCard } from "@/components/projects/ProjectCard";
-import { CompactProjectCard } from "@/components/projects/CompactProjectCard";
+import { ProjectTypeFilter } from "@/components/projects/ProjectTypeFilter";
 import { CertificationCard } from "@/components/competences/CertificationCard";
 import { featuredSlugs } from "@/lib/constants/projects";
 
@@ -167,38 +167,17 @@ async function OtherProjects({
 
   if (others.length === 0) return null;
 
-  const visibleProjects = others.slice(0, 4);
-
   return (
     <GlitchReveal>
       <section className="mb-20" aria-label={i.otherLabel}>
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">
           {i.otherHeading}
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {visibleProjects.map((project) => (
-            <CompactProjectCard
-              key={project._id}
-              slug={project.slug.current}
-              title={
-                project.title[locale as keyof typeof project.title] ??
-                project.title.fr
-              }
-              role={project.role}
-              period={project.period}
-              tags={project.tags}
-              href={`/${locale}/projects/${project.slug.current}`}
-              imageUrl={project.hero?.image?.asset?.url}
-              imageAlt={project.hero?.image?.alt}
-            />
-          ))}
-        </div>
-        <Link
-          href={`/${locale}/projects`}
-          className="text-primary-600 dark:text-primary-400 mt-6 inline-flex items-center gap-1 text-sm font-medium hover:underline"
-        >
-          {locale === "fr" ? "Voir tous les projets" : "View all projects"} →
-        </Link>
+        <ProjectTypeFilter
+          projects={others}
+          locale={locale}
+          variant="compact"
+        />
       </section>
     </GlitchReveal>
   );

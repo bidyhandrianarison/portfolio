@@ -97,6 +97,7 @@ export interface Project {
   role: string;
   period: string;
   tags: string[];
+  projectTypes?: string[];
   order: number;
   featured?: boolean;
   hero?: ProjectHero;

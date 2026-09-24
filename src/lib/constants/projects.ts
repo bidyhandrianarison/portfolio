@@ -1,3 +1,18 @@
+export const PROJECT_TYPES = ["mobile", "ia", "design", "data", "web"] as const;
+
+export type ProjectType = (typeof PROJECT_TYPES)[number];
+
+export const PROJECT_TYPE_LABELS: Record<
+  ProjectType,
+  { fr: string; en: string }
+> = {
+  mobile: { fr: "Mobile", en: "Mobile" },
+  ia: { fr: "IA", en: "AI" },
+  design: { fr: "Design", en: "Design" },
+  data: { fr: "Data", en: "Data" },
+  web: { fr: "Web", en: "Web" },
+};
+
 export const featuredSlugs: string[] = [
   "assistant-emails",
   "automatisation-commandes",

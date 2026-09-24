@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { getProjects } from "@/lib/sanity/queries/projects";
 import { HomeSkeleton } from "@/components/ui/skeleton";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectTypeFilter } from "@/components/projects/ProjectTypeFilter";
 import { featuredSlugs } from "@/lib/constants/projects";
 
 const t = {
@@ -101,35 +102,14 @@ function OtherProjects({
   );
   const i = t[locale as keyof typeof t] ?? t.fr;
 
+  if (others.length === 0) return null;
+
   return (
     <section aria-label={i.otherLabel}>
       <h2 className="mb-8 text-2xl font-semibold tracking-tight">
         {i.otherHeading}
       </h2>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {others.map((project) => (
-          <ProjectCard
-            key={project._id}
-            slug={project.slug.current}
-            title={
-              project.title[locale as keyof typeof project.title] ??
-              project.title.fr
-            }
-            role={project.role}
-            period={project.period}
-            description={
-              project.description[locale as keyof typeof project.description] ??
-              project.description.fr
-            }
-            tags={project.tags}
-            locale={locale}
-            href={`/${locale}/projects/${project.slug.current}`}
-            imageUrl={project.hero?.image?.asset?.url}
-            imageAlt={project.hero?.image?.alt}
-            imageLqip={project.hero?.image?.asset?.metadata?.lqip}
-          />
-        ))}
-      </div>
+      <ProjectTypeFilter projects={others} locale={locale} variant="full" />
     </section>
   );
 }

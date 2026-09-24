@@ -12,6 +12,7 @@ export const PROJECTS_QUERY =
   role,
   period,
   tags,
+  projectTypes,
   order,
   featured,
   hero {

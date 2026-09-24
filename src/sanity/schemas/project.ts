@@ -1,5 +1,9 @@
 import { defineField, defineType, defineArrayMember } from "sanity";
 import { localeField } from "./locale";
+import {
+  PROJECT_TYPES,
+  PROJECT_TYPE_LABELS,
+} from "../../lib/constants/projects";
 
 const bodyBlock = {
   type: "block",
@@ -68,6 +72,20 @@ export default defineType({
       type: "array",
       of: [{ type: "string" }],
       options: { layout: "tags" },
+    }),
+    defineField({
+      name: "projectTypes",
+      title: "Project Types",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: PROJECT_TYPES.map((value) => ({
+          title: PROJECT_TYPE_LABELS[value].fr,
+          value,
+        })),
+      },
+      validation: (rule) => rule.unique(),
+      description: "Types used by the project type filter facets",
     }),
     defineField({
       name: "order",
