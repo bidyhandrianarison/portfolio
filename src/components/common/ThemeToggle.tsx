@@ -49,7 +49,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       suppressHydrationWarning
-      className="focus:ring-primary-500 rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:ring-offset-neutral-950"
+      className="focus:ring-primary-500 flex h-11 w-11 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:ring-offset-neutral-950"
       aria-label={
         theme === "light" ? "Passer en mode sombre" : "Passer en mode clair"
       }

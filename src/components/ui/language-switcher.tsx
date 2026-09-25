@@ -23,7 +23,7 @@ export function LanguageSwitcher({ locale }: { locale: string }) {
         <Link
           key={lang.code}
           href={getHref(lang.code)}
-          className={`rounded px-2 py-1 text-sm font-medium transition-colors ${
+          className={`flex min-h-11 min-w-11 items-center justify-center rounded px-3 text-sm font-medium transition-colors ${
             locale === lang.code
               ? "bg-primary-100 text-primary-700 dark:bg-primary-900 dark:text-primary-200"
               : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"

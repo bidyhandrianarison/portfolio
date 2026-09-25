@@ -25,7 +25,10 @@ export function GlitchReveal({
     ).matches;
     if (prefersReduced) return;
 
-    // Hide element immediately via DOM (bypasses React state in effect)
+    // Never hide content already in view — only animate below-the-fold sections.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) return;
+
     el.style.opacity = "0";
     el.style.transform = "translateY(16px)";
 

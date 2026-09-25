@@ -7,6 +7,7 @@ import type { Project } from "@/sanity/types";
 import {
   PROJECT_TYPES,
   PROJECT_TYPE_LABELS,
+  featuredSlugs,
   type ProjectType,
 } from "@/lib/constants/projects";
 import { trackEvent } from "@/lib/utils/analytics";
@@ -124,9 +125,15 @@ function FullGrid({
   projects: Project[];
   locale: string;
 }) {
+  const sorted = [...projects].sort(
+    (a, b) =>
+      Number(featuredSlugs.includes(b.slug.current)) -
+      Number(featuredSlugs.includes(a.slug.current)),
+  );
+
   return (
     <div className="grid gap-4 sm:grid-cols-2">
-      {projects.map((project) => (
+      {sorted.map((project) => (
         <ProjectCard
           key={project._id}
           slug={project.slug.current}
@@ -143,9 +150,19 @@ function FullGrid({
           tags={project.tags}
           locale={locale}
           href={`/${locale}/projects/${project.slug.current}`}
+          variant={
+            featuredSlugs.includes(project.slug.current)
+              ? "featured"
+              : "default"
+          }
           imageUrl={project.hero?.image?.asset?.url}
           imageAlt={project.hero?.image?.alt}
           imageLqip={project.hero?.image?.asset?.metadata?.lqip}
+          diagram={
+            featuredSlugs.includes(project.slug.current)
+              ? project.architecture?.mermaid
+              : undefined
+          }
         />
       ))}
     </div>
@@ -255,7 +272,11 @@ export function ProjectTypeFilter({
         )}
       </div>
       <p aria-live="polite" className="sr-only">
-        {i.resultsShown(filtered.length)}
+        {i.resultsShown(
+          variant === "compact"
+            ? Math.min(filtered.length, 4)
+            : filtered.length,
+        )}
       </p>
       {content}
     </div>

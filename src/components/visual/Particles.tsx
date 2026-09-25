@@ -19,21 +19,26 @@ export function Particles() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animationId: number;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    let animationId = 0;
     let particles: Particle[] = [];
 
     function resize() {
-      if (!canvas) return;
+      if (!canvas || !ctx) return;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       canvas.width = canvas.offsetWidth * window.devicePixelRatio;
       canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-      ctx?.scale(window.devicePixelRatio, window.devicePixelRatio);
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
     }
 
     function init() {
       if (!canvas) return;
       const count = Math.min(
-        Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 15000),
-        60,
+        Math.floor((canvas.offsetWidth * canvas.offsetHeight) / 25000),
+        24,
       );
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * canvas.offsetWidth,
@@ -86,17 +91,25 @@ export function Particles() {
       animationId = requestAnimationFrame(draw);
     }
 
-    resize();
-    init();
-    draw();
-
-    window.addEventListener("resize", () => {
+    function onResize() {
       resize();
       init();
-    });
+    }
+
+    resize();
+    init();
+
+    if (reducedMotion) {
+      draw();
+      cancelAnimationFrame(animationId);
+    } else {
+      draw();
+      window.addEventListener("resize", onResize);
+    }
 
     return () => {
       cancelAnimationFrame(animationId);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 

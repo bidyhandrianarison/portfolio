@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { contactLinks } from "@/lib/constants/contacts";
+import { pageAlternates } from "@/lib/constants/site";
 
 const t = {
   fr: {
@@ -10,6 +11,7 @@ const t = {
     description:
       "Envoyez-moi un message pour discuter de votre projet ou d'une collaboration.",
     otherChannels: "Autres canaux",
+    requiredNote: "* Champs obligatoires",
   },
   en: {
     title: "Contact",
@@ -17,6 +19,7 @@ const t = {
     description:
       "Send me a message to discuss your project or a collaboration.",
     otherChannels: "Other channels",
+    requiredNote: "* Required fields",
   },
 } as const;
 
@@ -31,9 +34,7 @@ export async function generateMetadata({
   return {
     title: i.title,
     description: i.description,
-    alternates: {
-      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/contact`,
-    },
+    alternates: pageAlternates(locale, "/contact"),
   };
 }
 
@@ -49,8 +50,11 @@ export default async function ContactPage({
     <main className="mx-auto max-w-2xl px-4 py-16">
       <section>
         <h1 className="mb-2 text-3xl font-bold tracking-tight">{i.heading}</h1>
-        <p className="mb-10 text-neutral-600 dark:text-neutral-400">
+        <p className="mb-2 text-neutral-600 dark:text-neutral-400">
           {i.description}
+        </p>
+        <p className="mb-8 text-[13px] text-neutral-500 dark:text-neutral-400">
+          {i.requiredNote}
         </p>
         <ContactForm locale={locale} />
       </section>

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { I18nProvider } from "@/components/providers/i18n-provider";
+import { SITE_URL } from "@/lib/constants/site";
 
 export async function generateStaticParams() {
   return [{ locale: "fr" }, { locale: "en" }];
@@ -15,28 +16,29 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const ogLocale = locale === "fr" ? "fr_FR" : "en_US";
-  const title =
-    locale === "fr"
-      ? "Sarobidy Andrianarison — Développeur Mobile · Ingénieur IA · UI/UX Designer"
-      : "Sarobidy Andrianarison — Mobile Dev · AI Engineer · UI/UX Designer";
   const description =
     locale === "fr"
       ? "Ingénieur hybride construisant des applications mobiles, des systèmes IA et des design systems. Freelance & ouvert aux opportunités."
       : "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & open to opportunities.";
 
   return {
-    metadataBase: new URL("https://sarobidy-andrianarison.netlify.app"),
-    title,
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: "Sarobidy Andrianarison",
+      template: "%s — Sarobidy Andrianarison",
+    },
     description,
     alternates: {
       languages: {
-        fr: "https://sarobidy-andrianarison.netlify.app/fr",
-        en: "https://sarobidy-andrianarison.netlify.app/en",
+        fr: `${SITE_URL}/fr`,
+        en: `${SITE_URL}/en`,
+        "x-default": `${SITE_URL}/fr`,
       },
     },
     openGraph: {
-      title,
+      title: "Sarobidy Andrianarison",
       description,
+      url: `/${locale}`,
       type: "website",
       locale: ogLocale,
       siteName: "Sarobidy Andrianarison",
@@ -51,7 +53,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: "Sarobidy Andrianarison",
       description,
       images: ["/og.png"],
     },
@@ -66,9 +68,9 @@ const jsonLd = (locale: string) => ({
       name: "Sarobidy Andrianarison",
       jobTitle:
         locale === "fr"
-          ? "Développeur Mobile · Ingénieur IA · UI/UX Designer"
+          ? "Développeur Mobile · Ingénieur IA · Designer UI/UX"
           : "Mobile Dev · AI Engineer · UI/UX Designer",
-      url: "https://sarobidy-andrianarison.netlify.app",
+      url: SITE_URL,
       sameAs: [
         "https://github.com/bidyhandrianarison",
         "https://linkedin.com/in/n-sarobidy-andrianarison-075554203",
@@ -77,7 +79,7 @@ const jsonLd = (locale: string) => ({
     {
       "@type": "WebSite",
       name: "Sarobidy Andrianarison",
-      url: "https://sarobidy-andrianarison.netlify.app",
+      url: SITE_URL,
     },
   ],
 });

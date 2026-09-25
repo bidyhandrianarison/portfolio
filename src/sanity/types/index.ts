@@ -149,7 +149,7 @@ export interface Certification {
   slug: { current: string };
   issuer: LocaleString;
   date: string;
-  category: "ia" | "mobile" | "web" | "cloud" | "design";
+  category: "ia" | "mobile" | "web" | "cloud" | "design" | "data";
   description?: CertificationDescription;
   image?: CertificationImage;
   url?: string;

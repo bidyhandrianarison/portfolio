@@ -4,12 +4,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default:
-      "Sarobidy Andrianarison — Mobile Dev · IA Engineer · UI/UX Designer",
+    default: "Sarobidy Andrianarison",
     template: "%s — Sarobidy Andrianarison",
   },
   description:
-    "Hybrid engineer building mobile apps, AI systems, and design systems. Freelance & open to opportunities.",
+    "Ingénieur hybride construisant des applications mobiles, des systèmes IA et des design systems. Freelance & ouvert aux opportunités.",
   icons: {
     icon: "/favicon.svg",
   },
@@ -24,6 +23,16 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <ThemeScript />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){var p=location.pathname,m=p.match(/^\\/(fr|en)/);if(m)document.documentElement.lang=m[1]})()`,

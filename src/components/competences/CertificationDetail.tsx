@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Certification } from "@/sanity/types";
 import { urlFor } from "@/lib/sanity/image";
 import { CATEGORY_LABELS } from "@/lib/constants/certifications";
+import { CertLightbox } from "@/components/competences/CertLightbox";
 
 interface CertificationDetailProps {
   certification: Certification;
@@ -58,7 +58,7 @@ export function CertificationDetail({
 
       <header className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
-          <span className="bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 inline-block rounded-full px-3 py-1 text-xs font-medium">
+          <span className="bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 inline-block rounded-full px-3 py-1 text-[13px] font-medium">
             {CATEGORY_LABELS[certification.category]?.[lang] ??
               certification.category}
           </span>
@@ -77,17 +77,10 @@ export function CertificationDetail({
       </header>
 
       {certification.image && (
-        <div className="relative overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
-          <Image
-            src={urlFor(certification.image).width(1200).height(800).url()}
-            alt={certification.image.alt || name}
-            width={1200}
-            height={800}
-            className="w-full object-contain"
-            sizes="(max-width: 768px) 100vw, 768px"
-            priority
-          />
-        </div>
+        <CertLightbox
+          src={urlFor(certification.image).width(1200).height(800).url()}
+          alt={certification.image.alt || name}
+        />
       )}
 
       {certification.description && (

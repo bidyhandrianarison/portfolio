@@ -37,23 +37,25 @@ export function CertificationCard({
       className="group hover:border-primary-300 dark:hover:border-primary-700 rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950"
     >
       {certification.image && (
-        <div className="relative h-32 overflow-hidden rounded-t-xl">
+        <div className="relative h-32 overflow-hidden rounded-t-xl bg-white">
           <Image
             src={urlFor(certification.image).width(600).height(300).url()}
             alt={certification.image.alt || name}
             fill
-            className="object-cover opacity-60 transition-opacity group-hover:opacity-80"
+            className="object-contain p-3 opacity-80 transition-opacity group-hover:opacity-100"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
       )}
       <div className="p-5">
         <div className="mb-2 flex items-center gap-2">
-          <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 text-xs font-medium text-neutral-600 dark:bg-neutral-900 dark:text-neutral-400">
+          <span className="rounded-full bg-neutral-100 px-2.5 py-0.5 text-[13px] font-medium text-neutral-600 dark:bg-neutral-900 dark:text-neutral-400">
             {CATEGORY_LABELS[certification.category]?.[lang] ??
               certification.category}
           </span>
-          <span className="text-xs text-neutral-400">{certification.date}</span>
+          <span className="text-[13px] text-neutral-400">
+            {certification.date}
+          </span>
         </div>
         <h3 className="text-lg font-semibold">{name}</h3>
         <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">

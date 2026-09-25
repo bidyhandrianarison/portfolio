@@ -3,6 +3,7 @@ import { getProjects, getProjectBySlug } from "@/lib/sanity/queries/projects";
 import { CaseStudyTemplate } from "@/components/projects/CaseStudyTemplate";
 import { ProjectDetailTemplate } from "@/components/projects/ProjectDetailTemplate";
 import { featuredSlugs } from "@/lib/constants/projects";
+import { pageAlternates } from "@/lib/constants/site";
 
 const supportedLocales = ["fr", "en"] as const;
 
@@ -26,13 +27,12 @@ export async function generateMetadata({
   if (!project) return {};
 
   return {
-    title: `${project.title[locale as keyof typeof project.title] ?? project.title.fr} — Sarobidy`,
+    title:
+      project.title[locale as keyof typeof project.title] ?? project.title.fr,
     description:
       project.description[locale as keyof typeof project.description] ??
       project.description.fr,
-    alternates: {
-      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/projects/${slug}`,
-    },
+    alternates: pageAlternates(locale, `/projects/${slug}`),
   };
 }
 

@@ -13,7 +13,7 @@ export function PersonaCard({ persona }: PersonaCardProps) {
         {persona.tags.map((tag) => (
           <span
             key={tag}
-            className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-xs font-medium"
+            className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-[13px] font-medium"
           >
             {tag}
           </span>

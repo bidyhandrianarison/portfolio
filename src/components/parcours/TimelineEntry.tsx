@@ -55,10 +55,10 @@ export function TimelineEntry({
     return (
       <motion.article
         layout
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={false}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.3, delay: index * 0.05 }}
+        transition={{ duration: 0.3 }}
         className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md motion-reduce:transition-none dark:border-neutral-800 dark:bg-neutral-950"
       >
         <div className="p-5">
@@ -86,7 +86,7 @@ export function TimelineEntry({
               )}
             </div>
             <span
-              className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${badge.color}`}
+              className={`shrink-0 rounded-full px-2 py-0.5 text-[13px] font-medium ${badge.color}`}
             >
               {badge[lang]}
             </span>
@@ -99,7 +99,7 @@ export function TimelineEntry({
               {entry.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-xs font-medium"
+                  className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-[13px] font-medium"
                 >
                   {tag}
                 </span>
@@ -114,10 +114,10 @@ export function TimelineEntry({
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+      initial={false}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+      transition={{ duration: 0.4 }}
       className="relative flex gap-6 pb-10 last:pb-0"
     >
       {/* Dot */}
@@ -153,7 +153,7 @@ export function TimelineEntry({
               )}
             </div>
             <span
-              className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${badge.color}`}
+              className={`shrink-0 rounded-full px-2 py-0.5 text-[13px] font-medium ${badge.color}`}
             >
               {badge[lang]}
             </span>
@@ -166,7 +166,7 @@ export function TimelineEntry({
               {entry.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-xs font-medium"
+                  className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-[13px] font-medium"
                 >
                   {tag}
                 </span>

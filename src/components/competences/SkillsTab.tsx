@@ -221,7 +221,7 @@ export function SkillsTab({ skills, locale }: SkillsTabProps) {
                         proficiencyLabels[skill.proficiency]?.[lang] ??
                         skill.proficiency;
                       const tagClass =
-                        "inline-block rounded-full border border-neutral-200 bg-white px-2.5 py-1 font-mono text-xs font-medium text-neutral-600 transition-colors dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400";
+                        "inline-block rounded-full border border-neutral-200 bg-white px-2.5 py-1 font-mono text-[13px] font-medium text-neutral-600 transition-colors dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400";
 
                       const content = (
                         <>

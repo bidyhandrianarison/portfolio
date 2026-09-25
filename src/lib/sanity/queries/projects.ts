@@ -15,6 +15,7 @@ export const PROJECTS_QUERY =
   projectTypes,
   order,
   featured,
+  architecture { mermaid },
   hero {
     image {
       asset->{

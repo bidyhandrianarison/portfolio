@@ -15,6 +15,10 @@ export function useScrollReveal() {
     ).matches;
     if (prefersReduced) return;
 
+    // Only hide content that starts below the fold — never flash in-view content.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) return;
+
     el.style.opacity = "0";
     el.style.transform = "translateY(32px)";
     el.style.transition = "opacity 0.7s ease, transform 0.7s ease";

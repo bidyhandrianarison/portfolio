@@ -60,10 +60,10 @@ function CodeSnippet({
   return (
     <div className="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
       <div className="flex items-center justify-between border-b border-neutral-200 bg-neutral-100 px-4 py-2 dark:border-neutral-800 dark:bg-neutral-900">
-        <code className="text-xs text-neutral-600 dark:text-neutral-400">
+        <code className="text-[13px] text-neutral-600 dark:text-neutral-400">
           {snippet.path}
         </code>
-        <span className="text-xs text-neutral-400">{snippet.language}</span>
+        <span className="text-[13px] text-neutral-400">{snippet.language}</span>
       </div>
       <pre className="overflow-x-auto p-4 text-sm">
         <code className="font-mono text-neutral-800 dark:text-neutral-200">
@@ -110,7 +110,7 @@ export function CaseStudyTemplate({
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-xs font-medium"
+              className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-[13px] font-medium"
             >
               {tag}
             </span>
@@ -140,6 +140,12 @@ export function CaseStudyTemplate({
         </div>
       </header>
 
+      {project.metrics && project.metrics.length > 0 && (
+        <div className="mb-12">
+          <MetricsBar metrics={project.metrics} locale={locale} />
+        </div>
+      )}
+
       {project.confidential && (
         <div className="border-warning-300 bg-warning-50 dark:border-warning-800 dark:bg-warning-950/30 mb-8 rounded-lg border p-4">
           <p className="text-warning-800 dark:text-warning-200 text-sm font-medium">
@@ -150,8 +156,16 @@ export function CaseStudyTemplate({
         </div>
       )}
 
-      {project.metrics && project.metrics.length > 0 && (
-        <MetricsBar metrics={project.metrics} locale={locale} />
+      {project.body && (
+        <section>
+          <PortableTextContent
+            value={
+              project.body[locale as keyof typeof project.body] ??
+              project.body.fr ??
+              []
+            }
+          />
+        </section>
       )}
 
       {project.beforeAfter &&
@@ -202,18 +216,6 @@ export function CaseStudyTemplate({
               <CodeSnippet key={snippet.path} snippet={snippet} />
             ))}
           </div>
-        </section>
-      )}
-
-      {project.body && (
-        <section className="mt-12">
-          <PortableTextContent
-            value={
-              project.body[locale as keyof typeof project.body] ??
-              project.body.fr ??
-              []
-            }
-          />
         </section>
       )}
     </main>

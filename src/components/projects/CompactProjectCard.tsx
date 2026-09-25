@@ -45,23 +45,17 @@ export function CompactProjectCard({
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
-      ) : (
-        <div className="from-primary-100 dark:from-primary-900 flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-lg bg-gradient-to-br to-orange-100 dark:to-orange-900">
-          <span className="text-primary-400 dark:text-primary-600 text-lg font-bold">
-            {title.charAt(0)}
-          </span>
-        </div>
-      )}
+      ) : null}
       <div className="min-w-0 flex-1">
         <h3 className="truncate text-sm font-semibold">{title}</h3>
-        <p className="text-xs text-neutral-500 dark:text-neutral-400">
+        <p className="text-[13px] text-neutral-500 dark:text-neutral-400">
           {role} · {period}
         </p>
         <div className="mt-1.5 flex flex-wrap gap-1">
           {tags.slice(0, 2).map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+              className="rounded-full bg-neutral-100 px-2 py-0.5 text-[13px] text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
             >
               {tag}
             </span>

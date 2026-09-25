@@ -77,6 +77,14 @@ export function ProfileHero({
           <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
             {roles}
           </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-3 sm:justify-start">
+            <span className="bg-success-50 text-success-700 dark:bg-success-900/40 dark:text-success-300 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[13px] font-medium">
+              <span className="bg-success-500 h-1.5 w-1.5 rounded-full" />
+              {locale === "en"
+                ? "Available — remote/freelance"
+                : "Disponible — remote/freelance"}
+            </span>
+          </div>
           <div className="mt-8 flex flex-wrap justify-center gap-4 sm:justify-start">
             <Link
               href={`/${locale}/projects`}

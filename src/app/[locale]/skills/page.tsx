@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SkillsPageTabs } from "@/components/competences/SkillsPageTabs";
 import { getSkills } from "@/lib/sanity/queries/skills";
 import { getCertifications } from "@/lib/sanity/queries/certifications";
+import { pageAlternates } from "@/lib/constants/site";
 
 const t = {
   fr: {
@@ -39,9 +40,7 @@ export async function generateMetadata({
   return {
     title: i.title,
     description: i.description,
-    alternates: {
-      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/skills`,
-    },
+    alternates: pageAlternates(locale, "/skills"),
   };
 }
 

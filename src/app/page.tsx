@@ -2,18 +2,19 @@ import type { Metadata } from "next";
 import { personas } from "@/lib/constants/personas";
 import { PersonaCard } from "@/components/layout/PersonaCard";
 
-const SITE_URL = "https://sarobidy-andrianarison.netlify.app";
+import { SITE_URL } from "@/lib/constants/site";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Sarobidy Andrianarison",
     description:
-      "Mobile Dev · AI Engineer · UI/UX Designer — Ingénieur hybride construisant des applications mobiles, des systèmes IA et des design systems.",
+      "Développeur mobile · Ingénieur IA · Designer UI/UX — Ingénieur hybride construisant des applications mobiles, des systèmes IA et des design systems.",
     alternates: {
       canonical: SITE_URL,
       languages: {
         fr: `${SITE_URL}/fr`,
         en: `${SITE_URL}/en`,
+        "x-default": `${SITE_URL}/fr`,
       },
     },
   };
@@ -27,7 +28,7 @@ export default function Home() {
           Sarobidy Andrianarison
         </h1>
         <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
-          Mobile Dev · IA Engineer · UI/UX Designer
+          Développeur Mobile · Ingénieur IA · Designer UI/UX
         </p>
       </section>
 

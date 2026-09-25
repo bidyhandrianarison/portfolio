@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageAlternates } from "@/lib/constants/site";
 
 const t = {
   fr: {
@@ -96,11 +97,9 @@ export async function generateMetadata({
     title: i.title,
     description:
       locale === "fr"
-        ? "Mentions légales du site sarobidy-andrianarison.netlify.app"
-        : "Legal notice for sarobidy-andrianarison.netlify.app",
-    alternates: {
-      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/mentions-legales`,
-    },
+        ? "Mentions légales du site www.sarobidy-andrianarison.consulting"
+        : "Legal notice for www.sarobidy-andrianarison.consulting",
+    alternates: pageAlternates(locale, "/mentions-legales"),
   };
 }
 

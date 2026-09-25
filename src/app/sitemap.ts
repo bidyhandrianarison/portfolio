@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getProjects } from "@/lib/sanity/queries/projects";
 import { getCertifications } from "@/lib/sanity/queries/certifications";
 
-const BASE_URL = "https://sarobidy-andrianarison.netlify.app";
+const BASE_URL = "https://www.sarobidy-andrianarison.consulting";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let projects: Awaited<ReturnType<typeof getProjects>> = [];

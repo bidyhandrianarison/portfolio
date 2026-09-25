@@ -13,11 +13,11 @@ interface ContactFormProps {
 
 const messages = {
   fr: {
-    name: "Nom",
+    name: "Nom *",
     namePlaceholder: "Votre nom",
-    email: "Email",
+    email: "Email *",
     emailPlaceholder: "vous@exemple.com",
-    message: "Message",
+    message: "Message *",
     messagePlaceholder: "Votre message...",
     send: "Envoyer",
     sending: "Envoi...",
@@ -26,11 +26,11 @@ const messages = {
     offline: "Impossible d'envoyer. Vérifiez votre connexion.",
   },
   en: {
-    name: "Name",
+    name: "Name *",
     namePlaceholder: "Your name",
-    email: "Email",
+    email: "Email *",
     emailPlaceholder: "you@example.com",
-    message: "Message",
+    message: "Message *",
     messagePlaceholder: "Your message...",
     send: "Send",
     sending: "Sending...",
@@ -74,7 +74,13 @@ export function ContactForm({ locale }: ContactFormProps) {
     const emailErr = validateEmail(email, locale);
     const messageErr = validateMessage(message, locale);
     setErrors({ email: emailErr, message: messageErr });
-    if (emailErr || messageErr) return;
+    if (emailErr || messageErr) {
+      const firstInvalid = emailErr
+        ? document.getElementById("contact-email")
+        : document.getElementById("contact-message");
+      firstInvalid?.focus();
+      return;
+    }
 
     if (typeof navigator !== "undefined" && !navigator.onLine) {
       setStatus("error");
@@ -166,7 +172,10 @@ export function ContactForm({ locale }: ContactFormProps) {
           className="focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-2 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
         />
         {errors.email && (
-          <p id="email-error" className="text-error-600 mt-1 text-xs">
+          <p
+            id="email-error"
+            className="text-error-600 dark:text-error-400 mt-1 text-[13px]"
+          >
             {errors.email}
           </p>
         )}
@@ -193,7 +202,10 @@ export function ContactForm({ locale }: ContactFormProps) {
           className="focus:border-primary-500 focus:ring-primary-500/20 w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-2 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
         />
         {errors.message && (
-          <p id="message-error" className="text-error-600 mt-1 text-xs">
+          <p
+            id="message-error"
+            className="text-error-600 dark:text-error-400 mt-1 text-[13px]"
+          >
             {errors.message}
           </p>
         )}

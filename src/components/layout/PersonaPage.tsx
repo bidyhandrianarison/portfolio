@@ -71,7 +71,9 @@ export function PersonaPage({
               <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
                 {project.description}
               </p>
-              <p className="mt-2 text-xs text-neutral-400">{project.period}</p>
+              <p className="mt-2 text-[13px] text-neutral-400">
+                {project.period}
+              </p>
             </Card>
           ))}
         </div>

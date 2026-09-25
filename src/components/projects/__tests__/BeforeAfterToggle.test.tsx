@@ -1,6 +1,5 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { BeforeAfterToggle } from "../BeforeAfterToggle";
 
 const data = {
@@ -17,71 +16,26 @@ describe("BeforeAfterToggle", () => {
     expect(screen.getByText("Après")).toBeInTheDocument();
   });
 
-  it("renders content items", () => {
+  it("renders both columns content simultaneously", () => {
     render(<BeforeAfterToggle data={data} />);
     expect(screen.getByText("Item 1")).toBeInTheDocument();
+    expect(screen.getByText("Item 3")).toBeInTheDocument();
     expect(screen.getByText("After 1")).toBeInTheDocument();
+    expect(screen.getByText("After 2")).toBeInTheDocument();
   });
 
-  it("has slider role with correct aria attributes", () => {
+  it("exposes an accessible group label", () => {
     render(<BeforeAfterToggle data={data} />);
-    const slider = screen.getByRole("slider");
-    expect(slider).toHaveAttribute("aria-orientation", "horizontal");
-    expect(slider).toHaveAttribute("aria-valuenow", "50");
-    expect(slider).toHaveAttribute("aria-valuemin", "0");
-    expect(slider).toHaveAttribute("aria-valuemax", "100");
+    expect(
+      screen.getByRole("group", { name: "Avant vs Après" }),
+    ).toBeInTheDocument();
   });
 
   it("uses custom aria-label when provided", () => {
     render(<BeforeAfterToggle data={data} ariaLabel="Custom label" />);
-    expect(screen.getByRole("slider")).toHaveAttribute(
-      "aria-label",
-      "Custom label",
-    );
-  });
-
-  it("defaults aria-label to before vs after", () => {
-    render(<BeforeAfterToggle data={data} />);
-    expect(screen.getByRole("slider")).toHaveAttribute(
-      "aria-label",
-      "Avant vs Après",
-    );
-  });
-
-  it("moves slider left on ArrowLeft", async () => {
-    const user = userEvent.setup();
-    render(<BeforeAfterToggle data={data} />);
-    const slider = screen.getByRole("slider");
-    slider.focus();
-    await user.keyboard("{ArrowLeft}");
-    expect(slider).toHaveAttribute("aria-valuenow", "45");
-  });
-
-  it("moves slider right on ArrowRight", async () => {
-    const user = userEvent.setup();
-    render(<BeforeAfterToggle data={data} />);
-    const slider = screen.getByRole("slider");
-    slider.focus();
-    await user.keyboard("{ArrowRight}");
-    expect(slider).toHaveAttribute("aria-valuenow", "55");
-  });
-
-  it("clamps position at 0", async () => {
-    const user = userEvent.setup();
-    render(<BeforeAfterToggle data={data} />);
-    const slider = screen.getByRole("slider");
-    slider.focus();
-    for (let i = 0; i < 15; i++) await user.keyboard("{ArrowLeft}");
-    expect(slider).toHaveAttribute("aria-valuenow", "0");
-  });
-
-  it("clamps position at 100", async () => {
-    const user = userEvent.setup();
-    render(<BeforeAfterToggle data={data} />);
-    const slider = screen.getByRole("slider");
-    slider.focus();
-    for (let i = 0; i < 15; i++) await user.keyboard("{ArrowRight}");
-    expect(slider).toHaveAttribute("aria-valuenow", "100");
+    expect(
+      screen.getByRole("group", { name: "Custom label" }),
+    ).toBeInTheDocument();
   });
 
   it("normalizes \\r\\n line endings", () => {
@@ -92,5 +46,10 @@ describe("BeforeAfterToggle", () => {
     render(<BeforeAfterToggle data={crlfData} />);
     expect(screen.getByText("Item 1")).toBeInTheDocument();
     expect(screen.getByText("Item 2")).toBeInTheDocument();
+  });
+
+  it("has no slider role", () => {
+    render(<BeforeAfterToggle data={data} />);
+    expect(screen.queryByRole("slider")).not.toBeInTheDocument();
   });
 });

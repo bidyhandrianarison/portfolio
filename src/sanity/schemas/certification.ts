@@ -33,6 +33,7 @@ export default defineType({
           { title: "Web & Fullstack", value: "web" },
           { title: "Cloud & DevOps", value: "cloud" },
           { title: "Design", value: "design" },
+          { title: "Data", value: "data" },
         ],
       },
       validation: (rule) => rule.required(),
@@ -104,6 +105,7 @@ export default defineType({
         web: "Web",
         cloud: "Cloud",
         design: "Design",
+        data: "Data",
       };
       return {
         title: select.title,

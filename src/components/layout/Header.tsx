@@ -32,7 +32,7 @@ export function Header({ locale }: { locale: string }) {
             <Link
               key={link.href}
               href={`/${locale}${link.href}`}
-              className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50"
+              className="flex min-h-11 items-center text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50"
             >
               {link.label[locale as keyof typeof link.label]}
             </Link>
@@ -48,7 +48,7 @@ export function Header({ locale }: { locale: string }) {
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
                 aria-label={link.label}
-                className="focus:ring-primary-500 rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:ring-offset-neutral-950"
+                className="focus:ring-primary-500 flex h-11 w-11 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:ring-offset-neutral-950"
               >
                 <svg
                   className="h-5 w-5"

@@ -5,6 +5,7 @@ import {
   getCertificationBySlug,
   getCertifications,
 } from "@/lib/sanity/queries/certifications";
+import { pageAlternates } from "@/lib/constants/site";
 
 const t = {
   fr: {
@@ -54,17 +55,11 @@ export async function generateMetadata({
   const certIssuer = resolveLocale(certification.issuer) ?? "";
 
   return {
-    title: `${certName} — ${certIssuer}`,
+    title: certName,
     description:
       resolveLocale(certification.description?.why) ??
       `Certification ${certName}`,
-    alternates: {
-      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/certifications/${slug}`,
-      languages: {
-        fr: `/fr/certifications/${slug}`,
-        en: `/en/certifications/${slug}`,
-      },
-    },
+    alternates: pageAlternates(locale, `/certifications/${slug}`),
   };
 }
 

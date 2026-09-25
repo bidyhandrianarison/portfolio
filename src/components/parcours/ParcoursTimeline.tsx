@@ -81,7 +81,7 @@ export function ParcoursTimeline({ entries, locale }: ParcoursTimelineProps) {
       {/* Empty state */}
       {filtered.length === 0 && (
         <motion.p
-          initial={{ opacity: 0 }}
+          initial={false}
           animate={{ opacity: 1 }}
           className="py-12 text-center text-neutral-500 dark:text-neutral-400"
         >

@@ -4,6 +4,7 @@ import { getSettings } from "@/lib/sanity/queries/settings";
 import { ParcoursTimeline } from "@/components/parcours/ParcoursTimeline";
 import { CvDownloadButton } from "@/components/parcours/CvDownloadButton";
 import { RemoteNotice } from "@/components/parcours/RemoteNotice";
+import { pageAlternates } from "@/lib/constants/site";
 
 const t = {
   fr: {
@@ -25,14 +26,12 @@ export async function generateMetadata({
   const i = t[locale as keyof typeof t] ?? t.fr;
 
   return {
-    title: `${i.title} — Sarobidy Andrianarison`,
+    title: i.title,
     description:
       locale === "fr"
         ? "Parcours académique et professionnel de Sarobidy Andrianarison."
         : "Academic and professional journey of Sarobidy Andrianarison.",
-    alternates: {
-      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}/parcours`,
-    },
+    alternates: pageAlternates(locale, "/parcours"),
   };
 }
 

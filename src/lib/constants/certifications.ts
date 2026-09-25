@@ -4,4 +4,5 @@ export const CATEGORY_LABELS: Record<string, { fr: string; en: string }> = {
   web: { fr: "Web", en: "Web" },
   cloud: { fr: "Cloud", en: "Cloud" },
   design: { fr: "Design", en: "Design" },
+  data: { fr: "Data", en: "Data" },
 };

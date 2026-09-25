@@ -11,6 +11,7 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 import { ProjectTypeFilter } from "@/components/projects/ProjectTypeFilter";
 import { CertificationCard } from "@/components/competences/CertificationCard";
 import { featuredSlugs } from "@/lib/constants/projects";
+import { pageAlternates } from "@/lib/constants/site";
 
 export async function generateMetadata({
   params,
@@ -25,9 +26,7 @@ export async function generateMetadata({
 
   return {
     description,
-    alternates: {
-      canonical: `https://sarobidy-andrianarison.netlify.app/${locale}`,
-    },
+    alternates: pageAlternates(locale),
   };
 }
 
@@ -40,6 +39,7 @@ const t = {
     contact: "Me contacter",
     featuredLabel: "Projets vedettes",
     featuredHeading: "Projets vedettes",
+    viewAllProjects: "Voir tous les projets",
     otherLabel: "Autres projets",
     otherHeading: "Autres projets",
     certificationsLabel: "Certifications vedettes",
@@ -55,8 +55,9 @@ const t = {
     contact: "Contact me",
     featuredLabel: "Featured projects",
     featuredHeading: "Featured projects",
+    viewAllProjects: "View all projects",
     otherLabel: "Other projects",
-    otherHeading: "Other projects",
+    otherHeading: "Other Projects",
     certificationsLabel: "Featured certifications",
     certificationsHeading: "Certifications",
     viewAllCertifications: "View all certifications",
@@ -106,9 +107,48 @@ async function FeaturedProjects({
               imageUrl={project.hero?.image?.asset?.url}
               imageAlt={project.hero?.image?.alt}
               imageLqip={project.hero?.image?.asset?.metadata?.lqip}
+              diagram={project.architecture?.mermaid}
             />
           ))}
         </div>
+        <div className="mt-6 text-center">
+          <Link
+            href={`/${locale}/projects`}
+            className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-sm font-medium hover:underline"
+          >
+            {i.viewAllProjects} →
+          </Link>
+        </div>
+      </section>
+    </GlitchReveal>
+  );
+}
+
+async function OtherProjects({
+  locale,
+  projects,
+}: {
+  locale: string;
+  projects: Awaited<ReturnType<typeof getProjects>>;
+}) {
+  const others = projects.filter(
+    (p) => !featuredSlugs.includes(p.slug.current),
+  );
+  const i = t[locale as keyof typeof t] ?? t.fr;
+
+  if (others.length === 0) return null;
+
+  return (
+    <GlitchReveal>
+      <section className="mb-20" aria-label={i.otherLabel}>
+        <h2 className="mb-8 text-2xl font-semibold tracking-tight">
+          {i.otherHeading}
+        </h2>
+        <ProjectTypeFilter
+          projects={others}
+          locale={locale}
+          variant="compact"
+        />
       </section>
     </GlitchReveal>
   );
@@ -153,36 +193,6 @@ async function FeaturedCertifications({ locale }: { locale: string }) {
   );
 }
 
-async function OtherProjects({
-  locale,
-  projects,
-}: {
-  locale: string;
-  projects: Awaited<ReturnType<typeof getProjects>>;
-}) {
-  const others = projects.filter(
-    (p) => !featuredSlugs.includes(p.slug.current),
-  );
-  const i = t[locale as keyof typeof t] ?? t.fr;
-
-  if (others.length === 0) return null;
-
-  return (
-    <GlitchReveal>
-      <section className="mb-20" aria-label={i.otherLabel}>
-        <h2 className="mb-8 text-2xl font-semibold tracking-tight">
-          {i.otherHeading}
-        </h2>
-        <ProjectTypeFilter
-          projects={others}
-          locale={locale}
-          variant="compact"
-        />
-      </section>
-    </GlitchReveal>
-  );
-}
-
 export default async function Home({
   params,
 }: {
@@ -219,12 +229,12 @@ export default async function Home({
 
       {/* Contenu principal */}
       <div className="mx-auto max-w-6xl px-4 pt-8 pb-16 sm:pt-12">
-        {/* Featured Projects */}
+        {/* Featured Projects — sélection de 3 */}
         <Suspense fallback={<HomeSkeleton />}>
           <FeaturedProjects locale={locale} projects={projects} />
         </Suspense>
 
-        {/* Other Projects */}
+        {/* Other Projects — filtre compact */}
         <Suspense fallback={<HomeSkeleton />}>
           <OtherProjects locale={locale} projects={projects} />
         </Suspense>

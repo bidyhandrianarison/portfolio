@@ -52,7 +52,7 @@ export function MobileNav({ locale }: { locale: string }) {
         aria-expanded={open}
         aria-controls="mobile-nav"
         aria-label={open ? labels.close : labels.open}
-        className="relative z-50 flex h-10 w-10 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+        className="relative z-50 flex h-11 w-11 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
       >
         <svg
           className="h-5 w-5"
@@ -97,7 +97,7 @@ export function MobileNav({ locale }: { locale: string }) {
                     ref={i === 0 ? firstLinkRef : undefined}
                     href={`/${locale}${link.href}`}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                    className="flex min-h-11 items-center rounded-lg px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
                   >
                     {link.label[locale as keyof typeof link.label]}
                   </Link>
@@ -114,7 +114,7 @@ export function MobileNav({ locale }: { locale: string }) {
                     target={link.external ? "_blank" : undefined}
                     rel={link.external ? "noopener noreferrer" : undefined}
                     aria-label={link.label}
-                    className="rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+                    className="flex h-11 w-11 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
                   >
                     <svg
                       className="h-5 w-5"

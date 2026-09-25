@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /studio/
 
-Sitemap: https://sarobidy-andrianarison.netlify.app/sitemap.xml
+Sitemap: https://www.sarobidy-andrianarison.consulting/sitemap.xml
