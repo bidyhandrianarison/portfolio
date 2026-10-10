@@ -9,7 +9,7 @@ const t = {
     title: "Compétences & Certifications",
     heading: "Compétences & Certifications",
     intro:
-      "Cinq terrains, une même obsession : des produits qui marchent. Derrière chaque compétence, un projet qui la prouve.",
+      "Cinq expertises, un fil conducteur : transformer la complexité en produits fiables. Démontré par des projets concrets.",
     description:
       "Compétences en IA, data, mobile, infra et design — avec les certifications et projets qui les prouvent.",
     skillsTab: "Compétences",
@@ -20,7 +20,7 @@ const t = {
     title: "Skills & Certifications",
     heading: "Skills & Certifications",
     intro:
-      "Five areas, one obsession: products that work. Behind every skill, a project that proves it.",
+      "Five expertises, one thread: turning complexity into reliable products. Demonstrated through concrete projects.",
     description:
       "Skills in AI, data, mobile, infra and design — with the certifications and projects that prove them.",
     skillsTab: "Skills",
