@@ -12,7 +12,8 @@ export function RemoteNotice({ locale }: RemoteNoticeProps) {
     noticeLabels[locale as keyof typeof noticeLabels] ?? noticeLabels.fr;
 
   return (
-    <div className="border-primary-200 bg-primary-50 text-primary-800 dark:border-primary-800 dark:bg-primary-950 dark:text-primary-200 mb-10 rounded-xl border px-6 py-4 text-sm font-medium">
+    <div className="bg-success-50 text-success-700 dark:bg-success-900/40 dark:text-success-300 border-success-200 dark:border-success-800 mb-10 inline-flex items-center gap-2 rounded-xl border px-6 py-4 text-sm font-medium">
+      <span className="bg-success-500 h-1.5 w-1.5 rounded-full" />
       {label}
     </div>
   );
