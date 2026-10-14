@@ -39,10 +39,10 @@ export interface ProjectHero {
 }
 
 export interface ProjectArchitecture {
-  mermaid?: string;
+  mermaid?: string | { fr: string; en: string };
   nodes?: Array<{
     id: string;
-    label: string;
+    label: string | { fr: string; en: string };
     type?: "file" | "route" | "external";
     url?: string;
   }>;

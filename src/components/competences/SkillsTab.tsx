@@ -72,7 +72,10 @@ const expertise: Record<
     ),
   },
   mobile: {
-    title: { fr: "Applications Mobiles", en: "Mobile Applications" },
+    title: {
+      fr: "Application web et mobiles",
+      en: "Web & Mobile Applications",
+    },
     description: {
       fr: "Flutter et React Native, de la conception UI jusqu'aux stores.",
       en: "Flutter and React Native, from UI design to the app stores.",

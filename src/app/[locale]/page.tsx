@@ -107,7 +107,13 @@ async function FeaturedProjects({
               imageUrl={project.hero?.image?.asset?.url}
               imageAlt={project.hero?.image?.alt}
               imageLqip={project.hero?.image?.asset?.metadata?.lqip}
-              diagram={project.architecture?.mermaid}
+              diagram={
+                typeof project.architecture?.mermaid === "string"
+                  ? project.architecture.mermaid
+                  : (project.architecture?.mermaid?.[
+                      locale as keyof typeof project.architecture.mermaid
+                    ] ?? project.architecture?.mermaid?.fr)
+              }
             />
           ))}
         </div>

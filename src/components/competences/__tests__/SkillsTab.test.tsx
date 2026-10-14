@@ -36,7 +36,7 @@ describe("SkillsTab", () => {
   it("renders expertise cards grouped by category", () => {
     render(<SkillsTab skills={skills} locale="fr" />);
     expect(screen.getByText("Systèmes IA")).toBeInTheDocument();
-    expect(screen.getByText("Applications Mobiles")).toBeInTheDocument();
+    expect(screen.getByText("Application web et mobiles")).toBeInTheDocument();
     const cards = screen.getAllByRole("article");
     expect(within(cards[0]).getByText("Python")).toBeInTheDocument();
   });
