@@ -156,7 +156,7 @@ export function CaseStudyTemplate({
         </div>
       )}
 
-      {project.body && (
+      {/*{project.body && (
         <section>
           <PortableTextContent
             value={
@@ -166,7 +166,7 @@ export function CaseStudyTemplate({
             }
           />
         </section>
-      )}
+      )}*/}
 
       {project.beforeAfter &&
         (() => {
@@ -204,7 +204,15 @@ export function CaseStudyTemplate({
       {project.architecture?.mermaid && (
         <section className="mt-12">
           <h2 className="mb-4 text-xl font-semibold">{i.solution}</h2>
-          <MermaidDiagram chart={project.architecture.mermaid} />
+          <MermaidDiagram
+            chart={
+              typeof project.architecture.mermaid === "string"
+                ? project.architecture.mermaid
+                : (project.architecture.mermaid[
+                    locale as keyof typeof project.architecture.mermaid
+                  ] ?? project.architecture.mermaid.fr)
+            }
+          />
         </section>
       )}
 

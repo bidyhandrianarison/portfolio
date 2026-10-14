@@ -127,12 +127,7 @@ export default defineType({
       title: "Architecture Diagram",
       type: "object",
       fields: [
-        defineField({
-          name: "mermaid",
-          title: "Mermaid Diagram",
-          type: "text",
-          rows: 10,
-        }),
+        localeField("mermaid", "Mermaid Diagram", "text", { rows: 10 }),
         defineField({
           name: "nodes",
           title: "Architecture Nodes",
@@ -142,7 +137,7 @@ export default defineType({
               type: "object",
               fields: [
                 defineField({ name: "id", title: "ID", type: "string" }),
-                defineField({ name: "label", title: "Label", type: "string" }),
+                localeField("label", "Label"),
                 defineField({
                   name: "type",
                   title: "Type",

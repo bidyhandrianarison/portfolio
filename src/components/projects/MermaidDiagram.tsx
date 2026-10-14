@@ -60,7 +60,7 @@ export function MermaidDiagram({
     <div className="w-full overflow-x-auto rounded-xl border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
       <div
         ref={ref}
-        className="[&_svg]:h-auto [&_svg]:w-full! [&_svg]:max-w-none!"
+        className="flex min-h-[150px] min-w-[300px] justify-center [&_svg]:h-auto [&_svg]:min-h-[150px] [&_svg]:w-auto [&_svg]:min-w-[300px]"
       />
     </div>
   );

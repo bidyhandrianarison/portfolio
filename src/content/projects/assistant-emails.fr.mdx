@@ -49,33 +49,45 @@ beforeAfter:
     - Réponses pré-remplies validées en 30s
     - Zéro oubli de relance, suivi automatisé
     - Ton et style cohérents sur chaque email
-
 ---
 
-## Contexte
+## Contexte & Enjeux
 
-Un dirigeant d'entreprise reçoit en moyenne 50 emails par jour nécessitant une réponse. Le traitement manuel — tri, lecture, rédaction, envoi — occupait environ 2 heures par jour, soit 10 heures par semaine. Ce temps portait sur des tâches à faible valeur ajoutée qui retardaient les décisions importantes.
+Un dirigeant d'entreprise reçoit en moyenne **50 emails par jour** nécessitant une réponse. Le traitement manuel — tri, lecture, rédaction, envoi — occupait **2 heures par jour (10h/semaine)** sur des tâches à faible valeur ajoutée retardant les décisions importantes.
 
-## Problème
+Le volume croissait sans que la capacité de traitement n'augmente : **relances oubliées**, réponses **incohérentes selon l'humeur**, stress impactant la productivité globale.
 
-Le volume de messages croissait sans que la capacité de traitement augmente. Les relances importantes étaient parfois oubliées, les réponses variaient selon l'humeur du moment, et le stress lié à la boîte de réception impactait la productivité globale.
+## Solution Technique
 
-## Approche
+L'assistant IA s'intègre **directement dans la boîte mail existante**, sans changer les habitudes de l'utilisateur. Architecture RAG (Retrieval-Augmented Generation) exploitant l'historique pour garantir la cohérence du ton.
 
-J'ai conçu un assistant IA fonctionnant directement dans la boîte mail existante, sans changement de comportement pour l'utilisateur :
+### Pipeline en 3 étapes
 
-1. **Lecture et analyse** — Le système classifie chaque email par intention (demande d'information, demande d'action, information à conserver) et par priorité.
-2. **Génération de réponses** — Pour chaque email nécessitant une réponse, l'assistant propose une réponse pré-remplie en s'appuyant sur le contexte de la conversation précédente et sur les réponses passées du dirigeant.
-3. **Validation** — Le dirigeant valide, modifie ou rejette chaque réponse en un clic. Seules les réponses validées sont envoyées.
+1. **Lecture & Analyse** — Classification par intention (demande d'info, action, conservation) et priorité
+2. **Génération de réponses** — Réponses pré-remplies contextualisées (historique conversation + réponses passées du dirigeant)
+3. **Validation humaine** — Le dirigeant valide, modifie ou rejette en un clic. **Aucun envoi sans validation** (garde-fou incontournable)
 
-L'architecture repose sur du RAG (Retrieval-Augmented Generation) pour exploiter l'historique des échanges et garantir la cohérence du ton.
+### Stack & Architecture
 
-## Obstacles
+- **RAG** pour récupération contextuelle (5 derniers échanges par conversation)
+- **Détection de langue** automatique (FR/EN) avec réponse dans la même langue
+- **Intégration non-invasive** dans le client mail natif
 
-- **Qualité des réponses initiales** — Les premières générations manquaient de contexte. Résolu en enrichissant le prompt avec les 5 derniers échanges de chaque conversation.
-- **Gestion des emails multilingues** — Le dirigeant reçoit des messages en français et en anglais. Le système doit détecter la langue et répondre dans la même langue.
-- **Intégration sans disruption** — L'assistant ne devait en aucun cas envoyer un email sans validation humaine. Le circuit de validation a été conçu comme un garde-fou incontournable.
+## Défis Techniques & Solutions
 
-## Résultat
+| Défi | Solution |
+|------|----------|
+| Qualité réponses initiales (manque de contexte) | Enrichissement prompt avec 5 derniers échanges par conversation |
+| Emails multilingues (FR/EN) | Détection langue + génération dans la même langue |
+| Intégration sans disruption | Circuit de validation humaine obligatoire — zéro envoi automatique |
 
-Le temps de traitement est passé de 2 heures à environ 25 minutes par jour. Les relances ne sont plus oubliées grâce au suivi automatisé. Le ton des réponses est désormais cohérent, quelle que soit la charge de travail du dirigeant.
+## Résultats & Impact
+
+| Métrique | Avant | Après |
+|----------|-------|-------|
+| Temps traitement | 2h/jour | ~25min/jour |
+| Emails traités | 50+/jour | 50+/jour (même volume) |
+| Relances oubliées | Fréquentes | Zéro (suivi automatisé) |
+| Cohérence ton | Variable (humeur) | Cohérente (RAG) |
+
+**Gain net : ~1h35/jour récupérés** sur tâches à haute valeur ajoutée. Charge mentale réduite, zéro oubli, cohérence garantie.

@@ -160,7 +160,11 @@ function FullGrid({
           imageLqip={project.hero?.image?.asset?.metadata?.lqip}
           diagram={
             featuredSlugs.includes(project.slug.current)
-              ? project.architecture?.mermaid
+              ? typeof project.architecture?.mermaid === "string"
+                ? project.architecture.mermaid
+                : (project.architecture?.mermaid?.[
+                    locale as keyof typeof project.architecture.mermaid
+                  ] ?? project.architecture?.mermaid?.fr)
               : undefined
           }
         />

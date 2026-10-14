@@ -49,33 +49,45 @@ beforeAfter:
     - Pre-filled responses validated in 30s
     - Zero missed follow-ups, automated tracking
     - Consistent tone and style across every email
-
 ---
 
-## Context
+## Context & Stakes
 
-A business executive receives an average of 50 emails per day requiring a response. Manual processing — sorting, reading, drafting, sending — took approximately 2 hours per day, or 10 hours per week. This time was spent on low-value tasks that delayed important decisions.
+A business executive receives an average of **50 emails per day** requiring a response. Manual processing — sorting, reading, drafting, sending — took **2 hours per day (10h/week)** on low-value tasks delaying important decisions.
 
-## Problem
+Volume grew without matching processing capacity: **missed follow-ups**, **mood-dependent responses**, inbox stress impacting overall productivity.
 
-Message volume was growing without a corresponding increase in processing capacity. Important follow-ups were sometimes missed, responses varied based on mood, and inbox-related stress was impacting overall productivity.
+## Technical Solution
 
-## Approach
+The AI assistant integrates **directly into the existing email client**, requiring zero behavior change. RAG (Retrieval-Augmented Generation) architecture leverages history for tone consistency.
 
-I designed an AI assistant that operates directly within the existing email client, requiring no change in the user's behavior:
+### 3-Step Pipeline
 
-1. **Reading and analysis** — The system classifies each email by intent (information request, action request, information to retain) and by priority.
-2. **Response generation** — For each email requiring a response, the assistant proposes a pre-filled reply based on the conversation context and the executive's past responses.
-3. **Validation** — The executive validates, modifies, or rejects each response with one click. Only validated responses are sent.
+1. **Reading & Analysis** — Classification by intent (info request, action request, retention) and priority
+2. **Response Generation** — Pre-filled replies contextualized (conversation history + executive's past responses)
+3. **Human Validation** — Executive validates, edits, or rejects in one click. **Zero sends without validation** (non-negotiable safeguard)
 
-The architecture relies on RAG (Retrieval-Augmented Generation) to leverage exchange history and ensure tone consistency.
+### Stack & Architecture
 
-## Challenges
+- **RAG** for contextual retrieval (last 5 exchanges per conversation)
+- **Auto language detection** (FR/EN) with same-language reply
+- **Non-invasive integration** into native mail client
 
-- **Initial response quality** — Early generations lacked context. Resolved by enriching the prompt with the last 5 exchanges of each conversation.
-- **Multilingual email management** — The executive receives messages in both French and English. The system must detect the language and respond in the same language.
-- **Non-disruptive integration** — The assistant must never send an email without human validation. The validation circuit was designed as an unavoidable safeguard.
+## Technical Challenges & Solutions
 
-## Result
+| Challenge | Solution |
+|-----------|----------|
+| Initial response quality (missing context) | Prompt enriched with last 5 exchanges per conversation |
+| Multilingual emails (FR/EN) | Language detection + generation in same language |
+| Non-disruptive integration | Mandatory human validation circuit — zero auto-send |
 
-Processing time dropped from 2 hours to approximately 25 minutes per day. Follow-ups are no longer missed thanks to automated tracking. Response tone is now consistent regardless of the executive's workload.
+## Results & Impact
+
+| Metric | Before | After |
+|--------|--------|-------|
+| Processing time | 2h/day | ~25min/day |
+| Emails processed | 50+/day | 50+/day (same volume) |
+| Missed follow-ups | Frequent | Zero (automated tracking) |
+| Tone consistency | Variable (mood) | Consistent (RAG) |
+
+**Net gain: ~1h35/day recovered** for high-value work. Mental load reduced, zero misses, guaranteed consistency.
