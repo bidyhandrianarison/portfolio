@@ -9,11 +9,21 @@ jest.mock("@/lib/utils/analytics", () => ({
 }));
 
 jest.mock("../CompactProjectCard", () => ({
-  CompactProjectCard: ({ title }: { title: string }) => <div>{title}</div>,
+  CompactProjectCard: ({ title, role }: { title: string; role: string }) => (
+    <div>
+      <span>{title}</span>
+      <span>{role}</span>
+    </div>
+  ),
 }));
 
 jest.mock("../ProjectCard", () => ({
-  ProjectCard: ({ title }: { title: string }) => <div>{title}</div>,
+  ProjectCard: ({ title, role }: { title: string; role: string }) => (
+    <div>
+      <span>{title}</span>
+      <span>{role}</span>
+    </div>
+  ),
 }));
 
 function makeProject(
@@ -28,6 +38,7 @@ function makeProject(
     description: { fr: name, en: name },
     slug: { current: name.toLowerCase().replace(/\s+/g, "-") },
     role: "Dev",
+    localizedRole: { fr: "Développeur", en: "Developer" },
     period: "2024",
     tags: [],
     order: 0,
@@ -180,5 +191,25 @@ describe("ProjectTypeFilter", () => {
     expect(
       screen.getByRole("group", { name: "Filter by project type" }),
     ).toBeInTheDocument();
+  });
+
+  it("passes the role matching the selected locale", () => {
+    const project = projects[0];
+    const { rerender } = renderFilter("en", "full", [project]);
+
+    expect(screen.getByText("Developer")).toBeInTheDocument();
+
+    rerender(
+      <ProjectTypeFilter projects={[project]} locale="fr" variant="full" />,
+    );
+
+    expect(screen.getByText("Développeur")).toBeInTheDocument();
+  });
+
+  it("falls back to the existing role until translations are entered", () => {
+    const legacyProject = { ...projects[0], localizedRole: undefined };
+    renderFilter("en", "full", [legacyProject]);
+
+    expect(screen.getByText("Dev")).toBeInTheDocument();
   });
 });

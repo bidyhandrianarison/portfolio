@@ -93,6 +93,7 @@ export function ProjectCard({
   diagram,
 }: ProjectCardProps) {
   const i = t[locale as keyof typeof t] ?? t.fr;
+  const projectMeta = [role, period].filter(Boolean).join(" · ");
 
   function handleClick() {
     trackEvent("project_open", { slug });
@@ -114,9 +115,11 @@ export function ProjectCard({
         />
         <div className="flex flex-1 flex-col p-6">
           <h3 className="text-lg font-semibold">{title}</h3>
-          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-            {role} · {period}
-          </p>
+          {projectMeta && (
+            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+              {projectMeta}
+            </p>
+          )}
           <p className="mt-3 flex-1 text-sm text-neutral-600 dark:text-neutral-400">
             {description}
           </p>
@@ -152,9 +155,11 @@ export function ProjectCard({
       />
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-semibold">{title}</h3>
-        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-          {role} · {period}
-        </p>
+        {projectMeta && (
+          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+            {projectMeta}
+          </p>
+        )}
         <p className="mt-2 line-clamp-2 flex-1 text-sm text-neutral-600 dark:text-neutral-400">
           {description}
         </p>

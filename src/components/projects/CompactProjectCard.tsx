@@ -25,6 +25,8 @@ export function CompactProjectCard({
   imageUrl,
   imageAlt,
 }: CompactProjectCardProps) {
+  const projectMeta = [role, period].filter(Boolean).join(" · ");
+
   function handleClick() {
     trackEvent("project_open", { slug });
   }
@@ -48,9 +50,11 @@ export function CompactProjectCard({
       ) : null}
       <div className="min-w-0 flex-1">
         <h3 className="truncate text-sm font-semibold">{title}</h3>
-        <p className="text-[13px] text-neutral-500 dark:text-neutral-400">
-          {role} · {period}
-        </p>
+        {projectMeta && (
+          <p className="text-[13px] text-neutral-500 dark:text-neutral-400">
+            {projectMeta}
+          </p>
+        )}
         <div className="mt-1.5 flex flex-wrap gap-1">
           {tags.slice(0, 2).map((tag) => (
             <span

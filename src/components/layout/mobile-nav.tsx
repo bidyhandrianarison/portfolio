@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { navLinks } from "@/lib/constants/nav";
+import { PrimaryNav } from "@/components/layout/PrimaryNav";
 import { contactLinks } from "@/lib/constants/contacts";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
@@ -10,7 +10,6 @@ export function MobileNav({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
-  const navRef = useRef<HTMLDivElement>(null);
 
   const lang = (locale === "en" ? "en" : "fr") as "fr" | "en";
   const ariaLabels = {
@@ -84,26 +83,16 @@ export function MobileNav({ locale }: { locale: string }) {
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />
-          <nav
+          <div
             id="mobile-nav"
-            ref={navRef}
-            aria-label="Navigation mobile"
             className="fixed inset-x-0 top-14 z-40 max-h-[calc(100vh-3.5rem)] overflow-y-auto border-b border-neutral-200 bg-white p-4 shadow-lg dark:border-neutral-800 dark:bg-neutral-950"
           >
-            <ul className="flex flex-col gap-2">
-              {navLinks.map((link, i) => (
-                <li key={link.href}>
-                  <Link
-                    ref={i === 0 ? firstLinkRef : undefined}
-                    href={`/${locale}${link.href}`}
-                    onClick={() => setOpen(false)}
-                    className="flex min-h-11 items-center rounded-lg px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
-                  >
-                    {link.label[locale as keyof typeof link.label]}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <PrimaryNav
+              locale={locale}
+              variant="mobile"
+              firstLinkRef={firstLinkRef}
+              onNavigate={() => setOpen(false)}
+            />
 
             <div className="mt-4 border-t border-neutral-200 pt-4 dark:border-neutral-800">
               <div className="mb-3 flex items-center gap-2">
@@ -152,7 +141,7 @@ export function MobileNav({ locale }: { locale: string }) {
               </div>
               <LanguageSwitcher locale={locale} />
             </div>
-          </nav>
+          </div>
         </>
       )}
     </div>

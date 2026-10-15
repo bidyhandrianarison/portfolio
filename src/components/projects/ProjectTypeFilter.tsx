@@ -13,6 +13,7 @@ import {
 import { trackEvent } from "@/lib/utils/analytics";
 import { CompactProjectCard } from "./CompactProjectCard";
 import { ProjectCard } from "./ProjectCard";
+import { resolveProjectRole } from "@/lib/utils/project-role";
 
 const t = {
   fr: {
@@ -104,7 +105,7 @@ function CompactGrid({
               project.title[locale as keyof typeof project.title] ??
               project.title.fr
             }
-            role={project.role}
+            role={resolveProjectRole(project, locale)}
             period={project.period}
             tags={project.tags}
             href={`/${locale}/projects/${project.slug.current}`}
@@ -141,7 +142,7 @@ function FullGrid({
             project.title[locale as keyof typeof project.title] ??
             project.title.fr
           }
-          role={project.role}
+          role={resolveProjectRole(project, locale)}
           period={project.period}
           description={
             project.description[locale as keyof typeof project.description] ??

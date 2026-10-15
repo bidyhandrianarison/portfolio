@@ -58,9 +58,16 @@ export default defineType({
     }),
     defineField({
       name: "role",
-      title: "Role",
+      title: "Rôle (ancien)",
       type: "string",
+      deprecated: {
+        reason: "Utilisez le champ Rôle (FR/EN) pour les nouveaux contenus.",
+      },
+      readOnly: true,
+      hidden: ({ value }) => value === undefined,
+      initialValue: undefined,
     }),
+    localeField("localizedRole", "Rôle (FR/EN)"),
     defineField({
       name: "period",
       title: "Period",
@@ -72,6 +79,15 @@ export default defineType({
       type: "array",
       of: [{ type: "string" }],
       options: { layout: "tags" },
+    }),
+    defineField({
+      name: "stack",
+      title: "Stack technique",
+      type: "array",
+      of: [{ type: "string" }],
+      options: { layout: "tags" },
+      description:
+        "Noms des technologies utilisées (ex. Flutter, Next.js), un outil par élément.",
     }),
     defineField({
       name: "projectTypes",
@@ -280,14 +296,17 @@ export default defineType({
   preview: {
     select: {
       title: "title.fr",
-      role: "role",
+      localizedRole: "localizedRole.fr",
+      legacyRole: "role",
       featured: "featured",
       media: "hero.image",
     },
     prepare(select) {
+      const role = select.localizedRole || select.legacyRole;
+
       return {
         title: select.title,
-        subtitle: select.featured ? `⭐ ${select.role}` : select.role,
+        subtitle: role ? (select.featured ? `⭐ ${role}` : role) : undefined,
         media: select.media,
       };
     },

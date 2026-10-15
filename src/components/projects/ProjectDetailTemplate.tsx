@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { Project } from "@/sanity/types";
 import { urlFor } from "@/lib/sanity/image";
 import { resolveLocale } from "@/lib/utils/locale";
+import { resolveProjectRole } from "@/lib/utils/project-role";
 import { MermaidDiagram } from "./MermaidDiagram";
 import { BeforeAfterToggle } from "./BeforeAfterToggle";
 import { PortableTextContent } from "./PortableTextContent";
@@ -82,6 +83,7 @@ export function ProjectDetailTemplate({
   locale: string;
 }) {
   const i = t[locale as keyof typeof t] ?? t.fr;
+  const role = resolveProjectRole(project, locale);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-16">
@@ -98,9 +100,7 @@ export function ProjectDetailTemplate({
             project.title.fr}
         </h1>
         <p className="mt-2 text-neutral-500 dark:text-neutral-400">
-          {project.role && project.period
-            ? `${project.role} · ${project.period}`
-            : project.role || project.period || ""}
+          {[role, project.period].filter(Boolean).join(" · ")}
         </p>
         <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
           {project.description[locale as keyof typeof project.description] ??

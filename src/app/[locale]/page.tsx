@@ -9,6 +9,7 @@ import { ProfileHero } from "@/components/visual/ProfileHero";
 import { GlitchReveal } from "@/components/visual/GlitchReveal";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { ProjectTypeFilter } from "@/components/projects/ProjectTypeFilter";
+import { resolveProjectRole } from "@/lib/utils/project-role";
 import { CertificationCard } from "@/components/competences/CertificationCard";
 import { featuredSlugs } from "@/lib/constants/projects";
 import { pageAlternates } from "@/lib/constants/site";
@@ -93,7 +94,7 @@ async function FeaturedProjects({
                 project.title[locale as keyof typeof project.title] ??
                 project.title.fr
               }
-              role={project.role}
+              role={resolveProjectRole(project, locale)}
               period={project.period}
               description={
                 project.description[

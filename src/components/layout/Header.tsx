@@ -2,8 +2,8 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { PrimaryNav } from "@/components/layout/PrimaryNav";
 import { Logo } from "@/components/ui/logo";
-import { navLinks } from "@/lib/constants/nav";
 import { contactLinks } from "@/lib/constants/contacts";
 
 export function Header({ locale }: { locale: string }) {
@@ -24,20 +24,7 @@ export function Header({ locale }: { locale: string }) {
           </span>
         </Link>
 
-        <nav
-          aria-label="Navigation principale"
-          className="hidden items-center gap-6 md:flex"
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={`/${locale}${link.href}`}
-              className="flex min-h-11 items-center text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50"
-            >
-              {link.label[locale as keyof typeof link.label]}
-            </Link>
-          ))}
-        </nav>
+        <PrimaryNav locale={locale} variant="desktop" />
 
         <div className="flex items-center gap-2">
           <div className="hidden items-center gap-2 md:flex">

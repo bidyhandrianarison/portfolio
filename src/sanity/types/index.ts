@@ -94,7 +94,8 @@ export interface Project {
   title: LocaleString;
   description: LocaleText;
   slug: { current: string };
-  role: string;
+  role?: string;
+  localizedRole?: LocaleString;
   period: string;
   tags: string[];
   projectTypes?: string[];
