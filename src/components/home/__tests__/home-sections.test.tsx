@@ -217,6 +217,7 @@ describe("BentoBrief", () => {
 describe("AiSystems", () => {
   it("rend le pipeline statique, 3 fiches et les cellules io EN", async () => {
     render(await AiSystems({ locale: "en" }));
+    expect(screen.getByRole("heading", { name: "AI systems" }));
     expect(screen.getByText("Incoming email")).toBeInTheDocument();
     expect(screen.getByText("Classification")).toBeInTheDocument();
     expect(screen.getAllByText("Input").length).toBeGreaterThanOrEqual(3);
