@@ -10,6 +10,131 @@
     "subtitle": "Je transforme des processus complexes en produits simples, utiles et intelligents",
     "cta": "Voir mes projets"
   },
+  "home": {
+    "fallback": "Cette section est momentanément indisponible.",
+    "avail": "Disponible — remote/freelance",
+    "hero": {
+      "titleLead": "Je transforme des processus complexes en produits",
+      "titleAccent": "simples, utiles et intelligents",
+      "roles": "Développeur Mobile · Ingénieur IA · UI/UX Designer",
+      "viewProjects": "Voir mes projets",
+      "contact": "Me contacter"
+    },
+    "bento": {
+      "title": "En bref",
+      "meta": "Antananarivo · remote",
+      "statusLabel": "Statut",
+      "statusValue": "Disponible",
+      "statusSub": "remote / freelance",
+      "clockSub": "heure de Madagascar",
+      "metricLabel": "Assistant emails",
+      "metricSub": "temps de traitement · 50+ emails/jour",
+      "metricFallback": "2h → 25 min",
+      "buildLabel": "Ce que je construis",
+      "buildCategories": {
+        "ia": "Systèmes IA",
+        "data": "Data",
+        "mobile": "Web & mobile",
+        "infra": "DevOps",
+        "design": "Produit & design"
+      },
+      "pathLabel": "Parcours"
+    },
+    "systems": {
+      "meta": "3 projets vedettes · 2025 – 2026",
+      "pipeline": {
+        "caption": "pipeline · assistant de traitement d'emails",
+        "result": "2h → 25 min / jour · 50+ emails/jour",
+        "log": "› email reçu dans la boîte habituelle",
+        "stages": [
+          {
+            "title": "Email entrant",
+            "sub": "boîte habituelle"
+          },
+          {
+            "title": "Classification",
+            "sub": "priorité · intention"
+          },
+          {
+            "title": "Extraction",
+            "sub": "infos utiles · relances"
+          },
+          {
+            "title": "Brouillon",
+            "sub": "ton cohérent"
+          },
+          {
+            "title": "Validation",
+            "sub": "humain · 30 s"
+          }
+        ]
+      },
+      "io": {
+        "entry": "Entrée",
+        "processing": "Traitement",
+        "output": "Sortie",
+        "result": "Résultat"
+      },
+      "sheets": {
+        "assistant-emails": {
+          "entry": "Emails reçus dans la boîte habituelle",
+          "processing": "Tri par priorité et intention, extraction, rédaction",
+          "output": "Réponses pré-remplies, relances suivies"
+        },
+        "automatisation-commandes": {
+          "entry": "Données de commandes et de produits",
+          "processing": "Système de bout en bout qui traite les données",
+          "output": "Suggestions de commande"
+        },
+        "compte-rendus": {
+          "entry": "Notes de réunion, discussions d'équipe",
+          "processing": "Système multi-agents",
+          "output": "Résumés, décisions, actions de suivi"
+        }
+      },
+      "viewStudy": "Voir l'étude →",
+      "viewAll": "Voir tous les projets →",
+      "title": "Systèmes IA"
+    },
+    "story": {
+      "meta": "Étude vedette",
+      "before": "Avant",
+      "after": "Après",
+      "readStudy": "Lire l'étude complète →",
+      "fallbackTitle": "Assistant de traitement d'emails"
+    },
+    "bridge": {
+      "meta": "des systèmes aux écrans",
+      "prefix": "Des produits",
+      "simple": "simples",
+      "useful": "utiles",
+      "intelligent": "intelligents",
+      "join": "et"
+    },
+    "apps": {
+      "meta": "4 apps · Figma · Flutter · React Native",
+      "viewProject": "Voir le projet →",
+      "hint": "glisser, cliquer ou ← →",
+      "prev": "Application précédente",
+      "next": "Application suivante",
+      "title": "Applications mobiles"
+    },
+    "recent": {
+      "title": "Parcours",
+      "viewAll": "Voir tout le parcours →",
+      "present": "Présent"
+    },
+    "certs": {
+      "title": "Certifications",
+      "viewAll": "Toutes les certifications →"
+    },
+    "contact": {
+      "title": "Travaillons ensemble",
+      "text": "Vous avez un projet en tête ? Discutons-en.",
+      "linkedin": "LinkedIn ↗",
+      "github": "GitHub ↗"
+    }
+  },
   "footer": {
     "copyright": "© 2026 Sarobidy Andrianarison. Tous droits réservés.",
     "built_with": "Construit avec Next.js et Sanity"

@@ -10,6 +10,131 @@
     "subtitle": "I transform complex processes into simple, useful, and intelligent products",
     "cta": "View my projects"
   },
+  "home": {
+    "fallback": "This section is temporarily unavailable.",
+    "avail": "Available — remote/freelance",
+    "hero": {
+      "titleLead": "I turn complex processes into",
+      "titleAccent": "simple, useful, and intelligent products",
+      "roles": "Mobile Dev · AI Engineer · UI/UX Designer",
+      "viewProjects": "View my projects",
+      "contact": "Contact me"
+    },
+    "bento": {
+      "title": "In brief",
+      "meta": "Antananarivo · remote",
+      "statusLabel": "Status",
+      "statusValue": "Available",
+      "statusSub": "remote / freelance",
+      "clockSub": "Madagascar time",
+      "metricLabel": "Email assistant",
+      "metricSub": "processing time · 50+ emails/day",
+      "metricFallback": "2h → 25 min",
+      "buildLabel": "What I build",
+      "buildCategories": {
+        "ia": "AI systems",
+        "data": "Data",
+        "mobile": "Web & mobile",
+        "infra": "DevOps",
+        "design": "Product & design"
+      },
+      "pathLabel": "Journey"
+    },
+    "systems": {
+      "meta": "3 featured projects · 2025 – 2026",
+      "pipeline": {
+        "caption": "pipeline · email processing assistant",
+        "result": "2h → 25 min / day · 50+ emails/day",
+        "log": "› email received in the usual inbox",
+        "stages": [
+          {
+            "title": "Incoming email",
+            "sub": "usual inbox"
+          },
+          {
+            "title": "Classification",
+            "sub": "priority · intent"
+          },
+          {
+            "title": "Extraction",
+            "sub": "key info · follow-ups"
+          },
+          {
+            "title": "Draft",
+            "sub": "consistent tone"
+          },
+          {
+            "title": "Validation",
+            "sub": "human · 30 s"
+          }
+        ]
+      },
+      "io": {
+        "entry": "Input",
+        "processing": "Processing",
+        "output": "Output",
+        "result": "Result"
+      },
+      "sheets": {
+        "assistant-emails": {
+          "entry": "Emails received in the usual inbox",
+          "processing": "Sort by priority and intent, extraction, drafting",
+          "output": "Pre-filled replies, tracked follow-ups"
+        },
+        "automatisation-commandes": {
+          "entry": "Order and product data",
+          "processing": "End-to-end system processing the data",
+          "output": "Order suggestions"
+        },
+        "compte-rendus": {
+          "entry": "Meeting notes, team discussions",
+          "processing": "Multi-agent system",
+          "output": "Summaries, decisions, follow-up actions"
+        }
+      },
+      "viewStudy": "View the case study →",
+      "viewAll": "View all projects →",
+      "title": "Mobile apps"
+    },
+    "story": {
+      "meta": "Featured study",
+      "before": "Before",
+      "after": "After",
+      "readStudy": "Read the full case study →",
+      "fallbackTitle": "Email processing assistant"
+    },
+    "bridge": {
+      "meta": "from systems to screens",
+      "prefix": "Products that are",
+      "simple": "simple",
+      "useful": "useful",
+      "intelligent": "intelligent",
+      "join": "and"
+    },
+    "apps": {
+      "meta": "4 apps · Figma · Flutter · React Native",
+      "viewProject": "View project →",
+      "hint": "drag, click, or ← →",
+      "prev": "Previous application",
+      "next": "Next application",
+      "title": "Mobile apps"
+    },
+    "recent": {
+      "title": "Journey",
+      "viewAll": "View the full journey →",
+      "present": "Present"
+    },
+    "certs": {
+      "title": "Certifications",
+      "viewAll": "All certifications →"
+    },
+    "contact": {
+      "title": "Let's work together",
+      "text": "Have a project in mind? Let's talk.",
+      "linkedin": "LinkedIn ↗",
+      "github": "GitHub ↗"
+    }
+  },
   "footer": {
     "copyright": "© 2026 Sarobidy Andrianarison. All rights reserved.",
     "built_with": "Built with Next.js and Sanity"

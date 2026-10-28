@@ -16,6 +16,8 @@ export const PROJECTS_QUERY =
   projectTypes,
   order,
   featured,
+  beforeAfter,
+  metrics { _key, label, value, baseline, trend },
   architecture { mermaid },
   hero {
     image {
