@@ -62,22 +62,22 @@ function getDesktopLinkClassName(
   currentState: "page" | "location" | undefined,
 ) {
   const baseClassName =
-    "relative flex min-h-11 items-center px-1 text-sm transition-colors after:absolute after:inset-x-1 after:bottom-0 after:h-[3px] after:rounded-t-full after:content-[''] after:transition-transform motion-reduce:after:transition-none focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500";
+    "flex min-h-11 items-center rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors";
 
   if (currentState) {
-    return `${baseClassName} font-semibold text-primary-700 after:scale-x-100 after:bg-primary-500 dark:text-primary-400`;
+    return `${baseClassName} text-accent`;
   }
 
-  return `${baseClassName} text-neutral-600 after:scale-x-0 after:bg-primary-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50`;
+  return `${baseClassName} text-muted hover:bg-accent-soft hover:text-content`;
 }
 
 function getMobileLinkClassName(currentState: "page" | "location" | undefined) {
   const baseClassName =
-    "relative flex min-h-11 items-center rounded-lg px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500";
+    "flex min-h-11 items-center rounded-lg px-4 py-3 text-sm font-medium transition-colors";
 
   if (currentState) {
-    return `${baseClassName} bg-primary-50 text-primary-700 after:absolute after:bottom-1 after:left-4 after:h-0.5 after:w-10 after:rounded-full after:bg-primary-500 after:content-[''] dark:bg-primary-950/40 dark:text-primary-300`;
+    return `${baseClassName} bg-accent-soft text-accent`;
   }
 
-  return `${baseClassName} text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800`;
+  return `${baseClassName} text-content hover:bg-panel-2`;
 }

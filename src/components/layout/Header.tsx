@@ -8,18 +8,18 @@ import { contactLinks } from "@/lib/constants/contacts";
 
 export function Header({ locale }: { locale: string }) {
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-950/80">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+    <header className="border-line bg-glass sticky top-0 z-50 border-b backdrop-blur-xl backdrop-saturate-[1.8]">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <Link
           href={`/${locale}`}
-          className="hover:text-primary-600 dark:hover:text-primary-400 flex items-center gap-2 text-lg font-bold transition-colors"
+          className="hover:text-accent flex items-center gap-2 text-lg font-bold transition-colors"
           title={locale === "fr" ? "Retour à l'accueil" : "Back to home"}
         >
-          <Logo className="text-primary-600 dark:text-primary-400 h-12 w-12" />
+          <Logo className="text-accent h-10 w-10" />
           <span className="sr-only">
             {locale === "fr" ? "Accueil" : "Home"}
           </span>
-          <span className="hidden text-base font-semibold sm:inline">
+          <span className="hidden text-base font-semibold tracking-[-.02em] sm:inline">
             Sarobidy
           </span>
         </Link>
@@ -35,7 +35,7 @@ export function Header({ locale }: { locale: string }) {
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
                 aria-label={link.label}
-                className="focus:ring-primary-500 flex h-11 w-11 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 focus:ring-2 focus:ring-offset-2 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:ring-offset-neutral-950"
+                className="text-muted hover:bg-panel-2 hover:text-content flex h-11 w-11 items-center justify-center rounded-lg transition-colors"
               >
                 <svg
                   className="h-5 w-5"

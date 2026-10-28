@@ -19,16 +19,16 @@ export function Footer({ locale = "fr" }: { locale?: string }) {
     footerLabels[locale as keyof typeof footerLabels] ?? footerLabels.fr;
 
   return (
-    <footer className="border-t border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900">
+    <footer className="border-line border-t">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-8 sm:flex-row sm:justify-between">
-        <p className="text-sm text-neutral-500">
+        <p className="meta">
           {labels.copyright.replace("{year}", String(new Date().getFullYear()))}
         </p>
 
         <nav aria-label={labels.ariaLabel} className="flex gap-4">
           <Link
             href={`/${locale}/mentions-legales`}
-            className="flex min-h-11 items-center text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-50"
+            className="meta hover:text-content flex min-h-11 items-center transition-colors"
           >
             {labels.legal}
           </Link>
@@ -38,7 +38,7 @@ export function Footer({ locale = "fr" }: { locale?: string }) {
               href={link.href}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
-              className="flex min-h-11 items-center text-sm text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-50"
+              className="meta hover:text-content flex min-h-11 items-center transition-colors"
             >
               {link.label}
             </Link>
