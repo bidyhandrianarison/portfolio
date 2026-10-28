@@ -83,12 +83,24 @@ export async function BentoBrief({ locale }: { locale: string }) {
           <span className="meta">{t("bento.clockSub")}</span>
         </Tile>
         <Tile label={t("bento.metricLabel")}>
-          <p className="mt-auto text-[clamp(1.8rem,2.6vw,2.4rem)] leading-none font-bold tracking-[-0.045em]">
-            {metricValue}
+          <p className="mt-auto text-[clamp(1.8rem,2.6vw,2.4rem)] leading-none font-bold tracking-[-0.045em] whitespace-nowrap">
+            {metricValue.includes("→") ? (
+              <>
+                {metricValue.slice(0, metricValue.indexOf("→") + 1)}{" "}
+                <span className="text-accent">
+                  {metricValue.slice(metricValue.indexOf("→") + 1).trim()}
+                </span>
+              </>
+            ) : (
+              metricValue
+            )}
           </p>
           <span className="meta">{t("bento.metricSub")}</span>
         </Tile>
-        <Tile label={t("bento.buildLabel")} className="sm:col-span-2">
+        <Tile
+          label={t("bento.buildLabel")}
+          className="sm:col-span-2 lg:row-span-2"
+        >
           <div className="grid gap-3">
             {domains.map((domain) => (
               <div key={domain.category} className="grid gap-1.5">

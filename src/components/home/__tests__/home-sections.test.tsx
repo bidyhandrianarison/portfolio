@@ -205,7 +205,9 @@ describe("BentoBrief", () => {
     render(await BentoBrief({ locale: "fr" }));
     expect(screen.getByText("Statut")).toBeInTheDocument();
     expect(screen.getByText("Assistant emails")).toBeInTheDocument();
-    expect(screen.getByText("2h → 25 min")).toBeInTheDocument();
+    expect(
+      screen.getByText((_, element) => element?.textContent === "2h → 25 min"),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Codilee/)).toBeInTheDocument();
     expect(screen.getByText("Systèmes IA")).toBeInTheDocument();
     expect(screen.getByText("LLM")).toBeInTheDocument();
