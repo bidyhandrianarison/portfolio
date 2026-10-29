@@ -2,230 +2,112 @@ import Link from "next/link";
 import type { Project } from "@/sanity/types";
 import { resolveLocale } from "@/lib/utils/locale";
 import { resolveProjectRole } from "@/lib/utils/project-role";
-import { MermaidDiagram } from "./MermaidDiagram";
-import { BeforeAfterToggle } from "./BeforeAfterToggle";
-import { PortableTextContent } from "./PortableTextContent";
+import { metric } from "@/lib/format/metric";
+import { projectsT } from "@/lib/i18n-server";
+import { ProjectsPrevNext } from "./ProjectsPrevNext";
 
-const t = {
-  fr: {
-    context: "Contexte",
-    contribution: "Contribution",
-    solution: "Solution",
-    result: "Résultat",
-    back: "← Retour aux projets",
-    repo: "Voir le code",
-    demo: "Voir la démo",
-  },
-  en: {
-    context: "Context",
-    contribution: "Contribution",
-    solution: "Solution",
-    result: "Results",
-    back: "← Back to projects",
-    repo: "View code",
-    demo: "View demo",
-  },
-} as const;
-
-function MetricsBar({
-  metrics,
-  locale,
-}: {
-  metrics: NonNullable<Project["metrics"]>;
-  locale: string;
-}) {
-  return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-      {metrics.map((m, i) => (
-        <div
-          key={i}
-          className="rounded-xl border border-neutral-200 bg-white p-4 text-center dark:border-neutral-800 dark:bg-neutral-950"
-        >
-          <p className="text-primary-600 text-2xl font-bold">
-            {resolveLocale(m.value, locale)}
-          </p>
-          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-            {resolveLocale(m.label, locale)}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function CodeSnippet({
-  snippet,
-}: {
-  snippet: NonNullable<Project["codeSnippets"]>[number];
-}) {
-  return (
-    <div className="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
-      <div className="flex items-center justify-between border-b border-neutral-200 bg-neutral-100 px-4 py-2 dark:border-neutral-800 dark:bg-neutral-900">
-        <code className="text-[13px] text-neutral-600 dark:text-neutral-400">
-          {snippet.path}
-        </code>
-        <span className="text-[13px] text-neutral-400">{snippet.language}</span>
-      </div>
-      <pre className="overflow-x-auto p-4 text-sm">
-        <code className="font-mono text-neutral-800 dark:text-neutral-200">
-          {snippet.code}
-        </code>
-      </pre>
-    </div>
-  );
-}
-
-export function CaseStudyTemplate({
+/**
+ * Détail « étude » (featured) — maquette stricte projet.html : en-tête
+ * typographique, KPI chiffrés, Avant/Après, nav précédent/suivant.
+ * hero.image / architecture / codeSnippets / body volontairement non affichés.
+ */
+export async function CaseStudyTemplate({
   project,
   locale,
 }: {
   project: Project;
   locale: string;
 }) {
-  const i = t[locale as keyof typeof t] ?? t.fr;
-  const role = resolveProjectRole(project, locale);
+  const t = projectsT(locale);
+  const beforeAfter = project.beforeAfter;
+  const before = beforeAfter?.beforeContent
+    ? resolveLocale(beforeAfter.beforeContent, locale)
+    : "";
+  const after = beforeAfter?.afterContent
+    ? resolveLocale(beforeAfter.afterContent, locale)
+    : "";
+  const rows = (content: string) =>
+    content.split("\n").filter((line) => line.trim().length > 0);
+  const prevNext = await ProjectsPrevNext({ project, locale });
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-16">
-      <Link
-        href={`/${locale}/projects`}
-        className="text-primary-600 hover:text-primary-700 mb-8 inline-block text-sm"
-      >
-        {i.back}
-      </Link>
-
-      <header className="mb-12">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          {project.title[locale as keyof typeof project.title] ??
-            project.title.fr}
+    <main>
+      <div className="wrap pt-14">
+        <Link href={`/${locale}/projects`} className="meta hover:underline">
+          {t("back")}
+        </Link>
+        <p className="meta mt-5">
+          {resolveProjectRole(project, locale)} · {project.period}
+        </p>
+        <h1 className="text-[clamp(2rem,5vw,3rem)] leading-[1.1] font-bold tracking-[-0.04em]">
+          {resolveLocale(project.title, locale)}
         </h1>
-        <p className="mt-2 text-neutral-500 dark:text-neutral-400">
-          {[role, project.period].filter(Boolean).join(" · ")}
+        <p className="lede mt-4">
+          {resolveLocale(project.description, locale)}
         </p>
-        <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
-          {project.description[locale as keyof typeof project.description] ??
-            project.description.fr}
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-[13px] font-medium"
-            >
+        <div className="mt-4.5 flex flex-wrap gap-1.5">
+          {(project.tags ?? []).map((tag) => (
+            <span key={tag} className="tag">
               {tag}
             </span>
           ))}
         </div>
-        <div className="mt-6 flex gap-3">
-          {project.repoUrl && (
-            <a
-              href={project.repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary-600 hover:bg-primary-700 rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
-            >
-              {i.repo}
-            </a>
-          )}
-          {project.demoUrl && (
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
-            >
-              {i.demo}
-            </a>
-          )}
-        </div>
-      </header>
+      </div>
 
       {project.metrics && project.metrics.length > 0 && (
-        <div className="mb-12">
-          <MetricsBar metrics={project.metrics} locale={locale} />
-        </div>
-      )}
-
-      {project.confidential && (
-        <div className="border-warning-300 bg-warning-50 dark:border-warning-800 dark:bg-warning-950/30 mb-8 rounded-lg border p-4">
-          <p className="text-warning-800 dark:text-warning-200 text-sm font-medium">
-            ⚠ Ce projet contient des données sous NDA. Les détails sensibles ont
-            été masqués.
-            {project.confidentialNote && ` ${project.confidentialNote}`}
-          </p>
-        </div>
-      )}
-
-      {/*{project.body && (
-        <section>
-          <PortableTextContent
-            value={
-              project.body[locale as keyof typeof project.body] ??
-              project.body.fr ??
-              []
-            }
-          />
-        </section>
-      )}*/}
-
-      {project.beforeAfter &&
-        (() => {
-          const bc = project.beforeAfter.beforeContent
-            ? resolveLocale(project.beforeAfter.beforeContent, locale)
-            : "";
-          const ac = project.beforeAfter.afterContent
-            ? resolveLocale(project.beforeAfter.afterContent, locale)
-            : "";
-          return bc || ac;
-        })() && (
-          <section className="mt-12">
-            <h2 className="mb-4 text-xl font-semibold">{i.result}</h2>
-            <BeforeAfterToggle
-              data={{
-                beforeLabel:
-                  (project.beforeAfter.beforeLabel
-                    ? resolveLocale(project.beforeAfter.beforeLabel, locale)
-                    : null) || (locale === "en" ? "Before" : "Avant"),
-                afterLabel:
-                  (project.beforeAfter.afterLabel
-                    ? resolveLocale(project.beforeAfter.afterLabel, locale)
-                    : null) || (locale === "en" ? "After" : "Après"),
-                beforeContent: project.beforeAfter.beforeContent
-                  ? resolveLocale(project.beforeAfter.beforeContent, locale)
-                  : "",
-                afterContent: project.beforeAfter.afterContent
-                  ? resolveLocale(project.beforeAfter.afterContent, locale)
-                  : "",
-              }}
-            />
-          </section>
-        )}
-
-      {project.architecture?.mermaid && (
-        <section className="mt-12">
-          <h2 className="mb-4 text-xl font-semibold">{i.solution}</h2>
-          <MermaidDiagram
-            chart={
-              typeof project.architecture.mermaid === "string"
-                ? project.architecture.mermaid
-                : (project.architecture.mermaid[
-                    locale as keyof typeof project.architecture.mermaid
-                  ] ?? project.architecture.mermaid.fr)
-            }
-          />
-        </section>
-      )}
-
-      {project.codeSnippets && project.codeSnippets.length > 0 && (
-        <section className="mt-12">
-          <h2 className="mb-4 text-xl font-semibold">{i.contribution}</h2>
-          <div className="space-y-4">
-            {project.codeSnippets.map((snippet) => (
-              <CodeSnippet key={snippet.path} snippet={snippet} />
-            ))}
+        <section className="wrap mt-8" aria-label={t("results")}>
+          <div className="grid grid-cols-2 gap-3.5 max-[600px]:grid-cols-1">
+            {project.metrics
+              .filter((metricRow) => metricRow.value && metricRow.label)
+              .map((metricRow) => (
+                <div key={metricRow.label.fr} className="kpi">
+                  <b>{metric(resolveLocale(metricRow.value, locale))}</b>
+                  <p className="meta">
+                    {resolveLocale(metricRow.label, locale)}
+                  </p>
+                </div>
+              ))}
           </div>
         </section>
       )}
+
+      {(before || after) && (
+        <section className="wrap mt-6 max-[600px]:mt-3.5">
+          <h2 className="sr-only">
+            {t("avant")} / {t("apres")}
+          </h2>
+          <article className="story">
+            <div className="grid grid-cols-1 gap-8 min-[601px]:grid-cols-2">
+              <div>
+                <h4>
+                  {beforeAfter?.beforeLabel
+                    ? resolveLocale(beforeAfter.beforeLabel, locale)
+                    : t("avant")}
+                </h4>
+                <ul>
+                  {rows(before).map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h4>
+                  {beforeAfter?.afterLabel
+                    ? resolveLocale(beforeAfter.afterLabel, locale)
+                    : t("apres")}
+                </h4>
+                <ul>
+                  {rows(after).map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        </section>
+      )}
+
+      <div className="pt-8">{prevNext}</div>
     </main>
   );
 }

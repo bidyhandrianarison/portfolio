@@ -43,6 +43,7 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(
     localizedRole,
     period,
     tags,
+    stack,
     order,
     featured,
     hero {

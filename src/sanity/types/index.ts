@@ -98,6 +98,7 @@ export interface Project {
   localizedRole?: LocaleString;
   period: string;
   tags: string[];
+  stack?: string[];
   projectTypes?: string[];
   order: number;
   featured?: boolean;

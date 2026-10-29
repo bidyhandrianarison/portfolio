@@ -141,6 +141,29 @@
       "github": "GitHub ↗"
     }
   },
+  "projects": {
+    "pageTitle": "Projects",
+    "description": "Projects and case studies by Sarobidy Andrianarison — mobile developer, AI engineer, and UI/UX designer.",
+    "filtersLabel": "Filter projects",
+    "all": "All",
+    "metaOne": "1 project",
+    "metaMany": "{n} projects",
+    "countOne": "1 project shown",
+    "countMany": "{n} projects shown",
+    "voirEtude": "View the case study →",
+    "voirProjet": "View the project →",
+    "back": "← All projects",
+    "prev": "← Previous",
+    "next": "Next →",
+    "pnLabel": "Other projects",
+    "tasksTitle": "My work on this project",
+    "avant": "Before",
+    "apres": "After",
+    "results": "Result",
+    "notFoundMeta": "404",
+    "notFoundTitle": "Project not found",
+    "notFoundBody": "This project doesn't exist or has moved."
+  },
   "footer": {
     "copyright": "© 2026 Sarobidy Andrianarison. All rights reserved.",
     "built_with": "Built with Next.js and Sanity"

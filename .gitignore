@@ -12,3 +12,5 @@ _bmad*
 .DS_Store
 .sanity/
 scripts
+
+skills-lock.json

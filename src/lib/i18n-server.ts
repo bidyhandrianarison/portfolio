@@ -18,10 +18,20 @@ function lookup(node: unknown, key: string): unknown {
     );
 }
 
-export function homeT(locale: string) {
-  const home =
-    (RESOURCES[locale]?.home as Record<string, unknown> | undefined) ??
-    (RESOURCES.fr.home as Record<string, unknown>);
+function sectionNode(locale: string, section: string): Record<string, unknown> {
+  return ((RESOURCES[locale]?.[section] as
+    Record<string, unknown> | undefined) ?? RESOURCES.fr[section]) as Record<
+    string,
+    unknown
+  >;
+}
 
+export function homeT(locale: string) {
+  const home = sectionNode(locale, "home");
   return <T = string>(key: string): T => lookup(home, key) as T;
+}
+
+export function projectsT(locale: string) {
+  const projects = sectionNode(locale, "projects");
+  return <T = string>(key: string): T => lookup(projects, key) as T;
 }
