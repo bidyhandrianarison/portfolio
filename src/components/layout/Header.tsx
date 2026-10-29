@@ -3,12 +3,13 @@ import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { PrimaryNav } from "@/components/layout/PrimaryNav";
+import { ScrolledHeader } from "@/components/layout/scrolled-header";
 import { Logo } from "@/components/ui/logo";
 import { contactLinks } from "@/lib/constants/contacts";
 
 export function Header({ locale }: { locale: string }) {
-  return (
-    <header className="border-line bg-glass sticky top-0 z-50 border-b backdrop-blur-xl backdrop-saturate-[1.8]">
+  const content = (
+    <>
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <Link
           href={`/${locale}`}
@@ -76,6 +77,12 @@ export function Header({ locale }: { locale: string }) {
           <MobileNav locale={locale} />
         </div>
       </div>
-    </header>
+    </>
+  );
+
+  return (
+    <ScrolledHeader className="site-header border-line bg-glass sticky top-0 z-50 border-b backdrop-blur-xl backdrop-saturate-[1.8]">
+      {content}
+    </ScrolledHeader>
   );
 }

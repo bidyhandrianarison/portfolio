@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 
 jest.mock("next/image", () => ({
   __esModule: true,
@@ -260,12 +260,22 @@ describe("Bridge", () => {
 });
 
 describe("AppsCarousel", () => {
-  it("rend la piste des apps mobile avec caption et boutons inactifs", async () => {
+  it("rend la piste des apps mobile avec caption et flèches actives", async () => {
     render(await AppsCarousel({ locale: "fr" }));
     expect(screen.getAllByText("Mahafaka").length).toBeGreaterThanOrEqual(2);
     expect(
       screen.getByRole("button", { name: "Application précédente" }),
-    ).toBeDisabled();
+    ).toBeEnabled();
+    expect(
+      screen.getByRole("button", { name: "Application suivante" }),
+    ).toBeEnabled();
+    // une seule app : les flèches restent clampées sur 0..len-1
+    fireEvent.click(
+      screen.getByRole("button", { name: "Application suivante" }),
+    );
+    expect(
+      screen.getByRole("heading", { level: 3, name: "Mahafaka" }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /Voir le projet/ }),
     ).toHaveAttribute("href", "/fr/projects/mahafaka");

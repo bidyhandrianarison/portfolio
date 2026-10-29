@@ -3,6 +3,7 @@ import { homeT } from "@/lib/i18n-server";
 import { ErrorFallback } from "@/components/ui/error-fallback";
 import { getTimelineEntries } from "@/lib/sanity/queries/timeline";
 import { resolveLocale } from "@/lib/utils/locale";
+import { Reveal } from "@/components/home/Reveal";
 
 export async function RecentPath({ locale }: { locale: string }) {
   const t = homeT(locale);
@@ -23,36 +24,40 @@ export async function RecentPath({ locale }: { locale: string }) {
 
   return (
     <div className="wrap">
-      <div className="sec-head">
+      <Reveal className="sec-head">
         <h2>{t("recent.title")}</h2>
         <Link href={`/${locale}/parcours`} className="go">
           {t("recent.viewAll")}
         </Link>
-      </div>
-      <ol className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 md:grid-cols-4">
-        {entries.map((entry) => (
-          <li
-            key={entry._id}
-            className="border-line bg-panel border-t-accent flex flex-col gap-1 rounded-2xl border border-t-[3px] p-[18px]"
-          >
-            <span className="meta">
-              {formatMonth(entry.dateStart)} —{" "}
-              {entry.dateEnd ? formatMonth(entry.dateEnd) : t("recent.present")}
-            </span>
-            <b className="mt-1 leading-[1.3] tracking-[-0.01em]">
-              {resolveLocale(entry.title, locale)}
-            </b>
-            {entry.organization && (
-              <span className="text-[0.875rem] font-semibold">
-                {resolveLocale(entry.organization, locale)}
+      </Reveal>
+      <Reveal>
+        <ol className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 md:grid-cols-4">
+          {entries.map((entry) => (
+            <li
+              key={entry._id}
+              className="border-line bg-panel border-t-accent flex flex-col gap-1 rounded-2xl border border-t-[3px] p-[18px]"
+            >
+              <span className="meta">
+                {formatMonth(entry.dateStart)} —{" "}
+                {entry.dateEnd
+                  ? formatMonth(entry.dateEnd)
+                  : t("recent.present")}
               </span>
-            )}
-            <p className="text-muted mt-1 text-[0.875rem]">
-              {resolveLocale(entry.description, locale)}
-            </p>
-          </li>
-        ))}
-      </ol>
+              <b className="mt-1 leading-[1.3] tracking-[-0.01em]">
+                {resolveLocale(entry.title, locale)}
+              </b>
+              {entry.organization && (
+                <span className="text-[0.875rem] font-semibold">
+                  {resolveLocale(entry.organization, locale)}
+                </span>
+              )}
+              <p className="text-muted mt-1 text-[0.875rem]">
+                {resolveLocale(entry.description, locale)}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </Reveal>
     </div>
   );
 }

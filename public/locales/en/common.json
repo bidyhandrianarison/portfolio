@@ -45,7 +45,13 @@
       "pipeline": {
         "caption": "pipeline · email processing assistant",
         "result": "2h → 25 min / day · 50+ emails/day",
-        "log": "› email received in the usual inbox",
+        "logs": [
+          "email received in the <b>usual inbox</b>",
+          "classified by <b>priority</b> and <b>intent</b>",
+          "extracting <b>key info</b> and <b>follow-ups</b>",
+          "draft ready · <b>consistent tone</b>",
+          "validated by the human in <b>30 s</b>"
+        ],
         "stages": [
           {
             "title": "Incoming email",

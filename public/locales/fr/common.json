@@ -45,7 +45,13 @@
       "pipeline": {
         "caption": "pipeline · assistant de traitement d'emails",
         "result": "2h → 25 min / jour · 50+ emails/jour",
-        "log": "› email reçu dans la boîte habituelle",
+        "logs": [
+          "email reçu dans la <b>boîte habituelle</b>",
+          "classé par <b>priorité</b> et <b>intention</b>",
+          "extraction des <b>infos utiles</b> et des <b>relances</b>",
+          "brouillon prêt · <b>ton cohérent</b>",
+          "validé par l'humain en <b>30 s</b>"
+        ],
         "stages": [
           {
             "title": "Email entrant",

@@ -4,16 +4,10 @@ import { getSkills } from "@/lib/sanity/queries/skills";
 import { getTimelineEntries } from "@/lib/sanity/queries/timeline";
 import { getProjects } from "@/lib/sanity/queries/projects";
 import { resolveLocale } from "@/lib/utils/locale";
+import { ClockTick } from "@/components/home/ClockTick";
+import { Reveal } from "@/components/home/Reveal";
 
 const CATEGORY_ORDER = ["ia", "data", "mobile", "infra", "design"] as const;
-
-function madagascarClock(locale: string): string {
-  return new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "fr-FR", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "Indian/Antananarivo",
-  }).format(new Date());
-}
 
 function Tile({
   label,
@@ -66,20 +60,21 @@ export async function BentoBrief({ locale }: { locale: string }) {
 
   return (
     <div className="wrap">
-      <div className="sec-head">
+      <Reveal className="sec-head">
         <h2>{t("bento.title")}</h2>
         <span className="meta">{t("bento.meta")}</span>
-      </div>
-      <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+      </Reveal>
+      <Reveal className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
         <Tile label={t("bento.statusLabel")}>
           <strong className="text-ok-text flex items-center gap-2 text-lg">
             <i aria-hidden="true" className="bg-ok h-2 w-2 rounded-full" />
             {t("bento.statusValue")}
           </strong>
           <span className="meta">{t("bento.statusSub")}</span>
-          <div className="mt-auto font-mono text-[1.75rem] leading-none font-semibold tracking-[-0.02em]">
-            {madagascarClock(locale)}
-          </div>
+          <ClockTick
+            locale={locale}
+            className="mt-auto font-mono text-[1.75rem] leading-none font-semibold tracking-[-0.02em]"
+          />
           <span className="meta">{t("bento.clockSub")}</span>
         </Tile>
         <Tile label={t("bento.metricLabel")}>
@@ -139,7 +134,7 @@ export async function BentoBrief({ locale }: { locale: string }) {
             ))}
           </ol>
         </Tile>
-      </div>
+      </Reveal>
     </div>
   );
 }

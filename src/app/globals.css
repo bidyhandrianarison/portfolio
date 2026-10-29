@@ -268,6 +268,28 @@
     background-color: var(--ok);
     animation: pulse-ring 2s ease-out infinite;
   }
+
+  .site-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 1rem;
+    background: linear-gradient(var(--glass), transparent);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .site-header.scrolled::after {
+    opacity: 1;
+  }
+
+  .carousel-dragging,
+  .dragging {
+    cursor: grabbing;
+  }
 }
 
 @keyframes pulse-ring {
@@ -416,6 +438,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Port de commun.css : plus de mouvement, seuls les fondus d'opacité (.2s) survivent */
+  *,
+  *::before,
+  *::after {
+    transition-property: opacity !important;
+    transition-duration: 0.2s !important;
+  }
   .animate-marquee {
     animation: none;
   }
