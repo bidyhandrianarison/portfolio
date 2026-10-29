@@ -53,7 +53,15 @@ export default async function CompetencesPage({
       <div className="wrap py-14">
         <p className="meta">
           {t("metaDomains").replace("{n}", String(SKILL_CATEGORY_ORDER.length))}{" "}
-          · {t("metaCerts").replace("{n}", String(certifications.length))}
+          ·{" "}
+          {t("metaCerts").replace(
+            "{n}",
+            String(
+              certifications.filter(
+                (certification) => certification.slug?.current,
+              ).length,
+            ),
+          )}
         </p>
         <h1 className="mt-3 text-[clamp(2rem,5vw,3rem)] leading-[1.1] font-bold tracking-[-0.04em]">
           {t("pageTitle")}

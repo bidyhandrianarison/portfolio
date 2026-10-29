@@ -594,7 +594,8 @@
   }
 
   /* Port .taches de projet.html : tâches numérotées mono accent sur fond panel */
-  .taches ol {
+  .taches ol,
+  .taches ul {
     list-style: none;
     padding: 0;
     counter-reset: taches;
@@ -618,6 +619,17 @@
     top: 15px;
     font: 500 0.75rem var(--font-mono);
     color: var(--acc);
+  }
+}
+
+@layer utilities {
+  .taches ol,
+  .taches ul {
+    list-style: none;
+  }
+
+  .taches li {
+    padding-left: 52px;
   }
 }
 

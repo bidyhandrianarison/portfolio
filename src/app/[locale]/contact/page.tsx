@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { contactLinks } from "@/lib/constants/contacts";
 import { pageAlternates } from "@/lib/constants/site";
+import { homeT } from "@/lib/i18n-server";
 
 const t = {
   fr: {
@@ -11,6 +13,7 @@ const t = {
     description:
       "Envoyez-moi un message pour discuter de votre projet ou d'une collaboration.",
     otherChannels: "Autres canaux",
+    channelsDescription: "Retrouvez-moi aussi sur ces plateformes.",
     requiredNote: "* Champs obligatoires",
   },
   en: {
@@ -19,6 +22,7 @@ const t = {
     description:
       "Send me a message to discuss your project or a collaboration.",
     otherChannels: "Other channels",
+    channelsDescription: "Find me on these platforms too.",
     requiredNote: "* Required fields",
   },
 } as const;
@@ -47,34 +51,77 @@ export default async function ContactPage({
   const i = t[locale as keyof typeof t] ?? t.fr;
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-16">
-      <section>
-        <h1 className="mb-2 text-3xl font-bold tracking-tight">{i.heading}</h1>
-        <p className="mb-2 text-neutral-600 dark:text-neutral-400">
-          {i.description}
-        </p>
-        <p className="mb-8 text-[13px] text-neutral-500 dark:text-neutral-400">
-          {i.requiredNote}
-        </p>
-        <ContactForm locale={locale} />
-      </section>
-
-      <section className="mt-12">
-        <h2 className="mb-4 text-lg font-semibold">{i.otherChannels}</h2>
-        <ul className="flex flex-col gap-3">
-          {contactLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noopener noreferrer" : undefined}
-                className="text-neutral-600 underline decoration-neutral-300 underline-offset-4 hover:text-neutral-900 dark:text-neutral-400 dark:decoration-neutral-700 dark:hover:text-neutral-50"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <main>
+      <div className="wrap py-14">
+        <span className="avail">
+          <i aria-hidden="true" />
+          {homeT(locale)("avail")}
+        </span>
+        <h1 className="mt-3 text-[clamp(2rem,5vw,3rem)] leading-[1.1] font-bold tracking-[-0.04em]">
+          {i.heading}
+        </h1>
+        <div className="head-row">
+          <span className="avatar" aria-hidden="true">
+            <b>SA</b>
+            <Image
+              src="/pdp.jpg"
+              alt=""
+              fill
+              sizes="72px"
+              className="object-cover"
+            />
+          </span>
+          <p className="text-muted max-w-[52ch] text-lg">{i.description}</p>
+        </div>
+        <a href={contactLinks[0].href} className="btn btn-primary press mt-5">
+          {contactLinks[0].href.replace("mailto:", "")}
+        </a>
+      </div>
+      <section className="wrap pb-14">
+        <div className="grid grid-cols-1 items-start gap-6 min-[801px]:grid-cols-[1.4fr_0.8fr]">
+          <div className="border-line bg-panel rounded-[20px] border p-6">
+            <p className="text-muted mb-5 text-[13px]">{i.requiredNote}</p>
+            <ContactForm locale={locale} />
+          </div>
+          <aside
+            aria-labelledby="contact-channels"
+            className="border-line bg-panel rounded-[20px] border p-6"
+          >
+            <h2 id="contact-channels" className="text-lg font-semibold">
+              {i.otherChannels}
+            </h2>
+            <p className="text-muted mt-1 text-sm">{i.channelsDescription}</p>
+            <ul className="mt-4">
+              {contactLinks
+                .filter((link) => link.external)
+                .map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
+                      className="border-line text-content hover:text-accent flex items-center justify-between gap-4 border-t py-4 transition-colors"
+                    >
+                      <span className="min-w-0">
+                        <b className="block">{link.label}</b>
+                        <span className="meta block break-all">
+                          {link.label === "GitHub"
+                            ? "bidyhandrianarison"
+                            : "n-sarobidy-andrianarison"}
+                        </span>
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="text-accent shrink-0 text-xl"
+                      >
+                        ↗
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </aside>
+        </div>
       </section>
     </main>
   );

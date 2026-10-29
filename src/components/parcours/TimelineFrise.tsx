@@ -9,6 +9,7 @@ function formatTimelineDate(value: string, locale: string): string {
   return new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "fr-FR", {
     month: "short",
     year: "numeric",
+    timeZone: "UTC",
   }).format(new Date(value));
 }
 

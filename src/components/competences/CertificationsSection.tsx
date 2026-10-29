@@ -10,8 +10,7 @@ import { CertificationCard } from "./CertificationCard";
 /**
  * Section certifications maquette competences.html : pills press par
  * catégorie (primitive FilterPills) + grille cert-grid 3 col de cartes
- * cliquables (mechanisme CertificationCard → /certifications/[slug],
- * transplanté de l'ancienne CertificationsTab).
+ * cliquables vers /certifications/[slug].
  */
 export function CertificationsSection({
   certifications,

@@ -39,7 +39,7 @@ export function FilterPills({
   filtersLabel: string;
   dataTestId?: string;
 }) {
-  const countLabel = (count <= 1 ? countOne : countMany).replace(
+  const countLabel = (count === 1 ? countOne : countMany).replace(
     "{n}",
     String(count),
   );

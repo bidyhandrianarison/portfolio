@@ -133,7 +133,7 @@ export function ContactForm({ locale }: ContactFormProps) {
       <div>
         <label
           htmlFor="contact-name"
-          className="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+          className="text-content mb-1.5 block text-[0.9375rem] font-semibold"
         >
           {t.name}
         </label>
@@ -146,14 +146,14 @@ export function ContactForm({ locale }: ContactFormProps) {
           onChange={(e) => setName(e.target.value)}
           placeholder={t.namePlaceholder}
           maxLength={200}
-          className="focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-2 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
+          className="contrast-more:border-content bg-bg text-content focus-visible:outline-accent placeholder:text-muted w-full rounded-xl border border-neutral-500 px-3.5 py-3 text-base focus-visible:outline-2 focus-visible:outline-offset-1"
         />
       </div>
 
       <div>
         <label
           htmlFor="contact-email"
-          className="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+          className="text-content mb-1.5 block text-[0.9375rem] font-semibold"
         >
           {t.email}
         </label>
@@ -169,7 +169,7 @@ export function ContactForm({ locale }: ContactFormProps) {
           maxLength={320}
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? "email-error" : undefined}
-          className="focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-2 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
+          className="contrast-more:border-content bg-bg text-content focus-visible:outline-accent placeholder:text-muted w-full rounded-xl border border-neutral-500 px-3.5 py-3 text-base focus-visible:outline-2 focus-visible:outline-offset-1"
         />
         {errors.email && (
           <p
@@ -184,7 +184,7 @@ export function ContactForm({ locale }: ContactFormProps) {
       <div>
         <label
           htmlFor="contact-message"
-          className="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+          className="text-content mb-1.5 block text-[0.9375rem] font-semibold"
         >
           {t.message}
         </label>
@@ -199,7 +199,7 @@ export function ContactForm({ locale }: ContactFormProps) {
           maxLength={5000}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className="focus:border-primary-500 focus:ring-primary-500/20 w-full resize-none rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:ring-2 focus:outline-none dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
+          className="contrast-more:border-content bg-bg text-content focus-visible:outline-accent placeholder:text-muted min-h-[160px] w-full resize-y rounded-xl border border-neutral-500 px-3.5 py-3 text-base focus-visible:outline-2 focus-visible:outline-offset-1"
         />
         {errors.message && (
           <p

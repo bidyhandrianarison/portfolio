@@ -51,8 +51,10 @@ beforeEach(() => {
 test("affiche les domaines et filtre les certifications affichables", async () => {
   render(await CompetencesPage({ params: Promise.resolve({ locale: "fr" }) }));
   const domains = screen.getByTestId("doms");
+  expect(screen.getByText("5 domaines · 2 certifications")).toBeInTheDocument();
   expect(within(domains).getAllByRole("article")).toHaveLength(5);
   expect(within(domains).getByText("Python")).toBeInTheDocument();
+  expect(within(domains).getByText("Python").closest("a")).toBeNull();
   expect(within(domains).getByText("01")).toBeInTheDocument();
   expect(within(domains).getByText("05")).toBeInTheDocument();
   expect(screen.getByRole("link", { name: /Certificat/ })).toHaveAttribute(
@@ -61,6 +63,8 @@ test("affiche les domaines et filtre les certifications affichables", async () =
   );
   expect(screen.getAllByTestId("certification-placeholder")).toHaveLength(2);
   expect(screen.getByText("2 certifications")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /Toutes/ })).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: /IA/ })).toBeInTheDocument();
   fireEvent.click(screen.getByRole("button", { name: /Data/ }));
   expect(screen.getByRole("button", { name: /Data/ })).toHaveAttribute(
     "aria-pressed",
@@ -95,6 +99,7 @@ test("conserve le lien hérité et le contenu français en anglais", async () =>
   ]);
   render(await CompetencesPage({ params: Promise.resolve({ locale: "en" }) }));
   expect(scroll).toHaveBeenCalled();
+  expect(screen.getByText("AI Systems")).toBeInTheDocument();
   expect(screen.getByRole("link", { name: /Certificat/ })).toHaveAttribute(
     "href",
     "/en/certifications/cert",
@@ -121,4 +126,5 @@ test("affiche un état vide si aucune certification n'a de slug", async () => {
   ]);
   render(await CompetencesPage({ params: Promise.resolve({ locale: "fr" }) }));
   expect(screen.getByText(/aucune certification/i)).toBeInTheDocument();
+  expect(screen.getByText("0 certifications")).toBeInTheDocument();
 });
