@@ -155,6 +155,10 @@ jest.mock("@/lib/sanity/queries/certifications", () => ({
       _type: "certification",
       name: { fr: "AWS AI Practitioner", en: "AWS AI Practitioner" },
       issuer: { fr: "Udacity", en: "Udacity" },
+      image: {
+        asset: { _ref: "image-1", url: "https://cdn.sanity.io/cert.jpg" },
+        alt: "Certificat AWS",
+      },
       date: "2026-02",
       category: "ia",
       order: 1,
@@ -294,6 +298,9 @@ describe("CertsRow", () => {
   it("rend la liste des certifications vedettes", async () => {
     render(await CertsRow({ locale: "fr" }));
     expect(screen.getByText("AWS AI Practitioner")).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "Certificat AWS" }),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Udacity · 2026-02/)).toBeInTheDocument();
   });
 });

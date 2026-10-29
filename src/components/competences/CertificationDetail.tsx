@@ -50,7 +50,7 @@ export function CertificationDetail({
   return (
     <article className="mx-auto max-w-3xl space-y-8">
       <Link
-        href={`/${locale}/skills?tab=certifications`}
+        href={`/${locale}/skills#certifications`}
         className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300"
       >
         {i.back}

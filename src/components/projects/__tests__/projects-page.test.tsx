@@ -108,6 +108,36 @@ import { metric } from "@/lib/format/metric";
 import ProjectsPage from "@/app/[locale]/projects/page";
 
 describe("grille /projects", () => {
+  it("affiche l'aperçu lorsqu'un projet possède une image", () => {
+    render(
+      <ProjectFilterBar
+        projects={[
+          {
+            ...mockProjetA,
+            hero: {
+              image: {
+                asset: {
+                  _ref: "image-1",
+                  url: "https://cdn.sanity.io/project.jpg",
+                },
+                alt: "Maquette Mahafaka",
+              },
+            },
+          },
+          mockProjetB,
+        ]}
+        locale="fr"
+      />,
+    );
+    expect(
+      screen.getByRole("img", { name: "Maquette Mahafaka" }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("img")).toHaveLength(1);
+    expect(screen.getByTestId("project-placeholder")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+  });
   it("rend les 3 cartes, la variante étude porte le res metric(), les autres non", async () => {
     render(await ProjectsPage({ params: Promise.resolve({ locale: "fr" }) }));
 

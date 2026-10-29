@@ -1,0 +1,20 @@
+schema: spec-driven
+
+context: |
+  Portfolio existant : migration progressive depuis BMAD.
+  Respecter AGENTS.md et les décisions utilisateur validées.
+  Préserver les fichiers BMAD et les modifications en cours.
+  BMAD reste une référence historique, consultée au besoin.
+  Ne pas replanifier ni convertir les fonctionnalités terminées.
+  Rédiger les nouveaux artefacts en français.
+
+rules:
+  proposal:
+    - Décrire seulement le changement restant et son hors périmètre.
+    - Référencer les sources existantes sans les recopier.
+  design:
+    - Documenter uniquement les nouvelles décisions nécessaires.
+  tasks:
+    - Distinguer les acquis vérifiés du travail restant.
+    - Prévoir un test d’intégration du chemin critique.
+    - Inclure les quatre vérifications imposées par AGENTS.md.

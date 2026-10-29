@@ -4,6 +4,7 @@ import { ErrorFallback } from "@/components/ui/error-fallback";
 import { getFeaturedCertifications } from "@/lib/sanity/queries/certifications";
 import { resolveLocale } from "@/lib/utils/locale";
 import { Reveal } from "@/components/home/Reveal";
+import { CertificationPreview } from "@/components/competences/CertificationPreview";
 
 export async function CertsRow({ locale }: { locale: string }) {
   const t = homeT(locale);
@@ -35,6 +36,10 @@ export async function CertsRow({ locale }: { locale: string }) {
               key={certification._id}
               className="border-line bg-panel rounded-[14px] border p-4"
             >
+              <CertificationPreview
+                image={certification.image}
+                name={resolveLocale(certification.name, locale)}
+              />
               <span className="meta">
                 {resolveLocale(certification.issuer, locale)} ·{" "}
                 {certification.date}

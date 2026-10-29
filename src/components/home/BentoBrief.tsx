@@ -3,11 +3,10 @@ import { ErrorFallback } from "@/components/ui/error-fallback";
 import { getSkills } from "@/lib/sanity/queries/skills";
 import { getTimelineEntries } from "@/lib/sanity/queries/timeline";
 import { getProjects } from "@/lib/sanity/queries/projects";
+import { SKILL_CATEGORY_ORDER } from "@/lib/constants/skills";
 import { resolveLocale } from "@/lib/utils/locale";
 import { ClockTick } from "@/components/home/ClockTick";
 import { Reveal } from "@/components/home/Reveal";
-
-const CATEGORY_ORDER = ["ia", "data", "mobile", "infra", "design"] as const;
 
 function Tile({
   label,
@@ -52,7 +51,7 @@ export async function BentoBrief({ locale }: { locale: string }) {
     ? resolveLocale(metric.value, locale)
     : t("bento.metricFallback");
   const recent = timeline.slice(0, 4);
-  const domains = CATEGORY_ORDER.map((category) => ({
+  const domains = SKILL_CATEGORY_ORDER.map((category) => ({
     category,
     label: t(`bento.buildCategories.${category}`),
     skills: skills.filter((skill) => skill.category === category),

@@ -36,6 +36,16 @@ export function projectsT(locale: string) {
   return <T = string>(key: string): T => lookup(projects, key) as T;
 }
 
+export function parcoursT(locale: string) {
+  const parcours = sectionNode(locale, "parcours");
+  return <T = string>(key: string): T => lookup(parcours, key) as T;
+}
+
+export function skillsT(locale: string) {
+  const skills = sectionNode(locale, "skills");
+  return <T = string>(key: string): T => lookup(skills, key) as T;
+}
+
 /**
  * Contenu pipeline d'une étude de cas (home.systems.pipelines.<slug>).
  * null si le projet n'a pas de pipeline rédigé — la section est masquée.

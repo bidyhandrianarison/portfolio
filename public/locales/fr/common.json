@@ -233,6 +233,61 @@
     "notFoundTitle": "Projet introuvable",
     "notFoundBody": "Ce projet n'existe pas ou a changé d'adresse."
   },
+  "parcours": {
+    "pageTitle": "Parcours",
+    "description": "Parcours académique et professionnel de Sarobidy Andrianarison.",
+    "lead": "Actuellement ouvert aux postes en remote et freelance.",
+    "filtersLabel": "Filtrer le parcours",
+    "all": "Tous",
+    "kind": {
+      "professional": "Professionnel",
+      "academic": "Académique"
+    },
+    "now": "En cours",
+    "present": "— Présent",
+    "countOne": "1 entrée",
+    "countMany": "{n} entrées",
+    "empty": "Aucun parcours disponible.",
+    "cv": "Télécharger le CV"
+  },
+  "skills": {
+    "pageTitle": "Compétences & Certifications",
+    "description": "Compétences en IA, data, mobile, infra et design — avec les certifications et projets qui les prouvent.",
+    "metaDomains": "{n} domaines",
+    "metaCerts": "{n} certifications",
+    "lead": "Cinq expertises, un fil conducteur : transformer la complexité en produits fiables. Démontré par des projets concrets.",
+    "domainsTitle": "Ce que je construis",
+    "viewProjects": "Voir les projets →",
+    "domains": {
+      "ia": {
+        "title": "Systèmes IA",
+        "description": "LLMs, RAG, prompt engineering et évaluation — de la preuve de concept à la production."
+      },
+      "data": {
+        "title": "Systèmes Data",
+        "description": "SQL, analyse et visualisation pour transformer les données en décisions."
+      },
+      "mobile": {
+        "title": "Application web et mobiles",
+        "description": "Flutter et React Native, de la conception UI jusqu'aux stores."
+      },
+      "infra": {
+        "title": "Infrastructure & DevOps",
+        "description": "Docker, CI/CD et Git pour des livraisons fiables et reproductibles."
+      },
+      "design": {
+        "title": "Produit & Design",
+        "description": "UI/UX, design tokens et prototypage pour des produits aboutis."
+      }
+    },
+    "certTitle": "Certifications",
+    "certFiltersLabel": "Filtrer les certifications",
+    "certAll": "Toutes",
+    "certCountOne": "1 certification",
+    "certCountMany": "{n} certifications",
+    "certEmpty": "Aucune certification pour le moment.",
+    "certEmptyCategory": "Aucune certification dans cette catégorie."
+  },
   "footer": {
     "copyright": "© 2026 Sarobidy Andrianarison. Tous droits réservés.",
     "built_with": "Construit avec Next.js et Sanity"

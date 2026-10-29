@@ -2,11 +2,7 @@
 
 import type { Settings } from "@/sanity/types";
 import { trackEvent } from "@/lib/utils/analytics";
-
-const label = {
-  fr: "Télécharger mon CV",
-  en: "Download my CV",
-} as const;
+import { parcoursT } from "@/lib/i18n-server";
 
 interface CvDownloadButtonProps {
   settings: Settings | null;
@@ -14,6 +10,7 @@ interface CvDownloadButtonProps {
 }
 
 export function CvDownloadButton({ settings, locale }: CvDownloadButtonProps) {
+  const t = parcoursT(locale);
   const urls = settings?.cvDownloadUrl;
   if (!urls) return null;
 
@@ -25,13 +22,8 @@ export function CvDownloadButton({ settings, locale }: CvDownloadButtonProps) {
   }
 
   return (
-    <a
-      href={url}
-      download
-      onClick={handleClick}
-      className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center rounded-full px-6 py-3 text-sm font-medium text-white focus:ring-2 focus:ring-offset-2 focus:outline-none"
-    >
-      {label[locale as keyof typeof label] ?? label.fr}
+    <a href={url} download onClick={handleClick} className="btn press">
+      {t("cv")}
     </a>
   );
 }

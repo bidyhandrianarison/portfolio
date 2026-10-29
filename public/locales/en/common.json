@@ -233,6 +233,61 @@
     "notFoundTitle": "Project not found",
     "notFoundBody": "This project doesn't exist or has moved."
   },
+  "parcours": {
+    "pageTitle": "Journey",
+    "description": "Academic and professional journey of Sarobidy Andrianarison.",
+    "lead": "Currently open to remote and freelance roles.",
+    "filtersLabel": "Filter the journey",
+    "all": "All",
+    "kind": {
+      "professional": "Professional",
+      "academic": "Academic"
+    },
+    "now": "Ongoing",
+    "present": "— Present",
+    "countOne": "1 entry",
+    "countMany": "{n} entries",
+    "empty": "No journey available.",
+    "cv": "Download the CV"
+  },
+  "skills": {
+    "pageTitle": "Skills & Certifications",
+    "description": "Skills in AI, data, mobile, infra and design — with the certifications and projects that prove them.",
+    "metaDomains": "{n} domains",
+    "metaCerts": "{n} certifications",
+    "lead": "Five expertises, one thread: turning complexity into reliable products. Demonstrated through concrete projects.",
+    "domainsTitle": "What I build",
+    "viewProjects": "View projects →",
+    "domains": {
+      "ia": {
+        "title": "AI Systems",
+        "description": "LLMs, RAG, prompt engineering and evaluation — from prototype to production."
+      },
+      "data": {
+        "title": "Data Systems",
+        "description": "SQL, analysis and visualization that turn data into decisions."
+      },
+      "mobile": {
+        "title": "Web & Mobile Applications",
+        "description": "Flutter and React Native, from UI design to the app stores."
+      },
+      "infra": {
+        "title": "Infrastructure & DevOps",
+        "description": "Docker, CI/CD and Git for reliable, repeatable deliveries."
+      },
+      "design": {
+        "title": "Product & Design",
+        "description": "UI/UX, design tokens and prototyping for polished products."
+      }
+    },
+    "certTitle": "Certifications",
+    "certFiltersLabel": "Filter certifications",
+    "certAll": "All",
+    "certCountOne": "1 certification",
+    "certCountMany": "{n} certifications",
+    "certEmpty": "No certifications yet.",
+    "certEmptyCategory": "No certifications in this category."
+  },
   "footer": {
     "copyright": "© 2026 Sarobidy Andrianarison. All rights reserved.",
     "built_with": "Built with Next.js and Sanity"
