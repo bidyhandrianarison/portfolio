@@ -42,39 +42,6 @@
     },
     "systems": {
       "meta": "3 featured projects · 2025 – 2026",
-      "pipeline": {
-        "caption": "pipeline · email processing assistant",
-        "result": "2h → 25 min / day · 50+ emails/day",
-        "logs": [
-          "email received in the <b>usual inbox</b>",
-          "classified by <b>priority</b> and <b>intent</b>",
-          "extracting <b>key info</b> and <b>follow-ups</b>",
-          "draft ready · <b>consistent tone</b>",
-          "validated by the human in <b>30 s</b>"
-        ],
-        "stages": [
-          {
-            "title": "Incoming email",
-            "sub": "usual inbox"
-          },
-          {
-            "title": "Classification",
-            "sub": "priority · intent"
-          },
-          {
-            "title": "Extraction",
-            "sub": "key info · follow-ups"
-          },
-          {
-            "title": "Draft",
-            "sub": "consistent tone"
-          },
-          {
-            "title": "Validation",
-            "sub": "human · 30 s"
-          }
-        ]
-      },
       "io": {
         "entry": "Input",
         "processing": "Processing",
@@ -100,7 +67,108 @@
       },
       "viewStudy": "View the case study →",
       "viewAll": "View all projects →",
-      "title": "AI systems"
+      "title": "AI systems",
+      "pipelines": {
+        "assistant-emails": {
+          "caption": "pipeline · email processing assistant",
+          "result": "2h → 25 min / day · 50+ emails/day",
+          "logs": [
+            "email received in the <b>usual inbox</b>",
+            "classified by <b>priority</b> and <b>intent</b>",
+            "extracting <b>key info</b> and <b>follow-ups</b>",
+            "draft ready · <b>consistent tone</b>",
+            "validated by the human in <b>30 s</b>"
+          ],
+          "stages": [
+            {
+              "title": "Incoming email",
+              "sub": "usual inbox"
+            },
+            {
+              "title": "Classification",
+              "sub": "priority · intent"
+            },
+            {
+              "title": "Extraction",
+              "sub": "key info · follow-ups"
+            },
+            {
+              "title": "Draft",
+              "sub": "consistent tone"
+            },
+            {
+              "title": "Validation",
+              "sub": "human · 30 s"
+            }
+          ]
+        },
+        "automatisation-commandes": {
+          "caption": "pipeline · order-planning automation",
+          "result": "2 weeks → 2 days · processing time down 86 %",
+          "logs": [
+            "supplier data <b>imported</b>",
+            "extracting <b>references</b> and volumes",
+            "computing the <b>order suggestions</b>",
+            "generating the <b>order plan</b>",
+            "validated by the team in <b>1 click</b>"
+          ],
+          "stages": [
+            {
+              "title": "Supplier data",
+              "sub": "exports · imports"
+            },
+            {
+              "title": "Extraction",
+              "sub": "references · volumes"
+            },
+            {
+              "title": "Suggestions",
+              "sub": "AI · amounts"
+            },
+            {
+              "title": "Order plan",
+              "sub": "2-day cycle"
+            },
+            {
+              "title": "Approval",
+              "sub": "team · 1 click"
+            }
+          ]
+        },
+        "compte-rendus": {
+          "caption": "pipeline · meeting-minutes generator",
+          "result": "30 min → 30 s · 100 % traceable follow-up",
+          "logs": [
+            "capturing the <b>meeting</b> or raw notes",
+            "notes structured <b>in real time</b>",
+            "extracting <b>decisions</b> and <b>action items</b>",
+            "minutes generated in <b>30 s</b>",
+            "actions <b>assigned and tracked</b>"
+          ],
+          "stages": [
+            {
+              "title": "Meeting",
+              "sub": "notes · audio"
+            },
+            {
+              "title": "Structuring",
+              "sub": "real time"
+            },
+            {
+              "title": "Extraction",
+              "sub": "decisions · actions"
+            },
+            {
+              "title": "Minutes",
+              "sub": "consistent tone"
+            },
+            {
+              "title": "Assignment",
+              "sub": "tracked follow-up"
+            }
+          ]
+        }
+      }
     },
     "story": {
       "meta": "Featured study",
@@ -160,6 +228,7 @@
     "avant": "Before",
     "apres": "After",
     "results": "Result",
+    "pipeline": "How it works",
     "notFoundMeta": "404",
     "notFoundTitle": "Project not found",
     "notFoundBody": "This project doesn't exist or has moved."

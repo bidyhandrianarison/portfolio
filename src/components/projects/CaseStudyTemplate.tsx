@@ -3,8 +3,10 @@ import type { Project } from "@/sanity/types";
 import { resolveLocale } from "@/lib/utils/locale";
 import { resolveProjectRole } from "@/lib/utils/project-role";
 import { metric } from "@/lib/format/metric";
-import { projectsT } from "@/lib/i18n-server";
+import { projectsT, systemsPipeline } from "@/lib/i18n-server";
 import { ProjectsPrevNext } from "./ProjectsPrevNext";
+import { PipelineFigure } from "@/components/home/PipelineFigure";
+import { Reveal } from "@/components/home/Reveal";
 
 /**
  * Détail « étude » (featured) — maquette stricte projet.html : en-tête
@@ -19,6 +21,7 @@ export async function CaseStudyTemplate({
   locale: string;
 }) {
   const t = projectsT(locale);
+  const featurePipeline = systemsPipeline(locale, project.slug.current);
   const beforeAfter = project.beforeAfter;
   const before = beforeAfter?.beforeContent
     ? resolveLocale(beforeAfter.beforeContent, locale)
@@ -68,6 +71,19 @@ export async function CaseStudyTemplate({
                 </div>
               ))}
           </div>
+        </section>
+      )}
+
+      {featurePipeline && (
+        <section className="wrap mt-6" aria-label={t("pipeline")}>
+          <Reveal>
+            <PipelineFigure
+              caption={featurePipeline.caption}
+              result={featurePipeline.result}
+              stages={featurePipeline.stages}
+              logs={featurePipeline.logs}
+            />
+          </Reveal>
         </section>
       )}
 

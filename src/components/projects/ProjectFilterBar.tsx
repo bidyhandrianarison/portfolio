@@ -65,10 +65,10 @@ export function ProjectFilterBar({
             onClick={() => selectType("all")}
             aria-pressed={selected === "all"}
             className={cn(
-              "press border-line bg-panel hover:border-accent/50 cursor-pointer rounded-full border px-3 py-[7px] text-[0.8125rem] font-medium",
+              "press border-line hover:border-accent/50 cursor-pointer rounded-full border px-3 py-[7px] text-[0.8125rem] font-medium",
               selected === "all"
                 ? "border-content bg-content text-bg"
-                : "text-muted",
+                : "bg-panel text-muted",
             )}
           >
             {t("all")} <span className="font-mono">({projects.length})</span>
@@ -80,10 +80,10 @@ export function ProjectFilterBar({
               onClick={() => selectType(type)}
               aria-pressed={selected === type}
               className={cn(
-                "press border-line bg-panel hover:border-accent/50 cursor-pointer rounded-full border px-3 py-[7px] text-[0.8125rem] font-medium",
+                "press border-line hover:border-accent/50 cursor-pointer rounded-full border px-3 py-[7px] text-[0.8125rem] font-medium",
                 selected === type
                   ? "border-content bg-content text-bg"
-                  : "text-muted",
+                  : "bg-panel text-muted",
               )}
             >
               {label} <span className="font-mono">({count})</span>

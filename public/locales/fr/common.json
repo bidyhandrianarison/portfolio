@@ -42,39 +42,6 @@
     },
     "systems": {
       "meta": "3 projets vedettes · 2025 – 2026",
-      "pipeline": {
-        "caption": "pipeline · assistant de traitement d'emails",
-        "result": "2h → 25 min / jour · 50+ emails/jour",
-        "logs": [
-          "email reçu dans la <b>boîte habituelle</b>",
-          "classé par <b>priorité</b> et <b>intention</b>",
-          "extraction des <b>infos utiles</b> et des <b>relances</b>",
-          "brouillon prêt · <b>ton cohérent</b>",
-          "validé par l'humain en <b>30 s</b>"
-        ],
-        "stages": [
-          {
-            "title": "Email entrant",
-            "sub": "boîte habituelle"
-          },
-          {
-            "title": "Classification",
-            "sub": "priorité · intention"
-          },
-          {
-            "title": "Extraction",
-            "sub": "infos utiles · relances"
-          },
-          {
-            "title": "Brouillon",
-            "sub": "ton cohérent"
-          },
-          {
-            "title": "Validation",
-            "sub": "humain · 30 s"
-          }
-        ]
-      },
       "io": {
         "entry": "Entrée",
         "processing": "Traitement",
@@ -100,7 +67,108 @@
       },
       "viewStudy": "Voir l'étude →",
       "viewAll": "Voir tous les projets →",
-      "title": "Systèmes IA"
+      "title": "Systèmes IA",
+      "pipelines": {
+        "assistant-emails": {
+          "caption": "pipeline · assistant de traitement d'emails",
+          "result": "2h → 25 min / jour · 50+ emails/jour",
+          "logs": [
+            "email reçu dans la <b>boîte habituelle</b>",
+            "classé par <b>priorité</b> et <b>intention</b>",
+            "extraction des <b>infos utiles</b> et des <b>relances</b>",
+            "brouillon prêt · <b>ton cohérent</b>",
+            "validé par l'humain en <b>30 s</b>"
+          ],
+          "stages": [
+            {
+              "title": "Email entrant",
+              "sub": "boîte habituelle"
+            },
+            {
+              "title": "Classification",
+              "sub": "priorité · intention"
+            },
+            {
+              "title": "Extraction",
+              "sub": "infos utiles · relances"
+            },
+            {
+              "title": "Brouillon",
+              "sub": "ton cohérent"
+            },
+            {
+              "title": "Validation",
+              "sub": "humain · 30 s"
+            }
+          ]
+        },
+        "automatisation-commandes": {
+          "caption": "pipeline · automatisation de la planification des commandes",
+          "result": "2 semaines → 2 jours · temps de traitement réduit de 86 %",
+          "logs": [
+            "données fournisseurs <b>importées</b>",
+            "extraction des <b>références</b> et des volumes",
+            "calcul des <b>suggestions de commande</b>",
+            "génération du <b>plan de commande</b>",
+            "validé par l'équipe en <b>1 clic</b>"
+          ],
+          "stages": [
+            {
+              "title": "Données fournisseurs",
+              "sub": "exports · imports"
+            },
+            {
+              "title": "Extraction",
+              "sub": "références · volumes"
+            },
+            {
+              "title": "Suggestions",
+              "sub": "IA · montants"
+            },
+            {
+              "title": "Plan de commande",
+              "sub": "cycle 2 jours"
+            },
+            {
+              "title": "Validation",
+              "sub": "équipe · 1 clic"
+            }
+          ]
+        },
+        "compte-rendus": {
+          "caption": "pipeline · générateur de comptes-rendus",
+          "result": "30 min → 30 s · suivi 100 % traçable",
+          "logs": [
+            "capture de la <b>réunion</b> ou des notes brutes",
+            "notes structurées <b>en temps réel</b>",
+            "extraction des <b>décisions</b> et des <b>actions</b>",
+            "compte-rendu généré en <b>30 s</b>",
+            "actions <b>assignées et tracées</b>"
+          ],
+          "stages": [
+            {
+              "title": "Réunion",
+              "sub": "notes · audio"
+            },
+            {
+              "title": "Structuration",
+              "sub": "temps réel"
+            },
+            {
+              "title": "Extraction",
+              "sub": "décisions · actions"
+            },
+            {
+              "title": "Compte-rendu",
+              "sub": "ton cohérent"
+            },
+            {
+              "title": "Assignation",
+              "sub": "suivi tracé"
+            }
+          ]
+        }
+      }
     },
     "story": {
       "meta": "Étude vedette",
@@ -160,6 +228,7 @@
     "avant": "Avant",
     "apres": "Après",
     "results": "Résultat",
+    "pipeline": "Fonctionnement",
     "notFoundMeta": "404",
     "notFoundTitle": "Projet introuvable",
     "notFoundBody": "Ce projet n'existe pas ou a changé d'adresse."

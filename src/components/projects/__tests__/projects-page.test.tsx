@@ -105,7 +105,6 @@ import { ProjectFilterBar } from "../ProjectFilterBar";
 import { CaseStudyTemplate } from "../CaseStudyTemplate";
 import { ProjectDetailTemplate } from "../ProjectDetailTemplate";
 import { metric } from "@/lib/format/metric";
-
 import ProjectsPage from "@/app/[locale]/projects/page";
 
 describe("grille /projects", () => {
@@ -176,6 +175,13 @@ describe("ProjectFilterBar", () => {
       screen.getByTestId("projects-grid").querySelectorAll("a.proj"),
     ).toHaveLength(2);
   });
+
+  it("pill active : fond inversé exclusif (lisible clair et sombre)", () => {
+    render(<ProjectFilterBar projects={FIXTURE} locale="fr" />);
+    const active = screen.getByRole("button", { name: "Tout (3)" });
+    expect(active).toHaveClass("bg-content", "text-bg");
+    expect(active).not.toHaveClass("bg-panel");
+  });
 });
 
 describe("détail étude (featured)", () => {
@@ -213,6 +219,23 @@ describe("détail étude (featured)", () => {
     const next = links.find((link) => link.textContent?.includes("Suivant"));
     expect(prev).toHaveAttribute("href", "/fr/projects/assistant-emails");
     expect(next).toHaveAttribute("href", "/fr/projects/ramarofish");
+  });
+
+  it("pipeline de l'étude (assistant-emails) : figure présente", async () => {
+    render(
+      await CaseStudyTemplate({ project: mockEtudeC as never, locale: "fr" }),
+    );
+    expect(
+      screen.getByText("pipeline · assistant de traitement d'emails"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("pipeline-log")).toBeInTheDocument();
+  });
+
+  it("projet sans pipeline rédigé : pas de section pipeline", async () => {
+    render(
+      await CaseStudyTemplate({ project: mockProjetA as never, locale: "fr" }),
+    );
+    expect(screen.queryByText(/pipeline ·/)).not.toBeInTheDocument();
   });
 });
 

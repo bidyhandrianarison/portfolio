@@ -4,7 +4,7 @@ import { ErrorFallback } from "@/components/ui/error-fallback";
 import { getProjects } from "@/lib/sanity/queries/projects";
 import { featuredSlugs } from "@/lib/constants/projects";
 import { resolveLocale } from "@/lib/utils/locale";
-import { PipelineLoop } from "@/components/home/PipelineLoop";
+import { PipelineFigure } from "@/components/home/PipelineFigure";
 import { Reveal } from "@/components/home/Reveal";
 
 export async function AiSystems({ locale }: { locale: string }) {
@@ -26,11 +26,11 @@ export async function AiSystems({ locale }: { locale: string }) {
     return <ErrorFallback feature="home-systems" locale={locale} />;
   }
 
-  const stageList = t("systems.pipeline.stages") as {
+  const stageList = t("systems.pipelines.assistant-emails.stages") as {
     title: string;
     sub: string;
   }[];
-  const pipelineLogs = t("systems.pipeline.logs") as string[];
+  const pipelineLogs = t("systems.pipelines.assistant-emails.logs") as string[];
 
   return (
     <div className="wrap">
@@ -39,16 +39,13 @@ export async function AiSystems({ locale }: { locale: string }) {
         <span className="meta">{t("systems.meta")}</span>
       </Reveal>
 
-      <Reveal>
-        <figure className="border-line bg-panel mb-3.5 rounded-2xl border p-[18px]">
-          <div className="mb-4 flex flex-wrap justify-between gap-3">
-            <figcaption className="meta">
-              {t("systems.pipeline.caption")}
-            </figcaption>
-            <span className="meta">{t("systems.pipeline.result")}</span>
-          </div>
-          <PipelineLoop stages={stageList} logs={pipelineLogs} />
-        </figure>
+      <Reveal className="mb-3.5">
+        <PipelineFigure
+          caption={t("systems.pipelines.assistant-emails.caption")}
+          result={t("systems.pipelines.assistant-emails.result")}
+          stages={stageList}
+          logs={pipelineLogs}
+        />
       </Reveal>
 
       <div className="grid grid-cols-1 gap-3.5">
