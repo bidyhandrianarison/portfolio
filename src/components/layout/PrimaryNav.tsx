@@ -31,7 +31,9 @@ export function PrimaryNav({
       className={isMobile ? undefined : "hidden items-center md:flex"}
     >
       <ul
-        className={isMobile ? "flex flex-col gap-2" : "flex items-center gap-6"}
+        className={
+          isMobile ? "flex flex-col gap-2" : "flex items-center gap-1 lg:gap-3"
+        }
       >
         {navLinks.map((link, index) => {
           const currentState = getCurrentNavState(pathname, locale, link.href);
@@ -43,7 +45,9 @@ export function PrimaryNav({
             <li key={link.href}>
               <Link
                 ref={isMobile && index === 0 ? firstLinkRef : undefined}
-                href={`/${locale}${link.href}`}
+                href={
+                  link.href === "/" ? `/${locale}` : `/${locale}${link.href}`
+                }
                 onClick={onNavigate}
                 aria-current={currentState}
                 className={linkClassName}
@@ -62,13 +66,13 @@ function getDesktopLinkClassName(
   currentState: "page" | "location" | undefined,
 ) {
   const baseClassName =
-    "flex min-h-11 items-center rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors";
+    "flex min-h-11 items-center border-b-2 px-2 py-1.5 text-sm font-medium transition-colors";
 
   if (currentState) {
-    return `${baseClassName} text-accent`;
+    return `${baseClassName} border-accent text-content`;
   }
 
-  return `${baseClassName} text-muted hover:bg-accent-soft hover:text-content`;
+  return `${baseClassName} border-transparent text-muted hover:text-content`;
 }
 
 function getMobileLinkClassName(currentState: "page" | "location" | undefined) {

@@ -33,7 +33,9 @@ export function getCurrentNavState(
     return "page";
   }
 
-  const isNestedRoute = normalizedPathname.startsWith(`${normalizedHref}/`);
+  const isNestedRoute =
+    normalizedHref !== "/" &&
+    normalizedPathname.startsWith(`${normalizedHref}/`);
   const isCertificationDetailInSkills =
     normalizedHref === "/skills" &&
     normalizedPathname.startsWith("/certifications/");

@@ -49,70 +49,34 @@ export async function AiSystems({ locale }: { locale: string }) {
       </Reveal>
 
       <div className="grid grid-cols-1 gap-3.5">
-        {featured.map((project, index) => {
+        {featured.map((project) => {
           const metric = project.metrics?.[0];
-          const copy = (key: string) =>
-            t(`systems.sheets.${project.slug.current}.${key}`);
-          const sheetT = (key: string) => t(`systems.io.${key}`);
-          const ioCells = [
-            { label: sheetT("entry"), content: copy("entry") },
-            { label: sheetT("processing"), content: copy("processing") },
-            { label: sheetT("output"), content: copy("output") },
-            {
-              label: sheetT("result"),
-              content: metric ? resolveLocale(metric.value, locale) : "",
-              accent: true,
-            },
-          ];
 
           return (
             <Reveal key={project._id}>
-              <article className="border-line bg-panel overflow-hidden rounded-[14px] border">
-                <div className="border-line flex flex-wrap items-center justify-between gap-3 border-b px-[18px] py-4">
-                  <div>
-                    <p className="meta">
-                      sys/{String(index + 1).padStart(2, "0")} ·{" "}
-                      {project.period}
-                    </p>
-                    <h3 className="mt-0.5 text-lg tracking-[-0.02em]">
-                      {resolveLocale(project.title, locale)}
-                    </h3>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="tag">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <Link
-                    href={`/${locale}/projects/${project.slug.current}`}
-                    className="go"
-                  >
-                    {t("systems.viewStudy")}
-                  </Link>
+              <article className="border-line grid gap-3 border-b py-6 md:grid-cols-[1.2fr_1.7fr_auto] md:items-center md:gap-6">
+                <div>
+                  <h3 className="text-lg tracking-[-0.02em]">
+                    {resolveLocale(project.title, locale)}
+                  </h3>
+                  <p className="meta mt-1">{project.period}</p>
                 </div>
-                <dl className="border-line grid grid-cols-1 max-[900px]:grid-cols-2 max-[600px]:grid-cols-1 min-[901px]:grid-cols-4">
-                  {ioCells.map((cell, cellIndex) => (
-                    <div
-                      key={cell.label}
-                      className={`border-line border-b px-[18px] py-3.5 min-[901px]:border-r min-[901px]:border-b-0 min-[901px]:[&:nth-child(4n)]:border-r-0 ${
-                        cellIndex === ioCells.length - 1 ? "bg-accent-soft" : ""
-                      }`}
-                    >
-                      <dt className="lbl mb-1.5">{cell.label}</dt>
-                      <dd
-                        className={`text-[0.9375rem] ${
-                          cell.accent
-                            ? "text-accent font-semibold tracking-[-0.01em]"
-                            : ""
-                        }`}
-                      >
-                        {cell.content}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
+                <div className="text-sm leading-relaxed">
+                  {metric && (
+                    <p className="text-accent font-semibold">
+                      {resolveLocale(metric.value, locale)}
+                    </p>
+                  )}
+                  <p className="text-muted">
+                    {t(`systems.sheets.${project.slug.current}.output`)}
+                  </p>
+                </div>
+                <Link
+                  href={`/${locale}/projects/${project.slug.current}`}
+                  className="go"
+                >
+                  {t("systems.viewStudy")}
+                </Link>
               </article>
             </Reveal>
           );

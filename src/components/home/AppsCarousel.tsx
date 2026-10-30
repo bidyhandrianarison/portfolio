@@ -18,7 +18,11 @@ export async function AppsCarousel({ locale }: { locale: string }) {
   }
 
   const apps = projects
-    .filter((project) => project.projectTypes?.includes("mobile"))
+    .filter(
+      (project) =>
+        project.projectTypes?.includes("mobile") ||
+        project.slug.current === "mesdocs",
+    )
     .slice(0, 7);
   if (apps.length === 0) {
     return <ErrorFallback feature="home-apps" locale={locale} />;
@@ -30,13 +34,24 @@ export async function AppsCarousel({ locale }: { locale: string }) {
     role: resolveProjectRole(app, locale),
     year: app.period,
     tags: app.tags,
+    screenshot:
+      app.mobileScreenshot?.url ||
+      (
+        {
+          ramarofish: "/images/apps/ramarofish.png",
+          mizzaria: "/images/apps/mizzaria.png",
+          "foodtruck-app": "/images/apps/foodtruck-app.png",
+        } as Record<string, string>
+      )[app.slug.current],
   }));
 
   return (
     <section aria-labelledby="home-apps-title">
       <Reveal className="wrap sec-head">
         <h2 id="home-apps-title">{t("apps.title")}</h2>
-        <span className="meta">{t("apps.meta")}</span>
+        <span className="meta">
+          {t("apps.meta").replace("{{count}}", String(apps.length))}
+        </span>
       </Reveal>
       <CarouselInteractive
         locale={locale}

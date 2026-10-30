@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { ContactIcon } from "@/components/contact/ContactIcon";
 import { contactLinks } from "@/lib/constants/contacts";
 import { pageAlternates } from "@/lib/constants/site";
 import { homeT } from "@/lib/i18n-server";
@@ -74,6 +75,7 @@ export default async function ContactPage({
           <p className="text-muted max-w-[52ch] text-lg">{i.description}</p>
         </div>
         <a href={contactLinks[0].href} className="btn btn-primary press mt-5">
+          <ContactIcon label="Email" />
           {contactLinks[0].href.replace("mailto:", "")}
         </a>
       </div>
@@ -102,12 +104,15 @@ export default async function ContactPage({
                       rel={link.external ? "noopener noreferrer" : undefined}
                       className="border-line text-content hover:text-accent flex items-center justify-between gap-4 border-t py-4 transition-colors"
                     >
-                      <span className="min-w-0">
-                        <b className="block">{link.label}</b>
-                        <span className="meta block break-all">
-                          {link.label === "GitHub"
-                            ? "bidyhandrianarison"
-                            : "n-sarobidy-andrianarison"}
+                      <span className="flex min-w-0 items-center gap-3">
+                        <ContactIcon label={link.label} />
+                        <span className="min-w-0">
+                          <b className="block">{link.label}</b>
+                          <span className="meta block break-all">
+                            {link.label === "GitHub"
+                              ? "bidyhandrianarison"
+                              : "n-sarobidy-andrianarison"}
+                          </span>
                         </span>
                       </span>
                       <span

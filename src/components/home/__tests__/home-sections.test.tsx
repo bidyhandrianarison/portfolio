@@ -170,7 +170,6 @@ import Link from "next/link";
 import { HomeHero } from "../HomeHero";
 import { BentoBrief } from "../BentoBrief";
 import { AiSystems } from "../AiSystems";
-import { FeaturedStory } from "../FeaturedStory";
 import { Bridge } from "../Bridge";
 import { AppsCarousel } from "../AppsCarousel";
 import { RecentPath } from "../RecentPath";
@@ -219,13 +218,14 @@ describe("BentoBrief", () => {
 });
 
 describe("AiSystems", () => {
-  it("rend le pipeline statique, 3 fiches et les cellules io EN", async () => {
+  it("rend le pipeline et les résultats des trois projets en anglais", async () => {
     render(await AiSystems({ locale: "en" }));
     expect(screen.getByRole("heading", { name: "AI systems" }));
     expect(screen.getByText("Incoming email")).toBeInTheDocument();
     expect(screen.getByText("Classification")).toBeInTheDocument();
-    expect(screen.getAllByText("Input").length).toBeGreaterThanOrEqual(3);
-    expect(screen.getAllByText("Output").length).toBeGreaterThanOrEqual(3);
+    expect(
+      screen.getByText("Pre-filled replies, tracked follow-ups"),
+    ).toBeInTheDocument();
     expect(screen.getAllByText("2h → 25 min").length).toBeGreaterThan(0);
     expect(
       screen.getAllByRole("link", { name: /View the case study/ }).length,
@@ -234,19 +234,9 @@ describe("AiSystems", () => {
 
   it("rend le libellé FR côté fr", async () => {
     render(await AiSystems({ locale: "fr" }));
-    expect(screen.getAllByText("Entrée").length).toBeGreaterThanOrEqual(3);
-  });
-});
-
-describe("FeaturedStory", () => {
-  it("rend le récit vedette avec pull-quote et avant/après", async () => {
-    render(await FeaturedStory({ locale: "fr" }));
     expect(
-      screen.getByText("Assistant de traitement d'emails"),
+      screen.getByText("Réponses pré-remplies, relances suivies"),
     ).toBeInTheDocument();
-    expect(screen.getByText(/Étude vedette/)).toBeInTheDocument();
-    expect(screen.getByText("Avant")).toBeInTheDocument();
-    expect(screen.getByText(/Réponses pré-remplies/)).toBeInTheDocument();
   });
 });
 
@@ -264,8 +254,50 @@ describe("Bridge", () => {
 });
 
 describe("AppsCarousel", () => {
+  it("inclut le projet de design de l’application documentaire", async () => {
+    const queries = jest.mocked(await import("@/lib/sanity/queries/projects"));
+    queries.getProjects.mockResolvedValueOnce([
+      {
+        ...mockMahafaka,
+        _type: "project",
+        _id: "mesdocs",
+        order: 1,
+        beforeAfter: undefined,
+        slug: { current: "mesdocs" },
+        projectTypes: ["design"],
+        title: { fr: "Application documentaire", en: "Document app" },
+      },
+    ]);
+    render(await AppsCarousel({ locale: "fr" }));
+    expect(
+      screen.getByRole("heading", { name: "Application documentaire" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Voir le projet/ }),
+    ).toHaveAttribute("href", "/fr/projects/mesdocs");
+    expect(screen.getAllByText("UI/UX Designer").length).toBeGreaterThan(0);
+  });
+  it("affiche la capture Sanity dans le téléphone du projet mobile", async () => {
+    const queries = jest.mocked(await import("@/lib/sanity/queries/projects"));
+    queries.getProjects.mockResolvedValueOnce([
+      {
+        ...mockMahafaka,
+        _type: "project",
+        order: 1,
+        beforeAfter: undefined,
+        mobileScreenshot: { url: "https://cdn.sanity.io/image.png" },
+      },
+    ]);
+    render(await AppsCarousel({ locale: "fr" }));
+    expect(
+      document.querySelector('img[src="https://cdn.sanity.io/image.png"]'),
+    ).toBeInTheDocument();
+  });
   it("rend la piste des apps mobile avec caption et flèches actives", async () => {
     render(await AppsCarousel({ locale: "fr" }));
+    expect(
+      screen.getByText("Applications : 1 · Figma · Flutter · React Native"),
+    ).toBeInTheDocument();
     expect(screen.getAllByText("Mahafaka").length).toBeGreaterThanOrEqual(2);
     expect(
       screen.getByRole("button", { name: "Application précédente" }),
@@ -345,16 +377,6 @@ describe("fallbacks Sanity", () => {
   it("rend le fallback des systems quand getProjects échoue", async () => {
     queries.getProjects.mockRejectedValueOnce(new Error("CMS hors ligne"));
     render(await AiSystems({ locale: "fr" }));
-    expect(
-      screen.getByText("Cette section est momentanément indisponible."),
-    ).toBeInTheDocument();
-  });
-
-  it("rend le fallback du récit vedette quand le projet est introuvable", async () => {
-    queries.getProjectBySlug.mockRejectedValueOnce(
-      new Error("projet introuvable"),
-    );
-    render(await FeaturedStory({ locale: "fr" }));
     expect(
       screen.getByText("Cette section est momentanément indisponible."),
     ).toBeInTheDocument();

@@ -97,7 +97,7 @@ export function PipelineLoop({
               <b className="mt-1 mb-0.5 block text-[0.9375rem] tracking-[-0.01em]">
                 {stage.title}
               </b>
-              <span className="text-muted font-mono text-xs font-normal">
+              <span className="text-muted text-xs font-semibold tracking-[0.035em]">
                 {stage.sub}
               </span>
             </li>

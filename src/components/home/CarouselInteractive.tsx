@@ -17,6 +17,7 @@ export type CarouselApp = {
   role: string;
   year: string;
   tags: string[];
+  screenshot?: string;
 };
 
 export type CarouselLabels = {
@@ -54,6 +55,8 @@ export function CarouselInteractive({
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(true);
   const indexRef = useRef(0);
   const xRef = useRef(0);
   const vRef = useRef(0);
@@ -132,6 +135,34 @@ export function CarouselInteractive({
   );
 
   useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => {
+      reduceRef.current = media.matches;
+      setReducedMotion(media.matches);
+    };
+    update();
+    media.addEventListener?.("change", update);
+    return () => media.removeEventListener?.("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (paused || reducedMotion || apps.length < 2) return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden && !dragRef.current) {
+        goTo((indexRef.current + 1) % apps.length);
+      }
+    }, 3000);
+    return () => window.clearInterval(timer);
+  }, [apps.length, goTo, index, paused, reducedMotion]);
+
+  useEffect(() => {
+    if (!paused) return;
+    const resume = () => setPaused(false);
+    window.addEventListener("scroll", resume, { passive: true });
+    return () => window.removeEventListener("scroll", resume);
+  }, [paused]);
+
+  useEffect(() => {
     const track = trackRef.current;
     const viewport = viewportRef.current;
     if (!track || !viewport) return;
@@ -149,6 +180,7 @@ export function CarouselInteractive({
 
     const onPointerDown = (e: PointerEvent) => {
       if (e.button !== 0) return;
+      setPaused(true);
       suppressClickRef.current = false;
       cancelAnimationFrame(rafRef.current);
       rafRef.current = 0;
@@ -240,7 +272,7 @@ export function CarouselInteractive({
   const app = apps[index];
 
   return (
-    <>
+    <div>
       <div
         ref={viewportRef}
         tabIndex={0}
@@ -252,10 +284,12 @@ export function CarouselInteractive({
         onKeyDown={(e) => {
           if (e.key === "ArrowRight") {
             e.preventDefault();
+            setPaused(true);
             goTo(indexRef.current + 1);
           }
           if (e.key === "ArrowLeft") {
             e.preventDefault();
+            setPaused(true);
             goTo(indexRef.current - 1);
           }
         }}
@@ -284,15 +318,30 @@ export function CarouselInteractive({
                 k !== index && "[transform:scale(.9)] opacity-50",
               )}
               onClick={() => {
-                if (k !== indexRef.current) goTo(k);
+                if (k !== indexRef.current) {
+                  setPaused(true);
+                  goTo(k);
+                }
               }}
             >
-              <PhoneMock title={item.name} sub={item.role} />
+              <PhoneMock
+                title={item.name}
+                sub={item.role}
+                screenshot={item.screenshot}
+                screenshotBackground={
+                  item.slug === "application-stockage-mobile"
+                    ? "#06293a"
+                    : undefined
+                }
+              />
             </article>
           ))}
         </div>
       </div>
-      <div className="min-h-[110px] pt-6 pb-4 text-center" aria-live="polite">
+      <div
+        className="min-h-[110px] pt-6 pb-4 text-center"
+        aria-live={paused || reducedMotion ? "polite" : "off"}
+      >
         <p className="meta">{app.year}</p>
         <h3 className="mt-1 text-[1.75rem] leading-[1.1] tracking-[-0.035em]">
           {app.name}
@@ -315,7 +364,10 @@ export function CarouselInteractive({
       <div className="mt-4.5 flex items-center justify-center gap-3.5">
         <button
           type="button"
-          onClick={() => goTo(indexRef.current - 1)}
+          onClick={() => {
+            setPaused(true);
+            goTo(indexRef.current - 1);
+          }}
           aria-label={labels.prev}
           className="border-line bg-panel text-content press h-11 w-11 cursor-pointer rounded-[10px] border text-xl"
         >
@@ -338,7 +390,10 @@ export function CarouselInteractive({
         </div>
         <button
           type="button"
-          onClick={() => goTo(indexRef.current + 1)}
+          onClick={() => {
+            setPaused(true);
+            goTo(indexRef.current + 1);
+          }}
           aria-label={labels.next}
           className="border-line bg-panel text-content press h-11 w-11 cursor-pointer rounded-[10px] border text-xl"
         >
@@ -346,6 +401,6 @@ export function CarouselInteractive({
         </button>
       </div>
       <p className="meta mt-2.5 text-center">{labels.hint}</p>
-    </>
+    </div>
   );
 }

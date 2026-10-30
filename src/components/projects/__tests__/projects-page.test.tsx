@@ -98,7 +98,19 @@ jest.mock("next/image", () => ({
 
 // next-sanity (ESM) ne se charge pas sous jest : le contenu portable est stubbé
 jest.mock("../PortableTextContent", () => ({
-  PortableTextContent: () => <div data-testid="portable-text" />,
+  PortableTextContent: ({
+    value,
+  }: {
+    value: { children: { text: string }[]; listItem?: string }[];
+  }) => (
+    <div data-testid="portable-text">
+      {value.map((block, index) => (
+        <span key={index} data-list-item={block.listItem}>
+          {block.children.map((child) => child.text).join("")}
+        </span>
+      ))}
+    </div>
+  ),
 }));
 
 import { ProjectFilterBar } from "../ProjectFilterBar";
@@ -108,6 +120,26 @@ import { metric } from "@/lib/format/metric";
 import ProjectsPage from "@/app/[locale]/projects/page";
 
 describe("grille /projects", () => {
+  it("affiche les autres projets même si une description Sanity est absente", () => {
+    render(
+      <ProjectFilterBar
+        projects={[
+          {
+            ...mockProjetA,
+            description: null as unknown as Project["description"],
+          },
+          mockProjetB,
+        ]}
+        locale="fr"
+      />,
+    );
+    expect(
+      screen.getByRole("heading", { name: "Mahafaka" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "RamaroFish" }),
+    ).toBeInTheDocument();
+  });
   it("affiche l'aperçu lorsqu'un projet possède une image", () => {
     render(
       <ProjectFilterBar
@@ -270,6 +302,111 @@ describe("détail étude (featured)", () => {
 });
 
 describe("détail projet (non featured)", () => {
+  it("numérote les tâches issues de paragraphes et de listes à puces", async () => {
+    const blocks = [undefined, "bullet" as const, "number" as const].map(
+      (listItem, index) => ({
+        _type: "block" as const,
+        _key: String(index),
+        style: "normal" as const,
+        listItem,
+        markDefs: [],
+        children: [
+          {
+            _type: "span" as const,
+            _key: "text",
+            text: `Tâche ${index}`,
+            marks: [],
+          },
+        ],
+      }),
+    );
+    render(
+      await ProjectDetailTemplate({
+        project: { ...mockProjetA, body: { fr: blocks } },
+        locale: "fr",
+      }),
+    );
+    expect(
+      screen
+        .getByTestId("portable-text")
+        .querySelectorAll('[data-list-item="number"]'),
+    ).toHaveLength(3);
+  });
+  it("affiche l’image principale sans téléphone pour un projet non mobile", async () => {
+    const project: Project = {
+      ...mockProjetB,
+      hero: {
+        image: {
+          asset: { _ref: "image-1", url: "https://cdn.sanity.io/desktop.png" },
+          alt: "Maquette desktop",
+        },
+      },
+    };
+    render(await ProjectDetailTemplate({ project, locale: "fr" }));
+    expect(
+      screen.getByRole("img", { name: "Maquette desktop" }),
+    ).toHaveAttribute("src", "https://cdn.sanity.io/desktop.png");
+    expect(screen.queryByTestId("phone-mock")).not.toBeInTheDocument();
+  });
+
+  it("ne montre pas de téléphone pour un projet non mobile sans image", async () => {
+    render(await ProjectDetailTemplate({ project: mockProjetB, locale: "fr" }));
+    expect(screen.queryByTestId("phone-mock")).not.toBeInTheDocument();
+  });
+  it.each([
+    ["fr", "Mes tâches sur ce projet"],
+    ["en", "My tasks on this project"],
+  ])("évite le titre répété dans le contenu %s", async (locale, duplicate) => {
+    const blocks = [
+      {
+        _type: "block" as const,
+        _key: "heading",
+        style: "h3" as const,
+        markDefs: [],
+        children: [
+          { _type: "span" as const, _key: "text", text: duplicate, marks: [] },
+        ],
+      },
+      {
+        _type: "block" as const,
+        _key: "task",
+        style: "normal" as const,
+        markDefs: [],
+        children: [
+          {
+            _type: "span" as const,
+            _key: "task-text",
+            text: "Design",
+            marks: [],
+          },
+        ],
+      },
+    ];
+    render(
+      await ProjectDetailTemplate({
+        project: { ...mockProjetA, body: { fr: blocks, en: blocks } },
+        locale,
+      }),
+    );
+    expect(screen.getByTestId("portable-text")).toHaveTextContent("Design");
+    expect(screen.getByTestId("portable-text")).not.toHaveTextContent(
+      duplicate,
+    );
+  });
+  it("affiche la capture mobile fournie par Sanity", async () => {
+    render(
+      await ProjectDetailTemplate({
+        project: {
+          ...mockProjetA,
+          mobileScreenshot: { url: "https://cdn.sanity.io/image.png" },
+        },
+        locale: "fr",
+      }),
+    );
+    expect(
+      document.querySelector('img[src="https://cdn.sanity.io/image.png"]'),
+    ).toBeInTheDocument();
+  });
   it("rend le PhoneMock avec fallback variante liste", async () => {
     render(
       await ProjectDetailTemplate({

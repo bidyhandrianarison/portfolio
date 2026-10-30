@@ -4,7 +4,6 @@ import { pageAlternates } from "@/lib/constants/site";
 import { HomeHero } from "@/components/home/HomeHero";
 import { BentoBrief } from "@/components/home/BentoBrief";
 import { AiSystems } from "@/components/home/AiSystems";
-import { FeaturedStory } from "@/components/home/FeaturedStory";
 import { Bridge } from "@/components/home/Bridge";
 import { AppsCarousel } from "@/components/home/AppsCarousel";
 import { RecentPath } from "@/components/home/RecentPath";
@@ -49,12 +48,6 @@ export default async function Home({
       <section className="py-14">
         <Suspense fallback={<SectionSkeleton />}>
           <AiSystems locale={locale} />
-        </Suspense>
-      </section>
-
-      <section className="py-14">
-        <Suspense fallback={<SectionSkeleton />}>
-          <FeaturedStory locale={locale} />
         </Suspense>
       </section>
 

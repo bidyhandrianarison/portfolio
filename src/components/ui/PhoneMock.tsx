@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils/cn";
+import Image from "next/image";
 
 export type ScreenVariant = "liste" | "grille" | "rond" | "menu" | "documents";
 
@@ -144,10 +145,14 @@ export function PhoneMock({
   title,
   sub,
   screen = "liste",
+  screenshot,
+  screenshotBackground,
 }: {
   title: string;
   sub: string;
   screen?: ScreenVariant;
+  screenshot?: string;
+  screenshotBackground?: string;
 }) {
   const Screen = SCREENS[screen];
 
@@ -158,19 +163,37 @@ export function PhoneMock({
     >
       <div
         aria-hidden="true"
-        className="bg-panel text-content relative flex h-full flex-col gap-2.5 overflow-hidden rounded-[35px] p-4 pt-11"
+        className={cn(
+          "bg-panel text-content relative flex h-full flex-col gap-2.5 overflow-hidden rounded-[35px]",
+          !screenshot && "p-4 pt-11",
+        )}
       >
-        <span
-          aria-hidden="true"
-          className="bg-phone absolute top-2.5 left-1/2 h-6 w-[84px] -translate-x-1/2 rounded-[20px]"
-        />
-        <div>
-          <div className="text-2xl font-bold tracking-[-0.04em]">{title}</div>
-          <div className="text-muted font-mono text-[0.6875rem] font-medium">
-            {sub}
-          </div>
-        </div>
-        <Screen />
+        {screenshot ? (
+          <Image
+            src={screenshot}
+            alt=""
+            fill
+            sizes="240px"
+            className="bg-white object-contain"
+            style={{ backgroundColor: screenshotBackground }}
+          />
+        ) : (
+          <>
+            <span
+              aria-hidden="true"
+              className="bg-phone absolute top-2.5 left-1/2 h-6 w-[84px] -translate-x-1/2 rounded-[20px]"
+            />
+            <div>
+              <div className="text-2xl font-bold tracking-[-0.04em]">
+                {title}
+              </div>
+              <div className="text-muted font-mono text-[0.6875rem] font-medium">
+                {sub}
+              </div>
+            </div>
+            <Screen />
+          </>
+        )}
       </div>
     </div>
   );

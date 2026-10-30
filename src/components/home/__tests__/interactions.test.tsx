@@ -315,6 +315,20 @@ describe("CarouselInteractive", () => {
   const caption = () => screen.getByRole("heading", { name: /.+/ });
   const dots = () => screen.getByTestId("carousel-dots");
 
+  it("défile automatiquement et permet de mettre en pause puis de reprendre", () => {
+    jest.useFakeTimers();
+    render(<CarouselInteractive locale="fr" apps={apps} labels={labels} />);
+    act(() => jest.advanceTimersByTime(3000));
+    expect(caption()).toHaveTextContent("Bravo");
+    fireEvent.click(screen.getByRole("button", { name: labels.prev }));
+    act(() => jest.advanceTimersByTime(12000));
+    expect(caption()).toHaveTextContent("Alpha");
+    fireEvent.scroll(window);
+    act(() => jest.advanceTimersByTime(3000));
+    expect(caption()).toHaveTextContent("Bravo");
+    jest.useRealTimers();
+  });
+
   it("flèches, dots et caption restent synchrones avec l'index actif", () => {
     render(<CarouselInteractive locale="fr" apps={apps} labels={labels} />);
     expect(caption()).toHaveTextContent("Alpha");

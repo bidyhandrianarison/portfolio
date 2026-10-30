@@ -31,13 +31,13 @@ export async function RecentPath({ locale }: { locale: string }) {
         </Link>
       </Reveal>
       <Reveal>
-        <ol className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 md:grid-cols-4">
+        <ol className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
           {entries.map((entry) => (
             <li
               key={entry._id}
-              className="border-line bg-panel border-t-accent flex flex-col gap-1 rounded-2xl border border-t-[3px] p-[18px]"
+              className="border-line before:bg-accent relative flex flex-col gap-1 border-l px-6 pt-5 pb-6 before:absolute before:top-0 before:-left-1 before:h-[7px] before:w-[7px] before:rounded-full"
             >
-              <span className="meta">
+              <span className="meta text-accent">
                 {formatMonth(entry.dateStart)} —{" "}
                 {entry.dateEnd
                   ? formatMonth(entry.dateEnd)

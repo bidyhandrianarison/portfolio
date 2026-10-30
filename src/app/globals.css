@@ -212,29 +212,29 @@
   }
 
   .meta {
-    font-family: var(--font-mono);
-    font-weight: 500;
+    font-family: var(--font-sans);
+    font-weight: 600;
     font-size: 0.75rem;
     line-height: 1.4;
     color: var(--muted);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.035em;
   }
 
   .lbl {
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.035em;
     color: var(--muted);
   }
 
   .tag {
     display: inline-flex;
     align-items: center;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: 0.6875rem;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.035em;
     padding: 0.1875rem 0.4375rem;
     border-radius: 0.375rem;
     border: 1px solid var(--line);
@@ -560,11 +560,10 @@
     padding: clamp(22px, 5vw, 48px);
   }
 
-  /* Port .ba de commun.css : h4 mono uppercase, accent sur la colonne Après, listes serif */
+  /* Accent sur la colonne Après, listes serif. */
   .story h4 {
-    font: 600 0.75rem var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    font: 600 0.75rem var(--font-sans);
+    letter-spacing: 0.035em;
     color: var(--muted);
     margin-bottom: 10px;
   }
@@ -593,7 +592,7 @@
     color: var(--muted);
   }
 
-  /* Port .taches de projet.html : tâches numérotées mono accent sur fond panel */
+  /* Tâches numérotées sur fond panel. */
   .taches ol,
   .taches ul {
     list-style: none;
@@ -617,7 +616,7 @@
     position: absolute;
     left: 16px;
     top: 15px;
-    font: 500 0.75rem var(--font-mono);
+    font: 600 0.75rem var(--font-sans);
     color: var(--acc);
   }
 }
