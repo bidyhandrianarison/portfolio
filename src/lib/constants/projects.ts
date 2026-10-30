@@ -13,11 +13,22 @@ export const PROJECT_TYPE_LABELS: Record<
   web: { fr: "Web", en: "Web" },
 };
 
+import type { ScreenVariant } from "@/components/ui/PhoneMock";
+
 export const featuredSlugs: string[] = [
   "assistant-emails",
   "automatisation-commandes",
   "compte-rendus",
 ];
+
+/* Port empreinte ECRANS/projets-donnees.js : variante du téléphone par slug, fallback « liste » côté caller */
+export const SCREEN_VARIANTS: Record<string, ScreenVariant> = {
+  mahafaka: "liste",
+  ramarofish: "grille",
+  mizzaria: "rond",
+  "foodtruck-app": "menu",
+  mesdocs: "documents",
+};
 
 export interface Project {
   slug: string;

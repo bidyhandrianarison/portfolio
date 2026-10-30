@@ -75,19 +75,19 @@ The AI assistant integrates **directly into the existing email client**, requiri
 
 ## Technical Challenges & Solutions
 
-| Challenge | Solution |
-|-----------|----------|
+| Challenge                                  | Solution                                               |
+| ------------------------------------------ | ------------------------------------------------------ |
 | Initial response quality (missing context) | Prompt enriched with last 5 exchanges per conversation |
-| Multilingual emails (FR/EN) | Language detection + generation in same language |
-| Non-disruptive integration | Mandatory human validation circuit — zero auto-send |
+| Multilingual emails (FR/EN)                | Language detection + generation in same language       |
+| Non-disruptive integration                 | Mandatory human validation circuit — zero auto-send    |
 
 ## Results & Impact
 
-| Metric | Before | After |
-|--------|--------|-------|
-| Processing time | 2h/day | ~25min/day |
-| Emails processed | 50+/day | 50+/day (same volume) |
-| Missed follow-ups | Frequent | Zero (automated tracking) |
-| Tone consistency | Variable (mood) | Consistent (RAG) |
+| Metric            | Before          | After                     |
+| ----------------- | --------------- | ------------------------- |
+| Processing time   | 2h/day          | ~25min/day                |
+| Emails processed  | 50+/day         | 50+/day (same volume)     |
+| Missed follow-ups | Frequent        | Zero (automated tracking) |
+| Tone consistency  | Variable (mood) | Consistent (RAG)          |
 
 **Net gain: ~1h35/day recovered** for high-value work. Mental load reduced, zero misses, guaranteed consistency.

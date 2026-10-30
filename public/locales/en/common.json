@@ -10,6 +10,283 @@
     "subtitle": "I transform complex processes into simple, useful, and intelligent products",
     "cta": "View my projects"
   },
+  "home": {
+    "fallback": "This section is temporarily unavailable.",
+    "avail": "Available — remote/freelance",
+    "hero": {
+      "titleLead": "I turn complex processes into",
+      "titleAccent": "simple, useful, and intelligent products",
+      "roles": "Mobile Dev · AI Engineer · UI/UX Designer",
+      "viewProjects": "View my projects",
+      "contact": "Contact me"
+    },
+    "bento": {
+      "title": "In brief",
+      "meta": "Antananarivo · remote",
+      "statusLabel": "Status",
+      "statusValue": "Available",
+      "statusSub": "remote / freelance",
+      "clockSub": "Madagascar time",
+      "metricLabel": "Email assistant",
+      "metricSub": "processing time · 50+ emails/day",
+      "metricFallback": "2h → 25 min",
+      "buildLabel": "What I build",
+      "buildCategories": {
+        "ia": "AI systems",
+        "data": "Data",
+        "mobile": "Web & mobile",
+        "infra": "DevOps",
+        "design": "Product & design"
+      },
+      "pathLabel": "Journey"
+    },
+    "systems": {
+      "meta": "3 featured projects · 2025 – 2026",
+      "io": {
+        "entry": "Input",
+        "processing": "Processing",
+        "output": "Output",
+        "result": "Result"
+      },
+      "sheets": {
+        "assistant-emails": {
+          "entry": "Emails received in the usual inbox",
+          "processing": "Sort by priority and intent, extraction, drafting",
+          "output": "Pre-filled replies, tracked follow-ups"
+        },
+        "automatisation-commandes": {
+          "entry": "Order and product data",
+          "processing": "End-to-end system processing the data",
+          "output": "Order suggestions"
+        },
+        "compte-rendus": {
+          "entry": "Meeting notes, team discussions",
+          "processing": "Multi-agent system",
+          "output": "Summaries, decisions, follow-up actions"
+        }
+      },
+      "viewStudy": "View the case study →",
+      "viewAll": "View all projects →",
+      "title": "AI systems",
+      "pipelines": {
+        "assistant-emails": {
+          "caption": "pipeline · email processing assistant",
+          "result": "2h → 25 min / day · 50+ emails/day",
+          "logs": [
+            "email received in the <b>usual inbox</b>",
+            "classified by <b>priority</b> and <b>intent</b>",
+            "extracting <b>key info</b> and <b>follow-ups</b>",
+            "draft ready · <b>consistent tone</b>",
+            "validated by the human in <b>30 s</b>"
+          ],
+          "stages": [
+            {
+              "title": "Incoming email",
+              "sub": "usual inbox"
+            },
+            {
+              "title": "Classification",
+              "sub": "priority · intent"
+            },
+            {
+              "title": "Extraction",
+              "sub": "key info · follow-ups"
+            },
+            {
+              "title": "Draft",
+              "sub": "consistent tone"
+            },
+            {
+              "title": "Validation",
+              "sub": "human · 30 s"
+            }
+          ]
+        },
+        "automatisation-commandes": {
+          "caption": "pipeline · order-planning automation",
+          "result": "2 weeks → 2 days · processing time down 86 %",
+          "logs": [
+            "supplier data <b>imported</b>",
+            "extracting <b>references</b> and volumes",
+            "computing the <b>order suggestions</b>",
+            "generating the <b>order plan</b>",
+            "validated by the team in <b>1 click</b>"
+          ],
+          "stages": [
+            {
+              "title": "Supplier data",
+              "sub": "exports · imports"
+            },
+            {
+              "title": "Extraction",
+              "sub": "references · volumes"
+            },
+            {
+              "title": "Suggestions",
+              "sub": "AI · amounts"
+            },
+            {
+              "title": "Order plan",
+              "sub": "2-day cycle"
+            },
+            {
+              "title": "Approval",
+              "sub": "team · 1 click"
+            }
+          ]
+        },
+        "compte-rendus": {
+          "caption": "pipeline · meeting-minutes generator",
+          "result": "30 min → 30 s · 100 % traceable follow-up",
+          "logs": [
+            "capturing the <b>meeting</b> or raw notes",
+            "notes structured <b>in real time</b>",
+            "extracting <b>decisions</b> and <b>action items</b>",
+            "minutes generated in <b>30 s</b>",
+            "actions <b>assigned and tracked</b>"
+          ],
+          "stages": [
+            {
+              "title": "Meeting",
+              "sub": "notes · audio"
+            },
+            {
+              "title": "Structuring",
+              "sub": "real time"
+            },
+            {
+              "title": "Extraction",
+              "sub": "decisions · actions"
+            },
+            {
+              "title": "Minutes",
+              "sub": "consistent tone"
+            },
+            {
+              "title": "Assignment",
+              "sub": "tracked follow-up"
+            }
+          ]
+        }
+      }
+    },
+    "story": {
+      "meta": "Featured study",
+      "before": "Before",
+      "after": "After",
+      "readStudy": "Read the full case study →",
+      "fallbackTitle": "Email processing assistant"
+    },
+    "bridge": {
+      "meta": "from systems to screens",
+      "prefix": "Products that are",
+      "simple": "simple",
+      "useful": "useful",
+      "intelligent": "intelligent",
+      "join": "and"
+    },
+    "apps": {
+      "viewProject": "View project →",
+      "hint": "drag, click, or ← →",
+      "prev": "Previous application",
+      "next": "Next application",
+      "title": "Mobile apps"
+    },
+    "recent": {
+      "title": "Journey",
+      "viewAll": "View the full journey →",
+      "present": "Present"
+    },
+    "certs": {
+      "title": "Certifications",
+      "viewAll": "All certifications →"
+    },
+    "contact": {
+      "title": "Let's work together",
+      "text": "Have a project in mind? Let's talk.",
+      "linkedin": "LinkedIn ↗",
+      "github": "GitHub ↗"
+    }
+  },
+  "projects": {
+    "pageTitle": "Projects",
+    "description": "Projects and case studies by Sarobidy Andrianarison — mobile developer, AI engineer, and UI/UX designer.",
+    "filtersLabel": "Filter projects",
+    "all": "All",
+    "metaOne": "1 project",
+    "metaMany": "{n} projects",
+    "countOne": "1 project shown",
+    "countMany": "{n} projects shown",
+    "voirEtude": "View the case study →",
+    "voirProjet": "View the project →",
+    "back": "← All projects",
+    "prev": "← Previous",
+    "next": "Next →",
+    "pnLabel": "Other projects",
+    "tasksTitle": "My work on this project",
+    "avant": "Before",
+    "apres": "After",
+    "results": "Result",
+    "pipeline": "How it works",
+    "notFoundMeta": "404",
+    "notFoundTitle": "Project not found",
+    "notFoundBody": "This project doesn't exist or has moved."
+  },
+  "parcours": {
+    "pageTitle": "Journey",
+    "description": "Academic and professional journey of Sarobidy Andrianarison.",
+    "lead": "Currently open to remote and freelance roles.",
+    "filtersLabel": "Filter the journey",
+    "all": "All",
+    "kind": {
+      "professional": "Professional",
+      "academic": "Academic"
+    },
+    "now": "Ongoing",
+    "present": "— Present",
+    "countOne": "1 entry",
+    "countMany": "{n} entries",
+    "empty": "No journey available.",
+    "cv": "Download the CV"
+  },
+  "skills": {
+    "pageTitle": "Skills & Certifications",
+    "description": "Skills in AI, data, mobile, infra and design — with the certifications and projects that prove them.",
+    "metaDomains": "{n} domains",
+    "metaCerts": "{n} certifications",
+    "lead": "Five expertises, one thread: turning complexity into reliable products. Demonstrated through concrete projects.",
+    "domainsTitle": "What I build",
+    "viewProjects": "View projects →",
+    "domains": {
+      "ia": {
+        "title": "AI Systems",
+        "description": "LLMs, RAG, prompt engineering and evaluation — from prototype to production."
+      },
+      "data": {
+        "title": "Data Systems",
+        "description": "SQL, analysis and visualization that turn data into decisions."
+      },
+      "mobile": {
+        "title": "Web & Mobile Applications",
+        "description": "Flutter and React Native, from UI design to the app stores."
+      },
+      "infra": {
+        "title": "Infrastructure & DevOps",
+        "description": "Docker, CI/CD and Git for reliable, repeatable deliveries."
+      },
+      "design": {
+        "title": "Product & Design",
+        "description": "UI/UX, design tokens and prototyping for polished products."
+      }
+    },
+    "certTitle": "Certifications",
+    "certFiltersLabel": "Filter certifications",
+    "certAll": "All",
+    "certCountOne": "1 certification",
+    "certCountMany": "{n} certifications",
+    "certEmpty": "No certifications yet.",
+    "certEmptyCategory": "No certifications in this category."
+  },
   "footer": {
     "copyright": "© 2026 Sarobidy Andrianarison. All rights reserved.",
     "built_with": "Built with Next.js and Sanity"

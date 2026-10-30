@@ -31,7 +31,9 @@ export function PrimaryNav({
       className={isMobile ? undefined : "hidden items-center md:flex"}
     >
       <ul
-        className={isMobile ? "flex flex-col gap-2" : "flex items-center gap-6"}
+        className={
+          isMobile ? "flex flex-col gap-2" : "flex items-center gap-1 lg:gap-3"
+        }
       >
         {navLinks.map((link, index) => {
           const currentState = getCurrentNavState(pathname, locale, link.href);
@@ -43,7 +45,9 @@ export function PrimaryNav({
             <li key={link.href}>
               <Link
                 ref={isMobile && index === 0 ? firstLinkRef : undefined}
-                href={`/${locale}${link.href}`}
+                href={
+                  link.href === "/" ? `/${locale}` : `/${locale}${link.href}`
+                }
                 onClick={onNavigate}
                 aria-current={currentState}
                 className={linkClassName}
@@ -62,22 +66,22 @@ function getDesktopLinkClassName(
   currentState: "page" | "location" | undefined,
 ) {
   const baseClassName =
-    "relative flex min-h-11 items-center px-1 text-sm transition-colors after:absolute after:inset-x-1 after:bottom-0 after:h-[3px] after:rounded-t-full after:content-[''] after:transition-transform motion-reduce:after:transition-none focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-500";
+    "flex min-h-11 items-center border-b-2 px-2 py-1.5 text-sm font-medium transition-colors";
 
   if (currentState) {
-    return `${baseClassName} font-semibold text-primary-700 after:scale-x-100 after:bg-primary-500 dark:text-primary-400`;
+    return `${baseClassName} border-accent text-content`;
   }
 
-  return `${baseClassName} text-neutral-600 after:scale-x-0 after:bg-primary-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50`;
+  return `${baseClassName} border-transparent text-muted hover:text-content`;
 }
 
 function getMobileLinkClassName(currentState: "page" | "location" | undefined) {
   const baseClassName =
-    "relative flex min-h-11 items-center rounded-lg px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500";
+    "flex min-h-11 items-center rounded-lg px-4 py-3 text-sm font-medium transition-colors";
 
   if (currentState) {
-    return `${baseClassName} bg-primary-50 text-primary-700 after:absolute after:bottom-1 after:left-4 after:h-0.5 after:w-10 after:rounded-full after:bg-primary-500 after:content-[''] dark:bg-primary-950/40 dark:text-primary-300`;
+    return `${baseClassName} bg-accent-soft text-accent`;
   }
 
-  return `${baseClassName} text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800`;
+  return `${baseClassName} text-content hover:bg-panel-2`;
 }

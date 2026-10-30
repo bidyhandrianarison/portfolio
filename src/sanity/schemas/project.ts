@@ -104,6 +104,13 @@ export default defineType({
       description: "Types used by the project type filter facets",
     }),
     defineField({
+      name: "mobileScreenshot",
+      title: "Capture de l’application mobile",
+      description: "Capture verticale affichée dans le carrousel de l’accueil.",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
       name: "order",
       title: "Display Order",
       type: "number",

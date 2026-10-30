@@ -74,6 +74,8 @@ export interface PortableTextBlock {
   _key: string;
   style?: "normal" | "h2" | "h3" | "blockquote";
   list?: "bullet" | "number";
+  listItem?: "bullet" | "number";
+  level?: number;
   children: Array<{
     _type: "span";
     _key: string;
@@ -98,7 +100,9 @@ export interface Project {
   localizedRole?: LocaleString;
   period: string;
   tags: string[];
+  stack?: string[];
   projectTypes?: string[];
+  mobileScreenshot?: { url?: string };
   order: number;
   featured?: boolean;
   hero?: ProjectHero;

@@ -11,15 +11,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-primary-600 text-white hover:bg-primary-700",
-  secondary:
-    "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-700",
-  ghost: "hover:bg-neutral-100 dark:hover:bg-neutral-800",
+  primary: "bg-accent text-white hover:brightness-95",
+  secondary: "bg-panel text-content hover:bg-panel-2",
+  ghost: "bg-transparent hover:bg-panel-2",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
   sm: "h-8 px-3 text-xs",
-  md: "h-10 px-4 text-sm",
+  md: "h-11 px-[1.125rem] text-[0.9375rem]",
   lg: "h-12 px-6 text-base",
 };
 
@@ -40,8 +39,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center rounded-lg font-medium transition-colors",
-          "focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+          "inline-flex items-center justify-center gap-2 rounded-[0.625rem] text-[0.9375rem] font-semibold transition-[color,background-color,transform,filter] ease-out active:scale-[.97]",
+          "focus-visible:outline-accent focus-visible:outline-2 focus-visible:outline-offset-2",
           "disabled:pointer-events-none disabled:opacity-50",
           variantStyles[variant],
           sizeStyles[size],

@@ -3,7 +3,15 @@
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-export function CertLightbox({ src, alt }: { src: string; alt: string }) {
+export function CertLightbox({
+  src,
+  alt,
+  locale = "fr",
+}: {
+  src: string;
+  alt: string;
+  locale?: "fr" | "en";
+}) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -22,7 +30,7 @@ export function CertLightbox({ src, alt }: { src: string; alt: string }) {
         type="button"
         onClick={() => dialogRef.current?.showModal()}
         className="block w-full cursor-zoom-in overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800"
-        aria-label={`${alt} — agrandir`}
+        aria-label={`${alt} — ${locale === "en" ? "enlarge" : "agrandir"}`}
       >
         <Image
           src={src}
@@ -50,7 +58,7 @@ export function CertLightbox({ src, alt }: { src: string; alt: string }) {
           type="button"
           onClick={() => dialogRef.current?.close()}
           className="absolute top-2 right-2 flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/80"
-          aria-label="Fermer"
+          aria-label={locale === "en" ? "Close" : "Fermer"}
         >
           ✕
         </button>

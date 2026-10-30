@@ -14,8 +14,11 @@ export const PROJECTS_QUERY =
   period,
   tags,
   projectTypes,
+  mobileScreenshot { "url": asset->url },
   order,
   featured,
+  beforeAfter,
+  metrics { _key, label, value, baseline, trend },
   architecture { mermaid },
   hero {
     image {
@@ -41,6 +44,9 @@ export const PROJECT_BY_SLUG_QUERY = defineQuery(
     localizedRole,
     period,
     tags,
+    projectTypes,
+    mobileScreenshot { "url": asset->url },
+    stack,
     order,
     featured,
     hero {

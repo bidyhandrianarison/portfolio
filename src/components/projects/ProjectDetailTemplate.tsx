@@ -1,243 +1,141 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/sanity/types";
-import { urlFor } from "@/lib/sanity/image";
 import { resolveLocale } from "@/lib/utils/locale";
 import { resolveProjectRole } from "@/lib/utils/project-role";
-import { MermaidDiagram } from "./MermaidDiagram";
-import { BeforeAfterToggle } from "./BeforeAfterToggle";
+import { projectsT } from "@/lib/i18n-server";
+import { SCREEN_VARIANTS } from "@/lib/constants/projects";
+import { PhoneMock } from "@/components/ui/PhoneMock";
 import { PortableTextContent } from "./PortableTextContent";
+import { ProjectsPrevNext } from "./ProjectsPrevNext";
 
-const t = {
-  fr: {
-    back: "← Retour aux projets",
-    repo: "Voir le code",
-    demo: "Voir la démo",
-    solution: "Solution",
-    result: "Résultat",
-    contribution: "Contribution",
-  },
-  en: {
-    back: "← Back to projects",
-    repo: "View code",
-    demo: "View demo",
-    solution: "Solution",
-    result: "Results",
-    contribution: "Contribution",
-  },
-} as const;
-
-function MetricsBar({
-  metrics,
-  locale,
-}: {
-  metrics: NonNullable<Project["metrics"]>;
-  locale: string;
-}) {
-  return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-      {metrics.map((m, i) => (
-        <div
-          key={i}
-          className="rounded-xl border border-neutral-200 bg-white p-4 text-center dark:border-neutral-800 dark:bg-neutral-950"
-        >
-          <p className="text-primary-600 text-2xl font-bold">
-            {resolveLocale(m.value, locale)}
-          </p>
-          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-            {resolveLocale(m.label, locale)}
-          </p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function CodeSnippet({
-  snippet,
-}: {
-  snippet: NonNullable<Project["codeSnippets"]>[number];
-}) {
-  return (
-    <div className="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
-      <div className="flex items-center justify-between border-b border-neutral-200 bg-neutral-100 px-4 py-2 dark:border-neutral-800 dark:bg-neutral-900">
-        <code className="text-[13px] text-neutral-600 dark:text-neutral-400">
-          {snippet.path}
-        </code>
-        <span className="text-[13px] text-neutral-400">{snippet.language}</span>
-      </div>
-      <pre className="overflow-x-auto p-4 text-sm">
-        <code className="font-mono text-neutral-800 dark:text-neutral-200">
-          {snippet.code}
-        </code>
-      </pre>
-    </div>
-  );
-}
-
-export function ProjectDetailTemplate({
+/**
+ * Détail « projet » (non featured) — maquette stricte projet.html : split
+ * colonne texte + visuel sticky et navigation précédent/suivant.
+ */
+export async function ProjectDetailTemplate({
   project,
   locale,
 }: {
   project: Project;
   locale: string;
 }) {
-  const i = t[locale as keyof typeof t] ?? t.fr;
-  const role = resolveProjectRole(project, locale);
+  const t = projectsT(locale);
+  const bodyBlocks =
+    (locale === "en" ? project.body?.en : project.body?.fr) ??
+    project.body?.fr ??
+    [];
+  const firstBlock = bodyBlocks[0];
+  const firstHeading =
+    firstBlock && ["h2", "h3"].includes(firstBlock.style ?? "")
+      ? firstBlock.children
+          .map((child) => child.text)
+          .join("")
+          .trim()
+      : "";
+  const taskBlocks = [
+    t("tasksTitle").toLocaleLowerCase(),
+    "my tasks on this project",
+  ].includes(firstHeading.toLocaleLowerCase())
+    ? bodyBlocks.slice(1)
+    : bodyBlocks;
+  const numberedTaskBlocks = taskBlocks.map((block) =>
+    (block.style === "normal" || !block.style) &&
+    block.children.some((child) => child.text.trim()) &&
+    (!block.listItem || block.level === 1 || !block.level)
+      ? { ...block, listItem: "number" as const, level: 1 }
+      : block,
+  );
+  const prevNext = await ProjectsPrevNext({ project, locale });
+  const isMobile = project.projectTypes?.includes("mobile");
+  const image = project.hero?.image;
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-16">
-      <Link
-        href={`/${locale}/projects`}
-        className="text-primary-600 hover:text-primary-700 mb-8 inline-block text-sm"
-      >
-        {i.back}
-      </Link>
-
-      <header className="mb-12">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          {project.title[locale as keyof typeof project.title] ??
-            project.title.fr}
+    <main>
+      <div className="wrap pt-14">
+        <Link href={`/${locale}/projects`} className="meta hover:underline">
+          {t("back")}
+        </Link>
+        <p className="meta mt-5">
+          {resolveProjectRole(project, locale)} · {project.period}
+        </p>
+        <h1 className="text-[clamp(2rem,5vw,3rem)] leading-[1.1] font-bold tracking-[-0.04em]">
+          {resolveLocale(project.title, locale)}
         </h1>
-        <p className="mt-2 text-neutral-500 dark:text-neutral-400">
-          {[role, project.period].filter(Boolean).join(" · ")}
+        <p className="lede mt-4 font-sans">
+          {resolveLocale(project.description, locale)}
         </p>
-        <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
-          {project.description[locale as keyof typeof project.description] ??
-            project.description.fr}
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200 rounded-full px-2.5 py-0.5 text-[13px] font-medium"
-            >
+        <div className="mt-4.5 flex flex-wrap gap-1.5">
+          {(project.tags ?? []).map((tag) => (
+            <span key={tag} className="tag">
               {tag}
             </span>
           ))}
         </div>
-        <div className="mt-6 flex gap-3">
-          {project.repoUrl && (
-            <a
-              href={project.repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary-600 hover:bg-primary-700 rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
-            >
-              {i.repo}
-            </a>
-          )}
-          {project.demoUrl && (
-            <a
-              href={project.demoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
-            >
-              {i.demo}
-            </a>
-          )}
-        </div>
-      </header>
+      </div>
 
-      {project.hero?.image && (
-        <div className="mb-12 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-800">
-          <Image
-            src={urlFor(project.hero.image).width(1200).height(675).url()}
-            alt={project.hero.image.alt || project.title.fr}
-            width={1200}
-            height={675}
-            className="h-auto w-full object-cover"
-          />
-        </div>
-      )}
-
-      {project.confidential && (
-        <div className="border-warning-300 bg-warning-50 dark:border-warning-800 dark:bg-warning-950/30 mb-8 rounded-lg border p-4">
-          <p className="text-warning-800 dark:text-warning-200 text-sm font-medium">
-            ⚠ Ce projet contient des données sous NDA. Les détails sensibles ont
-            été masqués.
-            {project.confidentialNote && ` ${project.confidentialNote}`}
-          </p>
-        </div>
-      )}
-
-      {project.metrics && project.metrics.length > 0 && (
-        <div className="mb-12">
-          <MetricsBar metrics={project.metrics} locale={locale} />
-        </div>
-      )}
-
-      {project.body && (
-        <section>
-          <PortableTextContent
-            value={
-              project.body[locale as keyof typeof project.body] ??
-              project.body.fr ??
-              []
-            }
-          />
-        </section>
-      )}
-
-      {project.beforeAfter &&
-        (() => {
-          const bc = project.beforeAfter.beforeContent
-            ? resolveLocale(project.beforeAfter.beforeContent, locale)
-            : "";
-          const ac = project.beforeAfter.afterContent
-            ? resolveLocale(project.beforeAfter.afterContent, locale)
-            : "";
-          return bc || ac;
-        })() && (
-          <section className="mt-12">
-            <h2 className="mb-4 text-xl font-semibold">{i.result}</h2>
-            <BeforeAfterToggle
-              data={{
-                beforeLabel:
-                  (project.beforeAfter.beforeLabel
-                    ? resolveLocale(project.beforeAfter.beforeLabel, locale)
-                    : null) || (locale === "en" ? "Before" : "Avant"),
-                afterLabel:
-                  (project.beforeAfter.afterLabel
-                    ? resolveLocale(project.beforeAfter.afterLabel, locale)
-                    : null) || (locale === "en" ? "After" : "Après"),
-                beforeContent: project.beforeAfter.beforeContent
-                  ? resolveLocale(project.beforeAfter.beforeContent, locale)
-                  : "",
-                afterContent: project.beforeAfter.afterContent
-                  ? resolveLocale(project.beforeAfter.afterContent, locale)
-                  : "",
-              }}
-            />
-          </section>
-        )}
-
-      {project.architecture?.mermaid && (
-        <section className="mt-12">
-          <h2 className="mb-4 text-xl font-semibold">{i.solution}</h2>
-          <MermaidDiagram
-            chart={
-              typeof project.architecture.mermaid === "string"
-                ? project.architecture.mermaid
-                : (project.architecture.mermaid[
-                    locale as keyof typeof project.architecture.mermaid
-                  ] ?? project.architecture.mermaid.fr)
-            }
-          />
-        </section>
-      )}
-
-      {project.codeSnippets && project.codeSnippets.length > 0 && (
-        <section className="mt-12">
-          <h2 className="mb-4 text-xl font-semibold">{i.contribution}</h2>
-          <div className="space-y-4">
-            {project.codeSnippets.map((snippet) => (
-              <CodeSnippet key={snippet.path} snippet={snippet} />
-            ))}
+      <section className="wrap mt-12">
+        <div className="grid grid-cols-1 items-start gap-12 min-[901px]:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <h2 className="mb-3.5 text-xl tracking-[-0.02em]">
+              {t("tasksTitle")}
+            </h2>
+            {taskBlocks.length > 0 ? (
+              <div className="taches max-w-3xl">
+                <PortableTextContent value={numberedTaskBlocks} />
+              </div>
+            ) : (
+              <p className="text-muted text-[0.9375rem] leading-relaxed">
+                {resolveLocale(project.description, locale)}
+              </p>
+            )}
           </div>
-        </section>
-      )}
+          {(isMobile || image?.asset?.url) && (
+            <div className="w-full justify-self-center min-[901px]:sticky min-[901px]:top-24">
+              {isMobile ? (
+                <div className="flex justify-center">
+                  <PhoneMock
+                    title={resolveLocale(project.title, locale)}
+                    sub={
+                      project.stack?.slice(0, 2).join(" · ") ??
+                      (project.tags ?? []).slice(0, 2).join(" · ")
+                    }
+                    screen={SCREEN_VARIANTS[project.slug.current] ?? "liste"}
+                    screenshot={
+                      project.slug.current ===
+                      "application-reservation-coiffure"
+                        ? "/images/apps/reservation-coiffure-apercu.png"
+                        : project.mobileScreenshot?.url
+                    }
+                    screenshotFit={
+                      project.slug.current ===
+                      "application-reservation-coiffure"
+                        ? "coiffure-preview"
+                        : "contain"
+                    }
+                    screenshotBackground={
+                      project.slug.current === "application-stockage-mobile"
+                        ? "#06293a"
+                        : undefined
+                    }
+                  />
+                </div>
+              ) : image?.asset?.url ? (
+                <Image
+                  src={image.asset.url}
+                  alt={image.alt || resolveLocale(project.title, locale)}
+                  width={image.asset.metadata?.dimensions?.width || 1200}
+                  height={image.asset.metadata?.dimensions?.height || 800}
+                  sizes="(max-width: 900px) 100vw, 40vw"
+                  className="h-auto w-full rounded-2xl"
+                />
+              ) : null}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <div className="pt-8">{prevNext}</div>
     </main>
   );
 }

@@ -112,19 +112,23 @@ export default async function LegalNoticePage({
   const i = t[locale as keyof typeof t] ?? t.fr;
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16">
-      <h1 className="mb-8 text-3xl font-bold tracking-tight">{i.heading}</h1>
-      <div className="space-y-8">
-        {i.sections.map((section) => (
-          <section key={section.title}>
-            <h2 className="mb-2 text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-              {section.title}
-            </h2>
-            <p className="leading-relaxed text-neutral-600 dark:text-neutral-400">
-              {section.content}
-            </p>
-          </section>
-        ))}
+    <main>
+      <div className="wrap pt-14">
+        <h1 className="text-[clamp(2rem,5vw,3rem)] leading-[1.1] font-bold tracking-[-0.04em]">
+          {i.heading}
+        </h1>
+      </div>
+      <div className="wrap pt-6 pb-16">
+        <div className="grid max-w-[720px] gap-7">
+          {i.sections.map((section) => (
+            <section key={section.title}>
+              <h2 className="mb-1.5 text-lg font-semibold tracking-[-0.01em]">
+                {section.title}
+              </h2>
+              <p className="text-muted leading-relaxed">{section.content}</p>
+            </section>
+          ))}
+        </div>
       </div>
     </main>
   );
