@@ -16,6 +16,7 @@ const t = {
     what: "Ce que j'ai appris",
     result: "Résultat",
     verify: "Vérifier la certification →",
+    enlarge: "Cliquer pour agrandir",
   },
   en: {
     back: "← Back to certifications",
@@ -23,6 +24,7 @@ const t = {
     what: "What I learned",
     result: "Result",
     verify: "Verify certification →",
+    enlarge: "Click to enlarge",
   },
 } as const;
 
@@ -30,108 +32,90 @@ export function CertificationDetail({
   certification,
   locale,
 }: CertificationDetailProps) {
-  const i = t[locale as keyof typeof t] ?? t.fr;
-
-  const lang = (locale === "en" ? "en" : "fr") as "fr" | "en";
-
-  const resolveLocale = (val: unknown): string | undefined => {
-    if (!val) return undefined;
-    if (typeof val === "string") return val;
-    if (typeof val === "object" && val !== null) {
-      const obj = val as Record<string, string>;
-      return obj[lang] ?? obj.fr ?? undefined;
+  const lang = locale === "en" ? "en" : "fr";
+  const i = t[lang];
+  const resolveLocale = (value: unknown): string | undefined => {
+    if (!value) return undefined;
+    if (typeof value === "string") return value;
+    if (typeof value === "object") {
+      const localized = value as Record<string, string>;
+      return localized[lang] ?? localized.fr ?? undefined;
     }
     return undefined;
   };
 
   const name = resolveLocale(certification.name) ?? "";
   const issuer = resolveLocale(certification.issuer) ?? "";
+  const sections = [
+    { title: i.why, content: resolveLocale(certification.description?.why) },
+    { title: i.what, content: resolveLocale(certification.description?.what) },
+    {
+      title: i.result,
+      content: resolveLocale(certification.description?.result),
+    },
+  ].filter((section) => section.content);
 
   return (
-    <article className="mx-auto max-w-3xl space-y-8">
+    <article className="mx-auto max-w-5xl">
       <Link
         href={`/${locale}/skills#certifications`}
-        className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300"
+        className="text-muted hover:text-content inline-flex min-h-11 items-center text-sm"
       >
         {i.back}
       </Link>
-
-      <header className="space-y-4">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 inline-block rounded-full px-3 py-1 text-[13px] font-medium">
+      <header className="mt-6">
+        <p className="meta">
+          <span className="text-accent">
             {CATEGORY_LABELS[certification.category]?.[lang] ??
               certification.category}
-          </span>
-          <span className="text-sm text-neutral-500 dark:text-neutral-400">
-            {certification.date}
-          </span>
-        </div>
-
-        <h1 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+          </span>{" "}
+          · {certification.date}
+        </p>
+        <h1 className="mt-3 text-[clamp(2rem,4vw,2.75rem)] leading-[1.12] font-bold tracking-[-0.04em]">
           {name}
         </h1>
-
-        <p className="text-lg text-neutral-600 dark:text-neutral-400">
-          {issuer}
-        </p>
+        <p className="text-muted mt-3 text-base">{issuer}</p>
       </header>
-
-      {certification.image && (
-        <CertLightbox
-          src={urlFor(certification.image).width(1200).height(800).url()}
-          alt={certification.image.alt || name}
-        />
-      )}
-
-      {certification.description && (
-        <div className="space-y-6 rounded-xl border border-neutral-200 bg-neutral-50 p-6 dark:border-neutral-800 dark:bg-neutral-900">
-          {resolveLocale(certification.description.why) && (
-            <div>
-              <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
-                {i.why}
+      <div
+        className={
+          certification.image
+            ? "mt-8 grid items-start gap-8 md:grid-cols-2 md:gap-12"
+            : "mt-8 max-w-2xl"
+        }
+      >
+        {certification.image && (
+          <div>
+            <CertLightbox
+              src={urlFor(certification.image).width(1200).height(800).url()}
+              alt={certification.image.alt || name}
+              locale={lang}
+            />
+            <p className="meta mt-2">{i.enlarge}</p>
+          </div>
+        )}
+        <div className="space-y-6">
+          {sections.map((section) => (
+            <section key={section.title}>
+              <h2 className="text-content mb-2 text-base font-semibold">
+                {section.title}
               </h2>
-              <p className="text-neutral-700 dark:text-neutral-300">
-                {resolveLocale(certification.description.why)}
+              <p className="text-muted text-sm leading-relaxed">
+                {section.content}
               </p>
-            </div>
-          )}
-
-          {resolveLocale(certification.description.what) && (
-            <div>
-              <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
-                {i.what}
-              </h2>
-              <p className="text-neutral-700 dark:text-neutral-300">
-                {resolveLocale(certification.description.what)}
-              </p>
-            </div>
-          )}
-
-          {resolveLocale(certification.description.result) && (
-            <div>
-              <h2 className="mb-2 text-sm font-semibold tracking-wider text-neutral-500 uppercase dark:text-neutral-400">
-                {i.result}
-              </h2>
-              <p className="text-neutral-700 dark:text-neutral-300">
-                {resolveLocale(certification.description.result)}
-              </p>
-            </div>
+            </section>
+          ))}
+          {certification.url && (
+            <Link
+              href={certification.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="go inline-flex min-h-11 items-center"
+            >
+              {i.verify}
+            </Link>
           )}
         </div>
-      )}
-
-      {certification.url && (
-        <div className="flex justify-center">
-          <Link
-            href={certification.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-primary-500 hover:bg-primary-600 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-medium text-white transition-colors"
-          >
-            {i.verify}
-          </Link>
-        </div>
-      )}
+      </div>
     </article>
   );
 }

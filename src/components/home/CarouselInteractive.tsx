@@ -328,6 +328,11 @@ export function CarouselInteractive({
                 title={item.name}
                 sub={item.role}
                 screenshot={item.screenshot}
+                screenshotFit={
+                  item.slug === "application-reservation-coiffure"
+                    ? "coiffure-preview"
+                    : "cover"
+                }
                 screenshotBackground={
                   item.slug === "application-stockage-mobile"
                     ? "#06293a"

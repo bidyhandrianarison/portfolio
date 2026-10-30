@@ -147,12 +147,14 @@ export function PhoneMock({
   screen = "liste",
   screenshot,
   screenshotBackground,
+  screenshotFit = "contain",
 }: {
   title: string;
   sub: string;
   screen?: ScreenVariant;
   screenshot?: string;
   screenshotBackground?: string;
+  screenshotFit?: "contain" | "cover" | "coiffure-preview";
 }) {
   const Screen = SCREENS[screen];
 
@@ -174,7 +176,13 @@ export function PhoneMock({
             alt=""
             fill
             sizes="240px"
-            className="bg-white object-contain"
+            className={cn(
+              screenshotFit === "coiffure-preview" ? "bg-black" : "bg-white",
+              screenshotFit === "contain" && "object-contain",
+              screenshotFit === "cover" && "object-cover",
+              screenshotFit === "coiffure-preview" &&
+                "!top-[-11.8%] !left-[-3.4%] !h-[111.8%] !w-[110.2%] !max-w-none",
+            )}
             style={{ backgroundColor: screenshotBackground }}
           />
         ) : (

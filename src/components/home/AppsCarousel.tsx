@@ -35,7 +35,9 @@ export async function AppsCarousel({ locale }: { locale: string }) {
     year: app.period,
     tags: app.tags,
     screenshot:
-      app.mobileScreenshot?.url ||
+      (app.slug.current === "application-reservation-coiffure"
+        ? "/images/apps/reservation-coiffure-apercu.png"
+        : app.mobileScreenshot?.url) ||
       (
         {
           ramarofish: "/images/apps/ramarofish.png",
@@ -49,9 +51,6 @@ export async function AppsCarousel({ locale }: { locale: string }) {
     <section aria-labelledby="home-apps-title">
       <Reveal className="wrap sec-head">
         <h2 id="home-apps-title">{t("apps.title")}</h2>
-        <span className="meta">
-          {t("apps.meta").replace("{{count}}", String(apps.length))}
-        </span>
       </Reveal>
       <CarouselInteractive
         locale={locale}

@@ -101,7 +101,18 @@ export async function ProjectDetailTemplate({
                       (project.tags ?? []).slice(0, 2).join(" · ")
                     }
                     screen={SCREEN_VARIANTS[project.slug.current] ?? "liste"}
-                    screenshot={project.mobileScreenshot?.url}
+                    screenshot={
+                      project.slug.current ===
+                      "application-reservation-coiffure"
+                        ? "/images/apps/reservation-coiffure-apercu.png"
+                        : project.mobileScreenshot?.url
+                    }
+                    screenshotFit={
+                      project.slug.current ===
+                      "application-reservation-coiffure"
+                        ? "coiffure-preview"
+                        : "contain"
+                    }
                     screenshotBackground={
                       project.slug.current === "application-stockage-mobile"
                         ? "#06293a"

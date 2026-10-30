@@ -186,7 +186,6 @@
       "join": "and"
     },
     "apps": {
-      "meta": "Applications: {{count}} · Figma · Flutter · React Native",
       "viewProject": "View project →",
       "hint": "drag, click, or ← →",
       "prev": "Previous application",

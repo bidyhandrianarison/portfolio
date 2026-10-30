@@ -295,9 +295,6 @@ describe("AppsCarousel", () => {
   });
   it("rend la piste des apps mobile avec caption et flèches actives", async () => {
     render(await AppsCarousel({ locale: "fr" }));
-    expect(
-      screen.getByText("Applications : 1 · Figma · Flutter · React Native"),
-    ).toBeInTheDocument();
     expect(screen.getAllByText("Mahafaka").length).toBeGreaterThanOrEqual(2);
     expect(
       screen.getByRole("button", { name: "Application précédente" }),
@@ -319,6 +316,27 @@ describe("AppsCarousel", () => {
 });
 
 describe("RecentPath", () => {
+  it("présente les missions successives sous forme de liste", async () => {
+    const timeline = jest.mocked(await import("@/lib/sanity/queries/timeline"));
+    timeline.getTimelineEntries.mockResolvedValueOnce([
+      {
+        _id: "experience",
+        _type: "timeline",
+        dateStart: "2026-01-01",
+        title: { fr: "Développeur", en: "Developer" },
+        description: {
+          fr: "Développement mobile. Déploiement sur les stores.",
+          en: "Mobile development. Store deployment.",
+        },
+        section: "professional",
+        tags: [],
+        order: 1,
+      },
+    ]);
+    render(await RecentPath({ locale: "fr" }));
+    expect(screen.getByText("Développement mobile.").tagName).toBe("LI");
+    expect(screen.getByText("Déploiement sur les stores.").tagName).toBe("LI");
+  });
   it("rend les cartes de parcours", async () => {
     render(await RecentPath({ locale: "fr" }));
     expect(screen.getByText("Développeur Mobile")).toBeInTheDocument();
