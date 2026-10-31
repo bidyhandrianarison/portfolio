@@ -212,7 +212,7 @@ describe("BentoBrief", () => {
       screen.getByText((_, element) => element?.textContent === "2h → 25 min"),
     ).toBeInTheDocument();
     expect(screen.getByText(/Codilee/)).toBeInTheDocument();
-    expect(screen.getByText("Systèmes IA")).toBeInTheDocument();
+    expect(screen.getByText("Intelligence artificielle")).toBeInTheDocument();
     expect(screen.getByText("LLM")).toBeInTheDocument();
   });
 });

@@ -32,8 +32,8 @@
       "metricFallback": "2h → 25 min",
       "buildLabel": "What I build",
       "buildCategories": {
-        "ia": "AI systems",
-        "data": "Data",
+        "ia": "Artificial intelligence",
+        "data": "Data and analytics",
         "mobile": "Web & mobile",
         "infra": "DevOps",
         "design": "Product & design"
@@ -167,6 +167,138 @@
               "sub": "tracked follow-up"
             }
           ]
+        },
+        "detection-menaces-deep-learning": {
+          "caption": "Pipeline · threat detection",
+          "result": "Evaluation on validation data",
+          "stages": [
+            {
+              "title": "BETH data",
+              "sub": "labelled events"
+            },
+            {
+              "title": "Preparation",
+              "sub": "feature standardization"
+            },
+            {
+              "title": "Model",
+              "sub": "PyTorch neural network"
+            },
+            {
+              "title": "Training",
+              "sub": "weighted classes"
+            },
+            {
+              "title": "Validation",
+              "sub": "accuracy and F1 score"
+            }
+          ],
+          "logs": [
+            "loading the <b>BETH data</b>",
+            "standardizing using the <b>training set</b>",
+            "building the <b>neural network</b>",
+            "training with a <b>weighted loss</b>",
+            "evaluating on the <b>validation set</b>"
+          ]
+        },
+        "ml-credit-scoring": {
+          "caption": "Pipeline · credit scoring",
+          "result": "Approach overview",
+          "stages": [
+            {
+              "title": "Data",
+              "sub": "financial data"
+            },
+            {
+              "title": "Preparation",
+              "sub": "feature analysis"
+            },
+            {
+              "title": "Modeling",
+              "sub": "machine learning"
+            },
+            {
+              "title": "Prediction",
+              "sub": "default risk"
+            },
+            {
+              "title": "Evaluation",
+              "sub": "model analysis"
+            }
+          ],
+          "logs": [
+            "exploring <b>financial data</b>",
+            "preparing <b>features</b>",
+            "building a <b>machine learning model</b>",
+            "predicting <b>default risk</b>",
+            "evaluating the <b>model</b>"
+          ]
+        },
+        "analyse-produits-alimentaires": {
+          "caption": "Pipeline · grocery product analysis",
+          "result": "DataCamp training project",
+          "stages": [
+            {
+              "title": "Data",
+              "sub": "product table"
+            },
+            {
+              "title": "Checks",
+              "sub": "missing values"
+            },
+            {
+              "title": "Cleaning",
+              "sub": "types and medians"
+            },
+            {
+              "title": "Prices",
+              "sub": "minimum and maximum"
+            },
+            {
+              "title": "Selection",
+              "sub": "meat and dairy"
+            }
+          ],
+          "logs": [
+            "reading the <b>product data</b>",
+            "checking <b>missing years</b>",
+            "cleaning without changing the <b>source table</b>",
+            "comparing <b>prices by category</b>",
+            "selecting products by <b>average sales</b>"
+          ]
+        },
+        "dashboard-netflix-data-analytics": {
+          "caption": "Pipeline · Netflix dashboard",
+          "result": "Data visualization",
+          "stages": [
+            {
+              "title": "Data",
+              "sub": "Netflix catalogue"
+            },
+            {
+              "title": "Storage",
+              "sub": "MySQL database"
+            },
+            {
+              "title": "API",
+              "sub": "queries and aggregates"
+            },
+            {
+              "title": "Interface",
+              "sub": "React dashboard"
+            },
+            {
+              "title": "Visualization",
+              "sub": "interactive charts"
+            }
+          ],
+          "logs": [
+            "reading <b>content data</b>",
+            "storing data in <b>MySQL</b>",
+            "serving data via an <b>API</b>",
+            "displaying the <b>dashboard</b>",
+            "exploring the <b>charts</b>"
+          ]
         }
       }
     },
@@ -259,12 +391,12 @@
     "viewProjects": "View projects →",
     "domains": {
       "ia": {
-        "title": "AI Systems",
-        "description": "LLMs, RAG, prompt engineering and evaluation — from prototype to production."
+        "title": "Artificial intelligence",
+        "description": "Machine learning, deep learning, LLMs and AI systems: design, experimentation and evaluation."
       },
       "data": {
-        "title": "Data Systems",
-        "description": "SQL, analysis and visualization that turn data into decisions."
+        "title": "Data and analytics",
+        "description": "Data preparation, analysis and visualization with SQL, pandas and ETL processes."
       },
       "mobile": {
         "title": "Web & Mobile Applications",

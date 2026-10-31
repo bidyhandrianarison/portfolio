@@ -99,7 +99,7 @@ test("conserve le lien hérité et le contenu français en anglais", async () =>
   ]);
   render(await CompetencesPage({ params: Promise.resolve({ locale: "en" }) }));
   expect(scroll).toHaveBeenCalled();
-  expect(screen.getByText("AI Systems")).toBeInTheDocument();
+  expect(screen.getByText("Artificial intelligence")).toBeInTheDocument();
   expect(screen.getByRole("link", { name: /Certificat/ })).toHaveAttribute(
     "href",
     "/en/certifications/cert",

@@ -3,11 +3,12 @@ import Image from "next/image";
 import type { Project } from "@/sanity/types";
 import { resolveLocale } from "@/lib/utils/locale";
 import { resolveProjectRole } from "@/lib/utils/project-role";
-import { projectsT } from "@/lib/i18n-server";
+import { projectsT, systemsPipeline } from "@/lib/i18n-server";
 import { SCREEN_VARIANTS } from "@/lib/constants/projects";
 import { PhoneMock } from "@/components/ui/PhoneMock";
 import { PortableTextContent } from "./PortableTextContent";
 import { ProjectsPrevNext } from "./ProjectsPrevNext";
+import { PipelineFigure } from "@/components/home/PipelineFigure";
 
 /**
  * Détail « projet » (non featured) — maquette stricte projet.html : split
@@ -49,6 +50,7 @@ export async function ProjectDetailTemplate({
   const prevNext = await ProjectsPrevNext({ project, locale });
   const isMobile = project.projectTypes?.includes("mobile");
   const image = project.hero?.image;
+  const pipeline = systemsPipeline(locale, project.slug.current);
 
   return (
     <main>
@@ -73,6 +75,12 @@ export async function ProjectDetailTemplate({
           ))}
         </div>
       </div>
+
+      {pipeline && (
+        <section className="wrap mt-8" aria-label={t("pipeline")}>
+          <PipelineFigure {...pipeline} />
+        </section>
+      )}
 
       <section className="wrap mt-12">
         <div className="grid grid-cols-1 items-start gap-12 min-[901px]:grid-cols-[1.2fr_0.8fr]">
