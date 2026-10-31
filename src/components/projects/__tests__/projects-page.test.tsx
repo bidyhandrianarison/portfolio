@@ -302,6 +302,53 @@ describe("détail étude (featured)", () => {
 });
 
 describe("détail projet (non featured)", () => {
+  it("affiche le pipeline du tableau de bord Netflix", async () => {
+    const project = {
+      ...mockProjetA,
+      slug: { current: "dashboard-netflix-data-analytics" },
+    };
+    render(await ProjectDetailTemplate({ project, locale: "fr" }));
+    expect(screen.getByText("base MySQL")).toBeInTheDocument();
+    expect(screen.getByText("tableau de bord React")).toBeInTheDocument();
+  });
+  it("affiche le pipeline d’analyse des produits dans les deux langues", async () => {
+    const project = {
+      ...mockProjetA,
+      slug: { current: "analyse-produits-alimentaires" },
+    };
+    const { unmount } = render(
+      await ProjectDetailTemplate({ project, locale: "fr" }),
+    );
+    expect(screen.getByText("valeurs manquantes")).toBeInTheDocument();
+    unmount();
+    render(await ProjectDetailTemplate({ project, locale: "en" }));
+    expect(screen.getByText("missing values")).toBeInTheDocument();
+  });
+  it("affiche le pipeline credit scoring en français et en anglais", async () => {
+    const project = { ...mockProjetA, slug: { current: "ml-credit-scoring" } };
+    const { unmount } = render(
+      await ProjectDetailTemplate({ project, locale: "fr" }),
+    );
+    expect(screen.getByText("risque de défaut")).toBeInTheDocument();
+    unmount();
+    render(await ProjectDetailTemplate({ project, locale: "en" }));
+    expect(screen.getByText("default risk")).toBeInTheDocument();
+  });
+  it("affiche le pipeline de détection des menaces dans les deux langues", async () => {
+    const project = {
+      ...mockProjetA,
+      slug: { current: "detection-menaces-deep-learning" },
+    };
+    const { unmount } = render(
+      await ProjectDetailTemplate({ project, locale: "fr" }),
+    );
+    expect(screen.getByText("Données BETH")).toBeInTheDocument();
+    expect(screen.getByText("classes pondérées")).toBeInTheDocument();
+    unmount();
+    render(await ProjectDetailTemplate({ project, locale: "en" }));
+    expect(screen.getAllByText("BETH data").length).toBeGreaterThan(0);
+    expect(screen.getByText("weighted classes")).toBeInTheDocument();
+  });
   it("numérote les tâches issues de paragraphes et de listes à puces", async () => {
     const blocks = [undefined, "bullet" as const, "number" as const].map(
       (listItem, index) => ({

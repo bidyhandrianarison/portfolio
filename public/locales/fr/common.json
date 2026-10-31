@@ -32,8 +32,8 @@
       "metricFallback": "2h → 25 min",
       "buildLabel": "Ce que je construis",
       "buildCategories": {
-        "ia": "Systèmes IA",
-        "data": "Data",
+        "ia": "Intelligence artificielle",
+        "data": "Data et analyse",
         "mobile": "Web & mobile",
         "infra": "DevOps",
         "design": "Produit & design"
@@ -167,6 +167,138 @@
               "sub": "suivi tracé"
             }
           ]
+        },
+        "detection-menaces-deep-learning": {
+          "caption": "Pipeline · détection de menaces",
+          "result": "Évaluation sur les données de validation",
+          "stages": [
+            {
+              "title": "Données BETH",
+              "sub": "événements étiquetés"
+            },
+            {
+              "title": "Préparation",
+              "sub": "normalisation des variables"
+            },
+            {
+              "title": "Modèle",
+              "sub": "réseau de neurones PyTorch"
+            },
+            {
+              "title": "Entraînement",
+              "sub": "classes pondérées"
+            },
+            {
+              "title": "Validation",
+              "sub": "accuracy et score F1"
+            }
+          ],
+          "logs": [
+            "chargement des <b>données BETH</b>",
+            "normalisation à partir du <b>jeu d’entraînement</b>",
+            "construction du <b>réseau de neurones</b>",
+            "entraînement avec une <b>perte pondérée</b>",
+            "mesure sur le <b>jeu de validation</b>"
+          ]
+        },
+        "ml-credit-scoring": {
+          "caption": "Pipeline · credit scoring",
+          "result": "Aperçu de la démarche",
+          "stages": [
+            {
+              "title": "Données",
+              "sub": "données financières"
+            },
+            {
+              "title": "Préparation",
+              "sub": "analyse des variables"
+            },
+            {
+              "title": "Modélisation",
+              "sub": "machine learning"
+            },
+            {
+              "title": "Prédiction",
+              "sub": "risque de défaut"
+            },
+            {
+              "title": "Évaluation",
+              "sub": "analyse du modèle"
+            }
+          ],
+          "logs": [
+            "exploration des <b>données financières</b>",
+            "préparation des <b>variables</b>",
+            "modélisation en <b>machine learning</b>",
+            "prédiction du <b>risque de défaut</b>",
+            "évaluation du <b>modèle</b>"
+          ]
+        },
+        "analyse-produits-alimentaires": {
+          "caption": "Pipeline · analyse des produits alimentaires",
+          "result": "Projet de formation DataCamp",
+          "stages": [
+            {
+              "title": "Données",
+              "sub": "table de produits"
+            },
+            {
+              "title": "Contrôle",
+              "sub": "valeurs manquantes"
+            },
+            {
+              "title": "Nettoyage",
+              "sub": "types et médianes"
+            },
+            {
+              "title": "Prix",
+              "sub": "minimum et maximum"
+            },
+            {
+              "title": "Sélection",
+              "sub": "viande et produits laitiers"
+            }
+          ],
+          "logs": [
+            "lecture des <b>données produits</b>",
+            "contrôle des <b>années manquantes</b>",
+            "nettoyage sans modifier la <b>table d’origine</b>",
+            "comparaison des <b>prix par catégorie</b>",
+            "sélection selon les <b>ventes moyennes</b>"
+          ]
+        },
+        "dashboard-netflix-data-analytics": {
+          "caption": "Pipeline · tableau de bord Netflix",
+          "result": "Visualisation des données",
+          "stages": [
+            {
+              "title": "Données",
+              "sub": "catalogue Netflix"
+            },
+            {
+              "title": "Stockage",
+              "sub": "base MySQL"
+            },
+            {
+              "title": "API",
+              "sub": "requêtes et agrégations"
+            },
+            {
+              "title": "Interface",
+              "sub": "tableau de bord React"
+            },
+            {
+              "title": "Visualisation",
+              "sub": "graphiques interactifs"
+            }
+          ],
+          "logs": [
+            "lecture des <b>données de contenus</b>",
+            "stockage dans <b>MySQL</b>",
+            "exposition via une <b>API</b>",
+            "affichage du <b>tableau de bord</b>",
+            "exploration des <b>graphiques</b>"
+          ]
         }
       }
     },
@@ -259,12 +391,12 @@
     "viewProjects": "Voir les projets →",
     "domains": {
       "ia": {
-        "title": "Systèmes IA",
-        "description": "LLMs, RAG, prompt engineering et évaluation — de la preuve de concept à la production."
+        "title": "Intelligence artificielle",
+        "description": "Machine learning, deep learning, LLMs et systèmes IA : conception, expérimentation et évaluation."
       },
       "data": {
-        "title": "Systèmes Data",
-        "description": "SQL, analyse et visualisation pour transformer les données en décisions."
+        "title": "Data et analyse",
+        "description": "Préparation, analyse et visualisation de données avec SQL, pandas et des processus ETL."
       },
       "mobile": {
         "title": "Application web et mobiles",
